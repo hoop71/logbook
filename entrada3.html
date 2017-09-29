@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
-    <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="app/assets/img/apple-icon.png" />
+    <link rel="icon" type="image/png" href="app/assets/img/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <title>LOGBOOK - Nueva Entrada</title>
@@ -13,15 +13,15 @@
     <meta name="viewport" content="width=device-width" />
 
     <!-- Bootstrap core CSS     -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="app/assets/css/bootstrap.min.css" rel="stylesheet" />
     <!--  Material Dashboard CSS    -->
-    <link href="assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet" />
+    <link href="app/assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet" />
 
     <!-- Datepicker -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="assets/css/demo.css" rel="stylesheet" />
+    <link href="app/assets/css/demo.css" rel="stylesheet" />
 
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -30,7 +30,7 @@
 
 <body>
     <div class="wrapper">
-        <div class="sidebar" data-color="blue" data-image="../assets/img/sidebar-1.jpg">
+        <div class="sidebar" data-color="blue" data-image="/app/assets/img/sidebar-1.jpg">
       
             <div class="logo">
                 <a href="dashboard.html" class="simple-text">
@@ -84,10 +84,10 @@
                         </button>
                         <a class="navbar-brand" href="dashboard.html">LOGBOOK Dashboard</a>
                         <ol class="breadcrumb">
-                            <li><a href="entrada1.html">1</a></li>
-                            <li><a href="entrada2.html">2</a></li>
-                            <li class="active"><a href="entrada3.html">3</a></li>
-                            <li><a href="entrada4.html">4</a></li>
+                            <li><a href="entrada1.html">ID</a></li>
+                            <li><a href="entrada2.html">DX</a></li>
+                            <li class="active"><a href="entrada3.html">QX</a></li>
+                            <li><a href="entrada4.html">OP</a></li>
                         </ol>
                     </div>
                     <div class="collapse navbar-collapse">
@@ -127,6 +127,9 @@
                                     <i class="material-icons">person</i>
                                     <p class="hidden-lg hidden-md">Profile</p>
                                 </a>
+                                <ul class="dropdown-menu">
+                                    <a href="#"><i class="material-icons">power_settings_new</i>Cerrar sesión</a>
+                                </ul>
                             </li>
                         </ul>
                         <form class="navbar-form navbar-right" role="search">
@@ -168,7 +171,7 @@
                                     <span class="input-group-btn">
                                         <button class="btn btn-primary" type="button">Buscar!</button>
                                     </span>
-                                    <input type="text" class="form-control" placeholder="Buscar Diagnóstico...">
+                                    <input type="text" class="form-control" placeholder="Buscar Cirugía(s)...">
                                 </div><!-- /input-group -->
                                
                             </div>
@@ -188,8 +191,8 @@
                                     <table class="table">
                                         <thead class="text-primary">
                                             <th>Cirugías</th>
-                                            <th>Simulación?</th>
-                                            <th>Minimamente Invasivo?</th>                                            
+                                            <th>Minimamente Invasivo?</th>Conversión
+                                            <th>Conversión?</th>                                            
                                         </thead>
                                         <tbody>
                                             <tr>
@@ -197,13 +200,13 @@
                                                 <td>
                                                     <div class="btn-sim">
                                                         <input class="btn-sim" type="checkbox" name="sim1" id="sim1" />
-                                                        <label class="btn btn-sm" for="sim1">Simulación</label>
+                                                        <label class="btn btn-sm" for="sim1">Min. Inv.</label>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="btn-sim">
                                                         <input class="btn-sim" type="checkbox" name="mi1" id="mi1" />
-                                                        <label class="btn btn-sm" for="mi1">Min. Inv.</label>
+                                                        <label class="btn btn-sm" for="mi1">Conversión</label>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -212,13 +215,13 @@
                                                 <td>
                                                     <div class="btn-sim">
                                                         <input class="btn-sim" type="checkbox" name="sim2" id="sim2" />
-                                                        <label class="btn btn-sm" for="sim2">Simulación</label>
+                                                        <label class="btn btn-sm" for="sim2">Min. Inv.</label>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="btn-sim">
                                                         <input class="btn-sim" type="checkbox" name="mi2" id="mi2" />
-                                                        <label class="btn btn-sm" for="mi2">Min. Inv.</label>
+                                                        <label class="btn btn-sm" for="mi2">Conversión</label>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -227,13 +230,13 @@
                                                 <td>
                                                     <div class="btn-sim">
                                                         <input class="btn-sim" type="checkbox" name="sim3" id="sim3" />
-                                                        <label class="btn btn-sm" for="sim3">Simulación</label>
+                                                        <label class="btn btn-sm" for="sim3">Min. Inv.</label>
                                                     </div>
                                                 </td>
                                                 <td>    
                                                     <div class="btn-sim">
                                                         <input class="btn-sim" type="checkbox" name="mi3" id="mi3" />
-                                                        <label class="btn btn-sm" for="mi3">Min. Inv.</label>
+                                                        <label class="btn btn-sm" for="mi3">Conversión</label>
                                                     </div>
                                                 </td>
                                            </tr>
@@ -242,13 +245,13 @@
                                                 <td>
                                                     <div class="btn-sim">
                                                         <input class="btn-sim" type="checkbox" name="sim4" id="sim4" />
-                                                        <label class="btn btn-sm" for="sim4">Simulación</label>
+                                                        <label class="btn btn-sm" for="sim4">Min. Inv.</label>
                                                     </div>
                                                 </td>
                                                 <td>    
                                                     <div class="btn-sim">
                                                         <input class="btn-sim" type="checkbox" name="mi4" id="mi4" />
-                                                        <label class="btn btn-sm" for="mi4">Min. Inv.</label>
+                                                        <label class="btn btn-sm" for="mi4">Conversión</label>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -257,13 +260,13 @@
                                                 <td>
                                                     <div class="btn-sim">
                                                         <input class="btn-sim" type="checkbox" name="sim5" id="sim5" />
-                                                        <label class="btn btn-sm" for="sim5">Simulación</label>
+                                                        <label class="btn btn-sm" for="sim5">Min. Inv.</label>
                                                     </div>
                                                 </td>
                                                 <td>    
                                                     <div class="btn-sim">
                                                         <input class="btn-sim" type="checkbox" name="mi5" id="mi5" />
-                                                        <label class="btn btn-sm" for="mi5">Min. Inv.</label>
+                                                        <label class="btn btn-sm" for="mi5">Conversión</label>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -272,13 +275,13 @@
                                                 <td>
                                                     <div class="btn-sim">
                                                         <input class="btn-sim" type="checkbox" name="sim6" id="sim6" />
-                                                        <label class="btn btn-sm" for="sim6">Simulación</label>
+                                                        <label class="btn btn-sm" for="sim6">Min. Inv.</label>
                                                     </div>
                                                 </td>
                                                 <td>    
                                                     <div class="btn-sim">
                                                         <input class="btn-sim" type="checkbox" name="mi6" id="mi6" />
-                                                        <label class="btn btn-sm" for="mi6">Min. Inv.</label>
+                                                        <label class="btn btn-sm" for="mi6">Conversión</label>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -308,25 +311,25 @@
     </div>
 </body>
 <!--   Core JS Files   -->
-<script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="assets/js/material.min.js" type="text/javascript"></script>
+<script src="app/assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="app/assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="app/assets/js/material.min.js" type="text/javascript"></script>
 <!-- Bootstrap Date-Picker Plugin -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
 
 <!--  Charts Plugin -->
-<script src="assets/js/chartist.min.js"></script>
+<script src="app/assets/js/chartist.min.js"></script>
 <!--  Dynamic Elements plugin -->
-<script src="assets/js/arrive.min.js"></script>
+<script src="app/assets/js/arrive.min.js"></script>
 <!--  PerfectScrollbar Library -->
-<script src="assets/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="app/assets/js/perfect-scrollbar.jquery.min.js"></script>
 <!--  Notifications Plugin    -->
-<script src="assets/js/bootstrap-notify.js"></script>
+<script src="app/assets/js/bootstrap-notify.js"></script>
 <!--  Google Maps Plugin    -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!-- Material Dashboard javascript methods -->
-<script src="assets/js/material-dashboard.js?v=1.2.0"></script>
+<script src="app/assets/js/material-dashboard.js?v=1.2.0"></script>
 <!--  Plugins for DateTimePicker -->
 
 <script>
@@ -347,7 +350,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        // Javascript method's body can be found in assets/js/demos.js
+        // Javascript method's body can be found in app/assets/js/demos.js
         demo.initDashboardPageCharts();
 
     });
