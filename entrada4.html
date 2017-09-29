@@ -30,7 +30,7 @@
 
 <body>
     <div class="wrapper">
-        <div class="sidebar" data-color="blue" data-image="../app/assets/img/sidebar-1.jpg">
+        <div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
       
             <div class="logo">
                 <a href="dashboard.html" class="simple-text">
@@ -151,48 +151,231 @@
             <div class="content">
                 <div class="container-fluid">
 
-                    <!-- Datos Pacientes -->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card"> 
-                                <div class="card-header2 card-header-inline" data-background-color="orange">
-                                    <p><i class="material-icons">note</i>Datos Opcionales:</p>
+
+                <!-- Datos Pacientes Check Table -->
+                <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card card-nav-tabs">
+                                <div class="card-header" data-background-color="purple">
+                                    <div class="nav-tabs-navigation">
+                                        <div class="nav-tabs-wrapper">
+                                            <span class="nav-tabs-title">Datos:</span>
+                                            <ul class="nav nav-tabs" data-tabs="tabs">
+                                                <li class="active">
+                                                    <a href="#opcionales" data-toggle="tab">
+                                                        <i class="material-icons">info_outline</i>Opcionales
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    <a href="#complicaciones" data-toggle="tab">
+                                                        <i class="material-icons">warning</i>Complicaciones
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-control-hover card-footer2" id="datosOp">
-                                    <select multiple class="form-group form-control">
-                                        <option>Realicé la Cervicotomía</option>
-                                        <option>Cerré la Cervicotomía</option>
-                                        <option>Realicé la Toracotomía</option>
-                                        <option>Cerré la Toracotomía</option>
-                                        <option>Realicé la Laparotomía</option>
-                                        <option>Cerré la Laparotomía</option>
-                                        <option>Realicé Anastomosis Visceral</option>
-                                        <option>Realicé Anastomosis Vascular</option>
-                                    </select>
-                                </div>    
+                                <div class="card-content">
+                                    <div class="tab-content">
+                                        <!-- Complicaciones --> 
+                                        <div class="tab-pane active" id="opcionales">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Realicé la Cervicotomía</td>
+                                                        <!-- <td class="td-actions text-right">
+                                                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                                                                <i class="material-icons">edit</i>
+                                                            </button>
+                                                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                                                <i class="material-icons">close</i>
+                                                            </button>
+                                                        </td> -->
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Cerré la Cervicotomía</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Realicé la Toracotomía</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Cerré la Toracotomía</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Realicé la Laparotomía</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Cerré la Laparotomía</td>
+                                                    </tr>
+                                                     <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Realicé Anastomosis Visceral</td>
+                                                    </tr>
+                                                     <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Cerré Anastomosis Visceral</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="tab-pane" id="complicaciones">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Realicé la Cervicotomía</td>
+                                                        <!-- <td class="td-actions text-right">
+                                                            <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                                                                <i class="material-icons">edit</i>
+                                                            </button>
+                                                            <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                                                <i class="material-icons">close</i>
+                                                            </button>
+                                                        </td> -->
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Cerré la Cervicotomía</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Realicé la Toracotomía</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Cerré la Toracotomía</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Realicé la Laparotomía</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Cerré la Laparotomía</td>
+                                                    </tr>
+                                                     <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Realicé Anastomosis Visceral</td>
+                                                    </tr>
+                                                     <tr>
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="optionsCheckboxes">
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>Cerré Anastomosis Visceral</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                         <div class="col-md-6">
-                            <div class="card"> 
-                                <div class="card-header2 card-header-inline" data-background-color="orange">
-                                    <p><i class="material-icons">note</i>Complicaciones:</p>
-                                </div>
-                                <div class="form-control-hover card-footer2" id="datosOp">
-                                    <select multiple class="form-group form-control">
-                                        <option>Realicé la Cervicotomía</option>
-                                        <option>Cerré la Cervicotomía</option>
-                                        <option>Realicé la Toracotomía</option>
-                                        <option>Cerré la Toracotomía</option>
-                                        <option>Realicé la Laparotomía</option>
-                                        <option>Cerré la Laparotomía</option>
-                                        <option>Realicé Anastomosis Visceral</option>
-                                        <option>Realicé Anastomosis Vascular</option>
-                                    </select>
-                                </div>    
-                            </div>
-                        </div>               
-                    </div>
-                    
+
+                    <!-- Datos Pacientes -->
                     <div class="row">
                         <div class="col-md-6">
                             <div class="card"> 
@@ -200,7 +383,7 @@
                                     <p><i class="material-icons">note</i>Observaciones</p>
                                 </div>
                                 <div class="form-control-hover card-footer2">
-                                    <textarea class="form-control" rows="4" placeholder="Algo"></textarea>
+                                    <textarea class="form-control" rows="5" placeholder="Algo"></textarea>
                                 </div> 
                             </div>
                         </div>

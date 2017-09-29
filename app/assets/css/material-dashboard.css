@@ -7033,7 +7033,7 @@ td .inline {
 @media (max-width: 480px),
 (max-width: 767px) {
     .form-group .form-control {
-        width: 83%;
+        width: 100%;
     }
     .navbar-form .form-group {
         margin-bottom: 0;
