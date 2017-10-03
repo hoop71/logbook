@@ -17,5 +17,6 @@ angular.module('logbookweb.login', ['ui.router'])
 
 
 .controller('loginCtrl', ['$scope','$state', function($scope, $state) {
+	$.material.init();
 	//js
 }])
