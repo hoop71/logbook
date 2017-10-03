@@ -36,7 +36,7 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="active">
+                    <li>
                         <a href="dashboard.html">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
@@ -48,7 +48,7 @@
                             <p>Bitácora</p>
                         </a>
                     </li>  
-                    <li>
+                    <li class="active">
                         <a href="entrada1.html">
                             <i class="material-icons">note_add</i>
                             <p>Nueva Entrada</p>
@@ -252,9 +252,10 @@
                         <div class="col-md-6">
                             <div class="card"> 
                                 <div class="card-header2 card-header-inline" data-background-color="green">
-                                    <span class="input-group-btn inline" data-background-color="">
-                                        <button class="btn btn-info btn-sim btn-rounded btn-sm pull-right" type="button">Simulación</button>
-                                    </span>
+                                    <div class="btn-sim pull-right">
+                                        <input class="btn-sim" type="checkbox" name="sim1" id="sim1" />
+                                        <label class="btn btn-sm" for="sim1" id="statsim">Simulación</label>
+                                    </div>
                                     <p>La Cirugía Fue</p>
                                 </div>
                                 <div class="card-content col-xs-4">
