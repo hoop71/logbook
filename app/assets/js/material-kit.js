@@ -127,3 +127,40 @@ function debounce(func, wait, immediate) {
 		if (immediate && !timeout) func.apply(context, args);
 	};
 };
+
+showNotification: function(from, align) {
+        color = Math.floor((Math.random() * 4) + 1);
+
+        $.notify({
+            icon: "notifications",
+            message: "Entrada guardada"
+
+        }, {
+            type: type[color],
+            timer: 4000,
+            placement: {
+                from: from,
+                align: align
+            }
+        });
+    }
+
+showNotificationDelete: function(from, align) {
+        color = Math.floor((Math.random() * 4) + 1);
+
+        $.notify({
+            icon: "notifications",
+            message: "Entrada borrada"
+
+        }, {
+            type: type[color],
+            timer: 4000,
+            placement: {
+                from: from,
+                align: align
+            }
+        });
+    }
+
+
+
