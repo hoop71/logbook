@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8" />
@@ -20,9 +20,6 @@
     <!-- Datepicker -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="app/assets/css/demo.css" rel="stylesheet" />
-
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=lato:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
@@ -31,7 +28,6 @@
 <body>
     <div class="wrapper">
         <div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
-      
             <div class="logo">
                 <a href="dashboard.html" class="simple-text">
                     LOGBOOK
@@ -147,7 +143,6 @@
             </nav>
 
 
-
             <div class="content">
                 <div class="container-fluid">
 
@@ -173,115 +168,122 @@
                                     </span>
                                     <input type="text" class="form-control" placeholder="Buscar Cirugía(s)...">
                                 </div><!-- /input-group -->
-                               
                             </div>
                         </div>
                     </div>
-                          
-
-            
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header" data-background-color="green">
                                     <h4 class="title">Recientes</h4>
-                                    
                                 </div>
                                 <div class="card-content table-responsive">
                                     <table class="table">
                                         <thead class="text-primary">
                                             <th>Cirugías</th>
-                                            <th>Minimamente Invasivo?</th>Conversión
+                                            <th>Minimamente Invasivo?</th>
                                             <th>Conversión?</th>                                            
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>Puncion Cisternal, Via Lateral</td>
                                                 <td>
-                                                    <div class="btn-sim">
-                                                        <input class="btn-sim" type="checkbox" name="mi1" id="mi1" />
-                                                        <label class="btn btn-sm" for="mi1">Min. Inv.</label>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="min1">
+                                                        </label>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="btn-sim">
-                                                        <input class="btn-sim" type="checkbox" name="con1" id="con1" />
-                                                        <label class="btn btn-sm" for="con1">Conversión</label>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="con1">
+                                                        </label>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Fiebre Paratifoidea B</td>
                                                 <td>
-                                                    <div class="btn-sim">
-                                                        <input class="btn-sim" type="checkbox" name="mi2" id="mi2" />
-                                                        <label class="btn btn-sm" for="mi2">Min. Inv.</label>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="min2">
+                                                        </label>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="btn-sim">
-                                                        <input class="btn-sim" type="checkbox" name="con2" id="con2" />
-                                                        <label class="btn btn-sm" for="con2">Conversión</label>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="con2">
+                                                        </label>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Colera Debido A Vibrio Cholerae O1, Biotipo El Tor</td>
                                                 <td>
-                                                    <div class="btn-sim">
-                                                        <input class="btn-sim" type="checkbox" name="mi3" id="mi3" />
-                                                        <label class="btn btn-sm" for="mi3">Min. Inv.</label>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="min3">
+                                                        </label>
                                                     </div>
                                                 </td>
-                                                <td>    
-                                                    <div class="btn-sim">
-                                                        <input class="btn-sim" type="checkbox" name="con3" id="con3" />
-                                                        <label class="btn btn-sm" for="con3">Conversión</label>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="con3">
+                                                        </label>
                                                     </div>
                                                 </td>
                                            </tr>
                                             <tr>
                                                 <td>Otras Infecciones Intestinales Debidas A Escherichia Coli</td>
                                                 <td>
-                                                    <div class="btn-sim">
-                                                        <input class="btn-sim" type="checkbox" name="mi4" id="mi4" />
-                                                        <label class="btn btn-sm" for="mi4">Min. Inv.</label>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="min4">
+                                                        </label>
                                                     </div>
                                                 </td>
-                                                <td>    
-                                                    <div class="btn-sim">
-                                                        <input class="btn-sim" type="checkbox" name="con4" id="con4" />
-                                                        <label class="btn btn-sm" for="con4">Conversión</label>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="con4">
+                                                        </label>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Giardiasis [Lambliasis]</td>
                                                 <td>
-                                                    <div class="btn-sim">
-                                                        <input class="btn-sim" type="checkbox" name="mi5" id="mi5" />
-                                                        <label class="btn btn-sm" for="mi5">Min. Inv.</label>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="min5">
+                                                        </label>
                                                     </div>
                                                 </td>
-                                                <td>    
-                                                    <div class="btn-sim">
-                                                        <input class="btn-sim" type="checkbox" name="con5" id="con5" />
-                                                        <label class="btn btn-sm" for="con5">Conversión</label>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="con5">
+                                                        </label>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Isosporiasis</td>
                                                 <td>
-                                                    <div class="btn-sim">
-                                                        <input class="btn-sim" type="checkbox" name="mi6" id="mi6" />
-                                                        <label class="btn btn-sm" for="mi6">Min. Inv.</label>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="min6">
+                                                        </label>
                                                     </div>
                                                 </td>
-                                                <td>    
-                                                    <div class="btn-sim">
-                                                        <input class="btn-sim" type="checkbox" name="con6" id="con6" />
-                                                        <label class="btn btn-sm" for="con6">Conversión</label>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="con6">
+                                                        </label>
                                                     </div>
                                                 </td>
                                             </tr>

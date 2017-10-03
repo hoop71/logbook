@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="utf-8" />
@@ -13,8 +13,8 @@
     <link href="app/assets/css/bootstrap.min.css" rel="stylesheet" />
     <!--  Material Dashboard CSS    -->
     <link href="app/assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet" />
-    <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="app/assets/css/demo.css" rel="stylesheet" />
+
+
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
@@ -41,6 +41,12 @@
                             <i class="material-icons">content_paste</i>
                             <p>Bitácora</p>
                         </a>
+                    </li>
+                    <li class="active">
+                        <a href="#">
+                            <i class="material-icons">folder_open</i>
+                            <p>Mi Ciguria</p>
+                        </a>
                     </li>                  
                     <li>
                         <a href="entrada1.html">
@@ -48,13 +54,12 @@
                             <p>Nueva Entrada</p>
                         </a>
                     </li>     
-                    <li class="active">
+                    <li>
                         <a href="./user.html">
                             <i class="material-icons">person</i>
                             <p>Mi Perfil</p>
                         </a>
                     </li>
-                            
                     <li class="active-pro">
                         <a href="#">
                             <i class="material-icons">error</i>
@@ -134,176 +139,117 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-7">
-                            <div class="card">
-                                <div class="card-header" data-background-color="orange">
-                                    <h4 class="title">Detalles de Cirugia / Simulación</h4>
-                                    <div class="row">
-                                        <div class="col-md-4 col-xs-12"><strong>Ciguria:</strong>
-                                        </div>  
-                                         <div class="col-md-4 col-xs-12"><strong>Identificación:</strong>
-                                        </div>
-                                        <div class="col-md-4 col-xs-12"><strong>Fecha:</strong>
-                                        </div>
-                                    </div>
-                                     <div class="row">
-                                        <div class="col-md-4">Puncion Cisternal
-                                        </div>  
-                                         <div class="col-md-4">#8299843-19SJD
-                                        </div>
-                                        <div class="col-md-4">02/10/2017
-                                        </div>
-                                    </div>
+                        <div class="col-sm-7">
+                            <div class="card card-details">
+                                <div class="card-header" data-background-color="green">
+                                    <h4 class="title">Ciguria:</h4>
+                                    <p class="category">Puncion Cisternal</p>
+                                    <p class="category">Puncion Cisternal PMI</p>
+                                </div>  
+                                <div class="form-group col-md-3 col-xs-3">
+                                    <figure class="figure mx-auto align-middle">
+                                        <img src="app/assets/icons/urgent.svg" class="rounded mx-auto" alt="Urg">
+                                        <figcaption class="text-center figure-caption">Urgente</figcaption>
+                                    </figure>  
                                 </div>
-                                <br/>  
+                                <div class="form-group col-md-3 col-xs-3">
+                                    <figure class="figure mx-auto align-middle">
+                                        <img src="app/assets/icons/scalpel.svg" class="rounded mx-auto" alt="Ele">
+                                        <figcaption class="text-center figure-caption">Cirujano</figcaption>
+                                    </figure>
+                                </div>
+                                <div class="form-group col-md-3 col-xs-3">
+                                    <figure class="figure mx-auto align-middle">
+                                        <img src="app/assets/icons/feliz.svg" class="rounded mx-auto" alt="feliz">
+                                        <figcaption class="text-center figure-caption">Feliz</figcaption>
+                                    </figure> 
+                                </div>
+                                <div class="form-group col-md-3 col-xs-3">
+                                    <figure class="figure mx-auto align-middle">
+                                        <img src="app/assets/icons/number-1.png" class="rounded mx-auto" alt="ano">
+                                        <figcaption class="text-center figure-caption">R1</figcaption>
+                                    </figure> 
+                                </div>
                             </div>
-                            
 
-                            <!-- <div class="row">
-                                <div class="col-sm-3">
+
+                            <div class="row">
+                                <div class="col-xs-12">
                                     <div class="card card-stats">
-                                        <div class="card-header" data-background-color="green">
-                                            <i class="material-icons">date_range</i>
-                                        </div>
-                                        <div class="card-content">
-                                            <br/>
-                                            <p class="category text-center">02/10/2017</p>
-                                        </div>
-                                    </div> 
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="card card-stats">
-                                        <div class="card-header" data-background-color="blue">
+                                        <div class="card-header no-padding" data-background-color="blue">
                                             <i class="material-icons">location_on</i>
                                         </div>
                                         <div class="card-content">
-                                            <br/>
-                                            <p class="category text-center">C. E. San Vicente Fundacion</p>
+                                            <p class="category">Lugar:</p>
+                                            <h3 class="title">C. E. San Vicente Fundacion</h3>                             
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-md-6 col-xs-12">
                                     <div class="card card-stats">
-                                        <div class="card-header" data-background-color="orange">
+                                        <div class="card-header no-padding" data-background-color="orange">
                                             <i class="material-icons">perm_identity</i>
                                         </div>
                                         <div class="card-content">
-                                            <br/>
-                                            <p class="category text-center">Alejandro Moreno</p>
+                                            <p class="category">Profesor:</p>
+                                            <h3 class="title">Alejandro Moreno</h3>                             
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-md-6 col-xs-12">
                                     <div class="card card-stats">
-                                        <div class="card-header" data-background-color="red">
+                                        <div class="card-header no-padding" data-background-color="red">
                                             <i class="material-icons">swap_horiz</i>
                                         </div>
                                         <div class="card-content">
-                                            <br/>
-                                            <p class="category text-center">Cx de trauma</p>
-                                        </div>
-                                    </div> 
-                                </div>
-                            </div> -->
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="card">
-                                        <div class="card-header col-md-3 col-sm-1" data-background-color="green">
-                                            <i class="material-icons">date_range</i>Fecha:
-                                        </div>
-                                        <div class="card-content">
-                                            
-                                            <p class="category text-center">02/10/2017</p>
-                                            <br/>
-                                        </div>
-                                    </div>
-                                </div>                                
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="card">
-                                        <div class="card-header col-md-3 col-sm-1" data-background-color="blue">
-                                            <i class="material-icons">location_on</i>Lugar:
-                                        </div>
-                                        <div class="card-content">
-                                            <p class="category text-center">C. E. San Vicente Fundacion</p>
-                                           
+                                            <p class="category">Rotacion:</p>
+                                            <h3 class="title">Cx HPB / Trasplantes</h3>                             
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="card">
-                                        <div class="card-header col-md-3 col-sm-1" data-background-color="blue">
-                                            <i class="material-icons">perm_identity</i>Prof:
-                                        </div>
-                                        <div class="card-content">
-                                            <p class="category text-center">Alejandro Moreno</p>
-                                            <br/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <div class="card">
-                                        <div class="card-header col-md-3 col-sm-1" data-background-color="red">
-                                            <i class="material-icons">swap_horiz</i>Rotacion:
-                                        </div>
-                                        <div class="card-content">
-                                            <p class="category text-center">Cx de trauma</p>
-                                            <br/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="row">
-                                <div class="card card-profile">
-                                    <div class="card-header" data-background-color="blue">
-                                        <br/>
-                                        <div class="card-content">
-                                            <div class="col-md-1"></div>
-                                            <div class="col-md-3 col-xs-4">
-                                                <div class="form-group">
-                                                    <figure class="mx-auto">
-                                                        <img src="app/assets/icons/urgent.svg" class="rounded mx-auto" alt="Urg">
-                                                        <figcaption class="text-center figure-caption">Urgente</figcaption>
-                                                    </figure>  
-                                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="card details">
+                                            <div class="card-header" data-background-color="purple">
+                                                <h4 class="title">Lo Que Hice:</h4>
                                             </div>
-                                            <div class="col-md-1"></div>
-                                            <div class="col-md-3 col-xs-4">
-                                                <div class="form-group">
-                                                    <figure class="figure mx-auto align-middle">
-                                                        <img src="app/assets/icons/scalpel.svg" class="rounded mx-auto" alt="Ele">
-                                                        <figcaption class="text-center figure-caption">Cirujano</figcaption>
-                                                    </figure>
+                                            <div class="card-content">
+                                                <div class="card-body col-sm-6">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" checked disabled>
+                                                            <label>Realicé la Cervicotomía</label>
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-1"></div>
-                                            <div class="col-md-3 col-xs-4">
-                                                <div class="form-group label-floating">
-                                                    <figure class="figure mx-auto align-middle">
-                                                        <img src="app/assets/icons/feliz.svg" class="rounded mx-auto" alt="feliz">
-                                                        <figcaption class="text-center figure-caption">Feliz</figcaption>
-                                                    </figure> 
+                                                <div class="card-body col-sm-6 align-left">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" checked>
+                                                            <label>Realicé la Cervicotomía</label>
+                                                        </label>
+                                                    </div>
                                                 </div>
+                                                <div class="card-body col-sm-6">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" checked>
+                                                            <label>Realicé la Cervicotomía</label>
+                                                        </label>
+                                                    </div>
+                                                </div>               
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                     
-                        
-                            <div class="row">
-                                
-                                    <button type="submit" class="btn btn-info pull-right" onclick="demo.showNotification('bottom','center')"><i class="material-icons">save</i></button>
-                                    <button type="submit" class="btn btn-info pull-right" onclick="demo.showNotificationDelete('bottom','center')"><i class="material-icons">delete</i></button>
-                                    <div class="clearfix"></div>
-                            
                             </div>
                         </div> 
                 
-                        <div class="col-md-5">
+                        <div class="col-sm-5">
                             <div class="card card-profile">
                                 <div class="card-header" data-background-color="blue">
                                     <h4 class="title">Detalles de todo</h4>
-                                    <p class="category">...</p>
+                                    <p class="category">Fecha: 02/10/2017</p>
                                 </div>
                                 <div class="content">
                                    
@@ -316,21 +262,29 @@
                                                 <td class="text text-left">Diagnóstico</td>
                                                 <td class="text text-left">Tuberculosis Del Aparato Genitourinario</td>
                                             </tr>
-                                             <tr>
+                                            <tr>
+                                                <td class="text text-left">Identificación</td>
+                                                <td class="text text-left">#8299843-19SJD</td>
+                                            </tr>
+                                            <tr>
                                                 <td class="text text-left">Año de residencia</td>
                                                 <td class="text text-left">R1</td>
                                             </tr>
-                                             <tr>
+                                            <tr>
                                                 <td class="text text-left">Rol</td>
                                                 <td class="text text-left">Cirujano</td>
                                             </tr>
-                                             <tr>
+                                            <tr>
                                                 <td class="text text-left">Tipo</td>
                                                 <td class="text text-left">Emergente</td>
                                             </tr>
-                                             <tr>
+                                            <tr>
                                                 <td class="text text-left">Complicaciones</td>
                                                 <td class="text text-left">Estenosis</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text text-left">Mi desempeño</td>
+                                                <td class="text text-left">Feliz</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -378,7 +332,6 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!-- Material Dashboard javascript methods -->
 <script src="app/assets/js/material-dashboard.js?v=1.2.0"></script>
-<!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="app/assets/js/demo.js"></script>
+
 
 </html>

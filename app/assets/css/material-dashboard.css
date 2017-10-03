@@ -3698,9 +3698,20 @@ fieldset[disabled] .checkbox input[type=checkbox],
     opacity: 0.5;
 }
 
+fieldset[disabled] .card-body .checkbox,
+fieldset[disabled] .card-body .checkbox input[type=checkbox],
+.checkbox input[type=checkbox][disabled]~.checkbox-material .check,
+.checkbox input[type=checkbox][disabled]+.circle {
+    opacity: 1;
+}
+
 .checkbox input[type=checkbox][disabled]~.checkbox-material .check {
     border-color: #000000;
     opacity: .26;
+}
+
+.card-body .checkbox input[type=checkbox][disabled]~.checkbox-material .check {
+    opacity: 1;
 }
 
 .checkbox input[type=checkbox][disabled]+.checkbox-material .check:after {
@@ -4939,6 +4950,13 @@ fieldset[disabled] .navbar .btn-link:focus {
     .navbar-fixed {
         width: calc(100% - 260px);
     }
+
+    .sidebar .nav>li.active-pro {
+        position: absolute;
+        width: 100%;
+        bottom: 10px;
+    }
+
 }
 
 .popover,
@@ -5173,15 +5191,11 @@ footer .btn {
 .inline { 
     display: inline;
     margin: 5px;
- }
-
-
+}
 
 td .inline {
     vertical-align: middle;
- }
-
-
+}
 
 .card .card-content .btn-sim label:hover { 
     background-color: #26c6da;
@@ -5202,7 +5216,8 @@ td .inline {
 }
 
 [id^="sim"]:not(checked) + label {
-    background-color: #f2f2f2;
+    background-color: #eeeeee;
+    color: #000000;
 }
 
 [id^="sim"]:not(checked) + label:hover {
@@ -5211,6 +5226,7 @@ td .inline {
 
 [id^="sim"]:checked + label { 
     background-color: #26c6da;
+    color: #ffffff;
 }
 
 #statsim { 
@@ -5259,9 +5275,6 @@ td .inline {
     background-color: #26c6da;
 }
 
-
-
-
 .navbar-nav>li.open>.dropdown-menu,
 .dropdown.open .dropdown-menu,
 .dropdown-menu.bootstrap-datetimepicker-widget.open {
@@ -5281,8 +5294,6 @@ td .inline {
     color: rgba(0, 0, 0, 0.87);
     background: #fff;
 }
-
-
 
 .card .card-height-indicator {
     margin-top: 100%;
@@ -5346,13 +5357,23 @@ td .inline {
 
 }
 
-.custom-radio input:checked ~ figure, .card .card-content input:hover ~ figure {
+.card.card-details { 
+    padding-bottom: 1.5rem; 
+}
+
+.form-group.col-xs-3 figure {
     background-color: #e8f5e9;
     border-radius: 5px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 
                 0 6px 6px rgba(0,0,0,0.23);
 }
 
+.custom-radio input:checked ~ figure, .card .card-content input:hover ~ figure,  {
+    background-color: #e8f5e9;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 
+                0 6px 6px rgba(0,0,0,0.23);
+}
 
 .custom-radio input:checked ~ figure img { 
     filter: grayscale(0);
@@ -5373,6 +5394,16 @@ td .inline {
 .card .card-content .category {
     margin-bottom: 0;
 }
+
+.card .card-header.no-padding { 
+    padding: 0;
+}
+
+.card .form-group img.rounded.mx-auto {
+    padding:   1rem;
+}
+
+
 
 .card .card-header {
     box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.42), 0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
@@ -5590,6 +5621,15 @@ td .inline {
 
 .card-stats .title {
     margin: 0;
+}
+
+.col-xs-12 .card-stats .card-content h3 {
+    font-size: 1.1em;
+  /*  max-width: 200px;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;*/
 }
 
 
@@ -7057,7 +7097,11 @@ td .inline {
 
 @media (max-width: 480px) { 
     .figure-caption { 
-    font-size: 80%;
+        font-size: 80%;
+    }
+
+    .card .form-group img.rounded.mx-auto { 
+        padding: .25rem;
     }
 }
 
