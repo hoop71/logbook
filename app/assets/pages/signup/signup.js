@@ -18,5 +18,5 @@ angular.module('logbookweb.signup', ['ui.router'])
 
 
 .controller('signupCtrl', ['$scope','$state', function($scope, $state) {
-	//js
+	$.material.init();
 }])

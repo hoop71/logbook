@@ -128,39 +128,39 @@ function debounce(func, wait, immediate) {
 	};
 };
 
-showNotification: function(from, align) {
-        color = Math.floor((Math.random() * 4) + 1);
+// showNotification: function(from, align) {
+//         color = Math.floor((Math.random() * 4) + 1);
 
-        $.notify({
-            icon: "notifications",
-            message: "Entrada guardada"
+//         $.notify({
+//             icon: "notifications",
+//             message: "Entrada guardada"
 
-        }, {
-            type: type[color],
-            timer: 4000,
-            placement: {
-                from: from,
-                align: align
-            }
-        });
-    }
+//         }, {
+//             type: type[color],
+//             timer: 4000,
+//             placement: {
+//                 from: from,
+//                 align: align
+//             }
+//         });
+//     }
 
-showNotificationDelete: function(from, align) {
-        color = Math.floor((Math.random() * 4) + 1);
+// showNotificationDelete: function(from, align) {
+//         color = Math.floor((Math.random() * 4) + 1);
 
-        $.notify({
-            icon: "notifications",
-            message: "Entrada borrada"
+//         $.notify({
+//             icon: "notifications",
+//             message: "Entrada borrada"
 
-        }, {
-            type: type[color],
-            timer: 4000,
-            placement: {
-                from: from,
-                align: align
-            }
-        });
-    }
+//         }, {
+//             type: type[color],
+//             timer: 4000,
+//             placement: {
+//                 from: from,
+//                 align: align
+//             }
+//         });
+//     }
 
 
 

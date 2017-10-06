@@ -19,4 +19,5 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 
 .controller('dashboardCtrl', ['$scope','$state', function($scope, $state) {
 	//js
+	$.material.init();
 }])

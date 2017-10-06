@@ -266,7 +266,7 @@ demo = {
                 align: align
             }
         });
-    }
+    },
 
      showNotificationDelete: function(from, align) {
         color = Math.floor((Math.random() * 4) + 1);
