@@ -10,31 +10,12 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="active">
-                        <a href="dashboard.html">
-                            <i class="material-icons">dashboard</i>
-                            <p>Dashboard</p>
+                    <li ng-repeat="item in menuItems" class="{{item.class}}">
+                        <a ng-href="#!/{{item.linkTo}}">
+                            <i class="material-icons">{{item.icon}}</i>
+                            <p>{{item.name}}</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="./table.html">
-                            <i class="material-icons">content_paste</i>
-                            <p>Bitácora</p>
-                        </a>
-                    </li>  
-                    <li>
-                        <a href="entrada1.html">
-                            <i class="material-icons">note_add</i>
-                            <p>Nueva Entrada</p>
-                        </a>
-                    </li>                 
-                    <li>
-                        <a href="./user.html">
-                            <i class="material-icons">person</i>
-                            <p>Mi Perfil</p>
-                        </a>
-                    </li>
-                                    
                     <li class="active-pro">
                         <a href="#">
                             <i class="material-icons">error</i>

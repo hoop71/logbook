@@ -5,7 +5,8 @@ var logbookweb = angular.module('logbookweb', [
     'ui.router',
     'logbookweb.login',
     'logbookweb.signup',
-    'logbookweb.dashboard'
+    'logbookweb.dashboard',
+    'logbookweb.table'
 
 
     ]);
