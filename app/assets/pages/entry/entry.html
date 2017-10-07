@@ -1,0 +1,306 @@
+<div class="wrapper">
+    <div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
+  
+        <div class="logo">
+            <a href="#" class="simple-text">
+                LOGBOOK
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li>
+                    <a href="dashboard.html">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="./table.html">
+                        <i class="material-icons">content_paste</i>
+                        <p>Bitácora</p>
+                    </a>
+                </li>  
+                <li class="active">
+                    <a href="entrada1.html">
+                        <i class="material-icons">note_add</i>
+                        <p>Nueva Entrada</p>
+                    </a>
+                </li>                 
+                <li>
+                    <a href="./user.html">
+                        <i class="material-icons">person</i>
+                        <p>Mi Perfil</p>
+                    </a>
+                </li>
+                                
+                <li class="active-pro">
+                    <a href="#">
+                        <i class="material-icons">error</i>
+                        <p>Reportar un error</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        <nav class="navbar navbar-transparent navbar-absolute">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">LOGBOOK Dashboard</a>
+                    <ol class="breadcrumb">
+                        <li class="active"><a href="entrada1.html">ID</a></li>
+                        <li><a href="entrada2.html">DX</a></li>
+                        <li><a href="entrada3.html">QX</a></li>
+                        <li><a href="entrada4.html">OP</a></li>
+                    </ol>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="material-icons">dashboard</i>
+                                <p class="hidden-lg hidden-md">Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="material-icons">notifications</i>
+                                <span class="notification">5</span>
+                                <p class="hidden-lg hidden-md">Notifications</p>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#"><i class="material-icons text-warning">whatshot</i>5 días seguidos - estás en llamas!</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="material-icons text-success">new_releases</i>Hay nuevos objetivos a completar</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="material-icons text-info">location_on</i>Tarea completada en una nuevo lugar</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="material-icons text-danger">watch_later</i>Una meta termina pronto</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="material-icons text-info">thumbs_up_down</i>Califica tu mentor</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="material-icons">person</i>
+                                <p class="hidden-lg hidden-md">Profile</p>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <a href="#"><i class="material-icons">power_settings_new</i>Cerrar sesión</a>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-right" role="search">
+                        <div class="form-group is-empty">
+                            <input type="text" class="form-control" placeholder="Buscar">
+                            <span class="material-input"></span>
+                        </div>
+                        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                            <i class="material-icons">search</i>
+                            <div class="ripple-container"></div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                     <div class="col-sm-3">
+                        <div class="card card-stats">
+                            <div class="card-header2 " data-background-color="green">
+                                <i class="material-icons">date_range</i><p>Fecha:</p>
+                            </div>
+                        
+                            <div class="form-control-hover card-footer2">
+                                <div class="form-control dropdown-toggle" id="datetimepicker1" required>
+                                    <form class="" method="post">
+                                         <!-- Date input -->                                           
+                                    <input class="form-control dropdown-toggle" id="date" name="date" placeholder="DD/MM/YYY" type="text"/>  
+                                </form> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="card card-stats">
+                            <div class="card-header2 " data-background-color="blue">
+                                <i class="material-icons">location_on</i><p>Lugar:</p>
+                            </div>
+                        
+                            <div class="form-control-hover card-footer2">
+                                <select class="form-control dropdown-toggle" id="" required>
+                                    <label>
+                                        <option>Select</option>
+                                        <option>C. E. San Vicente Fundacion</option>
+                                        <option>Cl. CardioVID</option>
+                                        <option>Cl. CES</option>
+                                    </label> 
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="card card-stats">
+                            <div class="card-header2 " data-background-color="red">
+                                <i class="material-icons">swap_horiz</i><p>Rotación:</p>
+                            </div>
+                        
+                            <div class="form-control-hover card-footer2">
+                                <select class="form-control dropdown-toggle" id="" required>
+                                    <label>
+                                        <option>Select</option>
+                                        <option>Coloproctologia</option>
+                                        <option>Cx de trauma</option>
+                                        <option>Cx Gastrointestinal</option>
+                                    </label> 
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="card card-stats">
+                            <div class="card-header2" data-background-color="orange">
+                                <i class="material-icons">perm_identity</i><p>Profesor:</p>
+                            </div>
+                        
+                            <div class="form-control-hover card-footer2">
+                                <select class="form-control dropdown-toggle" id="" required>
+                                    <label>
+                                        <option>Select</option>
+                                        <option>Coloproctologia</option>
+                                        <option>Cx de trauma</option>
+                                        <option>Cx Gastrointestinal</option>
+                                    </label> 
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Datos Pacientes -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card"> 
+                            <div class="card-header2 card-header-inline" data-background-color="blue">
+                                <p><i class="material-icons">note</i><span style="opacity: 0">__</span>Identificación del paciente</p>
+                            </div>
+                            <div class="form-control-hover card-footer2">
+                                <textarea class="form-control" rows="4" placeholder="Algo"></textarea>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card"> 
+                            <div class="card-header2 card-header-inline" data-background-color="blue">
+                                <p><i class="material-icons">note</i><span style="opacity: 0">__</span> Iniciales del paciente</p>
+                            </div>
+                            <div class="form-control-hover card-footer2">
+                                <textarea class="form-control" rows="4" placeholder="Algo"></textarea>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Statistics -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card"> 
+                            <div class="card-header2 card-header-inline" data-background-color="green">
+                                <div class="btn-sim pull-right">
+                                    <input class="btn-sim" type="checkbox" name="sim1" id="sim1" />
+                                    <label class="btn btn-sm" for="sim1" id="statsim">Simulación</label>
+                                </div>
+                                <p>La Cirugía Fue</p>
+                            </div>
+                            <div class="card-content col-xs-4">
+                                <label class="custom-control custom-radio" >                
+                                    <input id="radio1" name="radio" type="radio" class="custom-control-input">
+                                    <figure class="figure mx-auto align-middle">
+                                        <img src="./assets/icons/elective.svg" class="rounded mx-auto" alt="Ele">
+                                        <figcaption class="text-center figure-caption">Electiva</figcaption>
+                                    </figure>                                        
+                                </label>          
+                            </div>
+                            <div class="card-content col-xs-4">
+                                <label class="custom-control custom-radio">                
+                                    <input id="radio2" name="radio" type="radio" class="custom-control-input">
+                                    <figure class="mx-auto">
+                                        <img src="./assets/icons/urgent.svg" class="rounded mx-auto" alt="Urg">
+                                        <figcaption class="text-center figure-caption">Urgente</figcaption>
+                                    </figure>                                        
+                                </label>
+                            </div>
+                            <div class="card-content col-xs-4">
+                                <label class="custom-control custom-radio">                
+                                    <input id="radio3" name="radio" type="radio" class="custom-control-input">
+                                    <figure class="figure mx-auto">
+                                        <img src="./assets/icons/emergente.svg" class="rounded mx-auto" alt="Emerg">
+                                        <figcaption class="text-center figure-caption">Emergente</figcaption>
+                                    </figure>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card"> 
+                            <div class="card-header2 card-header-inline" data-background-color="green">
+                                <p>Tu Rol Fue</p>
+                            </div>
+                            <div class="card-content col-xs-4">
+                                <label class="custom-control custom-radio">                
+                                    <input id="radio4" name="radio2" type="radio" class="custom-control-input">
+                                    <figure class="figure mx-auto align-middle">
+                                        <img src="./assets/icons/scalpel.svg" class="rounded mx-auto" alt="Ele">
+                                        <figcaption class="text-center figure-caption">Cirujano</figcaption>
+                                    </figure>
+                                    <span class="custom-control-indicator"></span>                
+                                </label>      
+                            </div>
+                            <div class="card-content col-xs-4">
+                                <label class="custom-control custom-radio">                
+                                    <input id="radio5" name="radio2" type="radio" class="custom-control-input">
+                                    <figure class="mx-auto">
+                                        <img src="./assets/icons/scissors.svg" class="rounded align-middle mx-auto" alt="Urg">
+                                        <figcaption class="text-center figure-caption">1<sup>o</sup> Ayudante</figcaption>
+                                    </figure>
+                                    <span class="custom-control-indicator"></span>
+                                </label>
+                            </div>
+                            <div class="card-content col-xs-4">
+                                <label class="custom-control custom-radio">                
+                                    <input id="radio6" name="radio2" type="radio" class="custom-control-input">
+                                    <figure class="figure mx-auto">
+                                        <img src="./assets/icons/band-aid.svg" class="rounded mx-auto" alt="Emerg">
+                                        <figcaption class="text-center figure-caption">2<sup>o</sup> Ayudante</figcaption>
+                                    </figure>
+                                    <span class="custom-control-indicator"></span>              
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           
+     
+            <div class="pull-right">
+                <a href="entrada2.html" class="btn btn-primary">siguiente paso</a>
+            </div>
+  
+</div>

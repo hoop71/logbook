@@ -6,7 +6,9 @@ var logbookweb = angular.module('logbookweb', [
     'logbookweb.login',
     'logbookweb.signup',
     'logbookweb.dashboard',
-    'logbookweb.table'
+    'logbookweb.table',
+    'logbookweb.profile',
+    'logbookweb.entry'
 
 
     ]);
