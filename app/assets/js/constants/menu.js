@@ -11,7 +11,7 @@ logbookweb.constant('MENU_ITEMS', [
 	},
 	{
 		name: 'Nueva Entrada',
-		linkTo: 'entrada1',
+		linkTo: 'nuevaentrada',
 		icon: 'note_add'
 	},
 	{
