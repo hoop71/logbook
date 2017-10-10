@@ -28,7 +28,7 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 
 
 
-.controller('dashboardCtrl', ['$scope','$state', 'MENU_ITEMS', 'Auth', function($scope, $state, MENU_ITEMS, Auth) {
+.controller('dashboardCtrl', ['$scope','$state','adminserv', 'MENU_ITEMS', 'Auth', function($scope, $state, adminserv, MENU_ITEMS, Auth) {
 	//js
 	console.log("controller")
 	$.material.init();
@@ -44,4 +44,9 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 	}
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
 	$scope.menuItems[0].class="active"
+	console.log(adminserv.getUser())
+	$scope.logout = function(){
+		adminserv.logoutUser();
+		$state.go('login');
+	}
 }])

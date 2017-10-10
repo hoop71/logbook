@@ -16,7 +16,7 @@ angular.module('logbookweb.login', ['ui.router'])
 
 
 
-.controller('loginCtrl', ['$scope','$state','adminserv','Auth', function($scope, $state, adminserv, Auth) {
+.controller('loginCtrl', ['$scope','$state','adminserv','Auth','$firebaseArray', function($scope, $state, adminserv, Auth, $firebaseArray) {
 	// CSS initializations
 	$.material.init();
 	//$scope.user = {}
@@ -29,16 +29,15 @@ angular.module('logbookweb.login', ['ui.router'])
 		if ($scope.user.email && $scope.user.password) {
 			$scope.cargando = true
 			Auth.$signInWithEmailAndPassword($scope.user.email, $scope.user.password).then(function(firebaseUser){
-				// var ref = firebase.database().ref('users');
-		  //   	var list = $firebaseArray(ref.orderByChild('uid').equalTo(firebaseUser.uid));
-		  //   	list.$loaded().then(function(){
-			 //    	adminserv.setUser(list[0].$id);
-			 //    	adminserv.setEspecialidad(list[0].especialidad);
-			 //    	adminserv.setDatosCondicionales(list[0].especialidad);
-			 //    	$scope.cargando = false;
-				// 	$state.go('perfil');
-		  //   	})
-		  	console.log("adentro")
+				var ref = firebase.database().ref('users');
+		    	var list = $firebaseArray(ref.orderByChild('uid').equalTo(firebaseUser.uid));
+		    	list.$loaded().then(function(){
+			    	adminserv.setUser(list[0].$id);
+			    	adminserv.setEspecialidad(list[0].especialidad);
+			    	adminserv.setDatosCondicionales(list[0].especialidad);
+			    	$scope.cargando = false;
+				 	$state.go('dashboard');
+		    	})
 			}).catch(function(error){
 				$scope.cargando = false;
 		    	$scope.error = error;
