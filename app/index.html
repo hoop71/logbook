@@ -26,6 +26,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="//unpkg.com/angular-ui-router/release/angular-ui-router.min.js"> </script>
 
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.5.0/firebase.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+
    <!--  Material Dashboard CSS    -->
    <link href="./assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet" />
    <!--  CSS for Demo Purpose, don't include it in your project     -->
@@ -34,6 +40,19 @@
 
    <!--  PerfectScrollbar Library -->
    <script src="./assets/js/perfect-scrollbar.jquery.min.js"></script>
+
+   <script>
+    // Initialize Firebase en base de datos de PRUEBA!!
+    var config = {
+      apiKey: "AIzaSyBRJBXEK8PY-_LPTozzkwgn6YIsoadltG0",
+      authDomain: "lunchera-tests.firebaseapp.com",
+      databaseURL: "https://lunchera-tests.firebaseio.com",
+      projectId: "lunchera-tests",
+      storageBucket: "lunchera-tests.appspot.com",
+      messagingSenderId: "152064789080"
+    };
+    firebase.initializeApp(config);
+  </script>
 	
 </head>
 
