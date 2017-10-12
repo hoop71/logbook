@@ -27,11 +27,17 @@ angular.module('logbookweb.table', ['ui.router'])
 
 
 
-.controller('tableCtrl', ['$scope','$state','MENU_ITEMS', function($scope, $state, MENU_ITEMS) {
+.controller('tableCtrl', ['$scope','$state','MENU_ITEMS','adminserv','$firebaseArray', function($scope, $state, MENU_ITEMS, adminserv, $firebaseArray) {
 	
 	
 	$.material.init();
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
 	$scope.menuItems[1].class="active"
-	console.log($scope.menuItems)
+	console.log(adminserv.getUser())
+	var refEntradas = firebase.database().ref('entradas/'+adminserv.getUser()).orderByChild("especialidad").equalTo(parseInt('1'));
+    var listEntradas = $firebaseArray(refEntradas);
+    listEntradas.$loaded().then(function(){
+    	$scope.entradas = listEntradas;
+    	console.log($scope.entradas.length)
+    })
 }])
