@@ -22,7 +22,7 @@ logbookweb.config(function($stateProvider, $urlRouterProvider) {
         
 });
 
-logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http', function($firebaseArray,$rootScope,Auth, $http) {
+logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','constCirugias', function($firebaseArray,$rootScope,Auth, $http, constCirugias) {
   $rootScope.constantsLoaded = false;
   var entradas = [];
   //var datosAnestesia = datosAnestesia;
@@ -38,7 +38,7 @@ logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http', fu
   
   
   // var diagnosticos = constDiagnosticos;
-  // var cirugias = constCirugias;
+  var cirugias = constCirugias;
   
   // var datosAnestesia = constProcedAnestesia;
   // var especialidades = constEspecialidades;

@@ -9,7 +9,17 @@ angular.module('logbookweb.login', ['ui.router'])
     .state('login', {
 		url: '/login',
 		templateUrl:'assets/pages/login/login.html',
-		controller: 'loginCtrl'
+		controller: 'loginCtrl',
+		resolve: {
+
+			'checkUser': ['adminserv', '$stateProvider', function(adminserv, $stateProvider) {
+				if (adminserv.getUser()) {
+					$state.go('profile');
+				}else{
+					return true;
+				}
+			}]
+		}
 	})
 
 }])
@@ -22,9 +32,7 @@ angular.module('logbookweb.login', ['ui.router'])
 	//$scope.user = {}
 
 	$scope.cargando = false;
-	// if (adminserv.getUser()) {
-	// 	$state.go('perfil');
-	// };
+	
 	$scope.login = function(){
 		if ($scope.user.email && $scope.user.password) {
 			$scope.cargando = true
@@ -43,12 +51,12 @@ angular.module('logbookweb.login', ['ui.router'])
 		    	$scope.error = error;
 		    	console.log(error);
 		    	//Materialize.toast('Usuario o contraseña no válido', 3000, 'rounded')
-		    	swal('Any fool can use a computer')
+		    	//swal('Any fool can use a computer')
 		    })
 		}else{
 			//Materialize.toast('Debes llenar todos los campos', 3000, 'rounded')
 			console.log($scope.user)
-			swal('Any fool can use a computer')
+			//swal('Any fool can use a computer')
 		}
 	}
 }])

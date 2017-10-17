@@ -109,47 +109,15 @@
                                             <th>Complicaiones</th>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Puncion Cisternal, Via Lateral</td>
-                                                <td>#898398-AFGE</td>
-                                                <td>Healthy</td>
-                                                <td>09/21/17</td>
-                                                <td class="text-success">Nunca</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Fiebre Paratifoidea B</td>
-                                                <td>#1872387-GJUF</td>
-                                                <td>Not quite dead yet</td>
-                                                <td>09/12/17</td>
-                                                <td class="text-warning">Algo</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Colera Debido A Vibrio Cholerae O1, Biotipo El Tor</td>
-                                                <td>#1928383-OISU</td>
-                                                <td>Knife wound</td>
-                                                <td>09/01/17</td>
-                                                <td class="text-info">Poco</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Otras Infecciones Intestinales Debidas A Escherichia Coli</td>
-                                                <td>#1988374-ZWSE</td>
-                                                <td>Broken heart</td>
-                                                <td>08/30/17</td>
-                                                <td class="text-danger">MUCHO</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Giardiasis [Lambliasis]</td>
-                                                <td>#9283746-LLOA</td>
-                                                <td>Car accident</td>
-                                                <td>08/24/17</td>
-                                                <td class="text-success">Nunca</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Isosporiasis</td>
-                                                <td>#1029831-RTYD</td>
-                                                <td>Mental condition</td>
-                                                <td>08/21/17</td>
-                                                <td class="text-info">Poco</td>
+                                            <tr ng-repeat="entrada in entradas" ng-if="entradas.length>0">
+                                                <td>{{adminserv.getNameById('cirugia',entrada.cirugia[0].id, true)}}</td>
+                                                <td>{{entrada.nombrePaciente}}</td>
+                                                <td>{{entrada.identificacion}}</td>
+                                                <td>{{adminserv.interpretarFecha(entrada.fecha)}}</td>
+                                                <td ng-if="entrada.complicaciones.length>4" class="text-danger">MUCHO</td>
+                                                <td ng-if="entrada.complicaciones.length<=4 && entrada.complicaciones.length>2" class="text-warning">Algo</td>
+                                                <td ng-if="entrada.complicaciones.length<=2 && entrada.complicaciones.length>=1" class="text-info">Poco</td>
+                                                <td ng-if="entrada.complicaciones.length==0 || !entrada.complicaciones" class="text-success">Ninguna</td>
                                             </tr>
                                         </tbody>
                                     </table>
