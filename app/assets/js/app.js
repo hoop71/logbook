@@ -22,7 +22,7 @@ logbookweb.config(function($stateProvider, $urlRouterProvider) {
         
 });
 
-logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','constCirugias', function($firebaseArray,$rootScope,Auth, $http, constCirugias) {
+logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','constCirugias','constEspecialidades', 'constUniversidades', 'constDirectrices', 'constDiagnosticos', function($firebaseArray,$rootScope,Auth, $http, constCirugias, constEspecialidades, constUniversidades, constDirectrices, constDiagnosticos) {
   $rootScope.constantsLoaded = false;
   var entradas = [];
   //var datosAnestesia = datosAnestesia;
@@ -37,13 +37,13 @@ logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','co
   // var iconos = constIconos;
   
   
-  // var diagnosticos = constDiagnosticos;
+  var diagnosticos = constDiagnosticos;
   var cirugias = constCirugias;
   
   // var datosAnestesia = constProcedAnestesia;
-  // var especialidades = constEspecialidades;
-  // var universidades = constUniversidades;
-  // var directrices = constDirectrices;
+  var especialidades = constEspecialidades;
+  var universidades = constUniversidades;
+  var directrices = constDirectrices;
 
   // var refConstante = firebase.database().ref('constantes/medellin/profesores');
   // var listConstante = $firebaseArray(refConstante);
@@ -70,53 +70,54 @@ logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','co
           };
       }  
   }
-  // var crearModelo = function(universidad, especialidad){
-
-  //     var refProfesores = firebase.database().ref('constantes/medellin/profesores');
-  //     var listProfesores = $firebaseArray(refProfesores);
-  //     listProfesores.$loaded().then(function(){
-  //         console.log('cargados profesores')
-  //         var directriz = searchById(directrices, universidad);
-  //         var constantes = searchById(directriz.especialidades, especialidad);
-  //         var refLugares = firebase.database().ref('constantes/medellin/lugares');
-  //         var listLugares = $firebaseArray(refLugares);
-  //         listLugares.$loaded().then(function(){
-  //             console.log('cargados lugares')
-  //             var refRotaciones = firebase.database().ref('constantes/general/rotaciones');
-  //             var listRotaciones = $firebaseArray(refRotaciones);
-  //             listRotaciones.$loaded().then(function(){
-  //                 var refComplicaciones = firebase.database().ref('constantes/general/complicaciones');
-  //                 var listComplicaciones = $firebaseArray(refComplicaciones);
-  //                 listComplicaciones.$loaded().then(function(){
-  //                     console.log('cargadas complicaciones')
-  //                     lugares = [];
-  //                     for (var i = 0; i < constantes.listaLugares.length; i++) {
-  //                         lugares.push(searchById(listLugares, constantes.listaLugares[i]))
-  //                     };
-  //                     rotaciones = [];
-  //                     for (var i = 0; i < constantes.listaRotaciones.length; i++) {
-  //                         rotaciones.push(searchById(listRotaciones, constantes.listaRotaciones[i]))
-  //                     };
-  //                     complicaciones = [];
-  //                     for (var i = 0; i < constantes.listaComplicaciones.length; i++) {
-  //                         complicaciones.push(searchById(listComplicaciones, constantes.listaComplicaciones[i]))
-  //                     };
-  //                     profesores = [];
-  //                     for (var i = 0; i < constantes.listaProfesores.length; i++) {
-  //                         profesores.push(searchById(listProfesores, constantes.listaProfesores[i]))
-  //                     };
-  //                     $rootScope.constantsLoaded = true;
-  //                     $rootScope.$broadcast('adminserv:directricesListas');
+  var crearModelo = function(universidad, especialidad){
+      console.log("creando modelo")
+      var refProfesores = firebase.database().ref('constantes/medellin/profesores');
+      var listProfesores = $firebaseArray(refProfesores);
+      listProfesores.$loaded().then(function(){
+          console.log('cargados profesores')
+          var directriz = searchById(directrices, universidad);
+          var constantes = searchById(directriz.especialidades, especialidad);
+          var refLugares = firebase.database().ref('constantes/medellin/lugares');
+          var listLugares = $firebaseArray(refLugares);
+          listLugares.$loaded().then(function(){
+              console.log('cargados lugares')
+              var refRotaciones = firebase.database().ref('constantes/general/rotaciones');
+              var listRotaciones = $firebaseArray(refRotaciones);
+              listRotaciones.$loaded().then(function(){
+                  var refComplicaciones = firebase.database().ref('constantes/general/complicaciones');
+                  var listComplicaciones = $firebaseArray(refComplicaciones);
+                  listComplicaciones.$loaded().then(function(){
+                      console.log('cargadas complicaciones')
+                      lugares = [];
+                      for (var i = 0; i < constantes.listaLugares.length; i++) {
+                          lugares.push(searchById(listLugares, constantes.listaLugares[i]))
+                      };
+                      rotaciones = [];
+                      for (var i = 0; i < constantes.listaRotaciones.length; i++) {
+                          rotaciones.push(searchById(listRotaciones, constantes.listaRotaciones[i]))
+                      };
+                      complicaciones = [];
+                      for (var i = 0; i < constantes.listaComplicaciones.length; i++) {
+                          complicaciones.push(searchById(listComplicaciones, constantes.listaComplicaciones[i]))
+                      };
+                      profesores = [];
+                      for (var i = 0; i < constantes.listaProfesores.length; i++) {
+                          profesores.push(searchById(listProfesores, constantes.listaProfesores[i]))
+                      };
+                      $rootScope.constantsLoaded = true;
+                      $rootScope.$broadcast('adminserv:directricesListas');
                       
-  //                 });
-  //             })
-  //         });
-  //     })
-  // }
-  // if(localStorage.getItem("especialidad")){
-  //     crearModelo(1, parseInt(localStorage.getItem("especialidad")))
-  // }
+                  });
+              })
+          });
+      })
+  }
+  if(localStorage.getItem("especialidad")){
 
+      crearModelo(1, parseInt(localStorage.getItem("especialidad")))
+  }
+  //crearModelo(1, 1)
   
 
   return {
@@ -337,5 +338,13 @@ logbookweb.run(["$rootScope", "$state", function($rootScope, $state) {
     }
   });
 }]);
+logbookweb.directive('alFinalizar', function() {
+  return function(scope, element, attrs) {
+    angular.element(element).css('color','blue');
+    if (scope.$last){
+      $.material.init();
+    }
+  };
+})
 
 

@@ -12,7 +12,7 @@ angular.module('logbookweb.login', ['ui.router'])
 		controller: 'loginCtrl',
 		resolve: {
 
-			'checkUser': ['adminserv', '$stateProvider', function(adminserv, $stateProvider) {
+			'checkUser': ['adminserv', '$state', function(adminserv, $stateProvider) {
 				if (adminserv.getUser()) {
 					$state.go('profile');
 				}else{

@@ -119,6 +119,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-sm-3">
                         <div class="card card-stats">
                             <div class="card-header2 " data-background-color="blue">
@@ -126,13 +127,8 @@
                             </div>
                         
                             <div class="form-control-hover card-footer2">
-                                <select class="form-control dropdown-toggle" id="" required>
-                                    <label>
-                                        <option>Select</option>
-                                        <option>C. E. San Vicente Fundacion</option>
-                                        <option>Cl. CardioVID</option>
-                                        <option>Cl. CES</option>
-                                    </label> 
+                                <select class="form-control dropdown-toggle" id="" required ng-model="entrada.lugar">
+                                    <option ng-repeat="lugar in lugares" value="{{lugar.id}}">{{lugar.nombreLargo}}</option>
                                 </select>
                             </div>
                         </div>
@@ -144,13 +140,8 @@
                             </div>
                         
                             <div class="form-control-hover card-footer2">
-                                <select class="form-control dropdown-toggle" id="" required>
-                                    <label>
-                                        <option>Select</option>
-                                        <option>Coloproctologia</option>
-                                        <option>Cx de trauma</option>
-                                        <option>Cx Gastrointestinal</option>
-                                    </label> 
+                                <select class="form-control dropdown-toggle" id="" required ng-model="entrada.rotacion">
+                                    <option ng-repeat="rotacion in rotaciones" value="{{rotacion.id}}">{{rotacion.nombreLargo}}</option>
                                 </select>
                             </div>
                         </div>
@@ -162,13 +153,8 @@
                             </div>
                         
                             <div class="form-control-hover card-footer2">
-                                <select class="form-control dropdown-toggle" id="" required>
-                                    <label>
-                                        <option>Select</option>
-                                        <option>Coloproctologia</option>
-                                        <option>Cx de trauma</option>
-                                        <option>Cx Gastrointestinal</option>
-                                    </label> 
+                                <select class="form-control dropdown-toggle" id="" required ng-model="entrada.profesor">
+                                    <option ng-repeat="profesor in profesores | orderBy:'-nombreLargo':true" id="prof{{profesor.id}}" value="{{profesor.id}}">{{profesor.nombreLargo}}</option>
                                 </select>
                             </div>
                         </div>
@@ -184,7 +170,7 @@
                                 <p><i class="material-icons">note</i><span style="opacity: 0">__</span>Identificación del paciente</p>
                             </div>
                             <div class="form-control-hover card-footer2">
-                                <textarea class="form-control" rows="4" placeholder="Algo"></textarea>
+                                <textarea class="form-control" rows="4" placeholder="Algo" ng-model="entrada.identificacion"></textarea>
                             </div> 
                         </div>
                     </div>
@@ -194,7 +180,7 @@
                                 <p><i class="material-icons">note</i><span style="opacity: 0">__</span> Iniciales del paciente</p>
                             </div>
                             <div class="form-control-hover card-footer2">
-                                <textarea class="form-control" rows="4" placeholder="Algo"></textarea>
+                                <textarea class="form-control" rows="4" placeholder="Algo" ng-model="entrada.nombrePaciente"></textarea>
                             </div> 
                         </div>
                     </div>
@@ -307,9 +293,30 @@
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="button">Buscar!</button>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Buscar Diagnóstico...">
+                                <input type="text" class="form-control" placeholder="Buscar Diagnóstico..." ng-model="filtroDiagnosticos">
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12">
+                        <!-- Muestro primero los que el usuario ha elegido-->
+                        <div ng-repeat="(key,diagnostico) in diagnosticosElegidos | filter:filtroDiagnosticos | limitTo: 10">
+                            <div class="alert alert-info">
+                                <div class="container-fluid">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection('diagnostico',diagnostico, key)">
+                                        <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                                    </button>
+                                    {{diagnostico.nombreLargo}}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Muestro luego el resto de la lista-->
+                        <table class="table">
+                            <tbody>
+                                <tr ng-repeat="(key,diagnostico) in diagnosticos | filter:filtroDiagnosticos | limitTo: 50" ng-hide="seleccionDiag.indexOf(diagnostico.id) > -1" ng-click="toggleSelection('diagnostico',diagnostico, key)">
+                                    <td>{{diagnostico.nombreLargo}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <!-- Next Button -->
@@ -740,7 +747,7 @@
                                 <label class="custom-control custom-radio" >                
                                     <input id="radio7" name="radio" type="radio" class="custom-control-input">
                                     <figure class="figure mx-auto align-middle">
-                                        <img src="app/assets/icons/feliz.svg" class="rounded mx-auto" alt="feliz">
+                                        <img src="./assets/icons/feliz.svg" class="rounded mx-auto" alt="feliz">
                                         <figcaption class="text-center figure-caption">Feliz</figcaption>
                                     </figure>                                        
                                 </label>          
@@ -749,7 +756,7 @@
                                 <label class="custom-control custom-radio">                
                                     <input id="radio8" name="radio" type="radio" class="custom-control-input">
                                     <figure class="mx-auto">
-                                        <img src="app/assets/icons/neutral.svg" class="rounded mx-auto" alt="neutral">
+                                        <img src="./assets/icons/neutral.svg" class="rounded mx-auto" alt="neutral">
                                         <figcaption class="text-center figure-caption">Neutral</figcaption>
                                     </figure>                                        
                                 </label>
@@ -758,7 +765,7 @@
                                 <label class="custom-control custom-radio">                
                                     <input id="radio9" name="radio" type="radio" class="custom-control-input">
                                     <figure class="figure mx-auto">
-                                        <img src="app/assets/icons/triste.svg" class="rounded mx-auto" alt="triste">
+                                        <img src="./assets/icons/triste.svg" class="rounded mx-auto" alt="triste">
                                         <figcaption class="text-center figure-caption">Triste</figcaption>
                                     </figure>
                                 </label>
@@ -772,7 +779,7 @@
         
                 <!-- Next Button -->
                 <div class="">
-                    <button type="submit" class="btn btn-info pull-right" onclick="material.showNotification('bottom','center')"><i class="material-icons">save</i>
+                    <button type="submit" class="btn btn-info pull-right" ng-click="preview();"><i class="material-icons">save</i>
                     </button>
                 </div>
 

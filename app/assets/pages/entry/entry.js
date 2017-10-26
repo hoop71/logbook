@@ -27,9 +27,23 @@ angular.module('logbookweb.entry', ['ui.router'])
 
 
 
-.controller('entryCtrl', ['$scope','$state', 'MENU_ITEMS', function($scope, $state, MENU_ITEMS) {
+.controller('entryCtrl', ['$scope','$state', 'adminserv', 'MENU_ITEMS', function($scope, $state, adminserv, MENU_ITEMS) {
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
 	$scope.menuItems[2].class="active"
+
+	$scope.seleccionDiag = [];
+	$scope.diagnosticosElegidos = [];
+	$scope.seleccionCiru = [];
+	$scope.seleccionComplic = [];
+	$scope.cirugiasElegidas = [];
+
+	$scope.entrada = {};
+	$scope.entrada.opcionales = {};
+	$scope.entrada.mininv = [];
+	$scope.entrada.fecha =new Date();
+	$scope.cirugiasRecientes = [];
+	$scope.diagnosticosRecientes = [];
+	
 	var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
 	if (isWindows) {
@@ -40,9 +54,26 @@ angular.module('logbookweb.entry', ['ui.router'])
 	} else {
 	    $('html').addClass('perfect-scrollbar-off');
 	}
+	$scope.lugares = adminserv.getSelectInfo('lugares');
+	$scope.rotaciones = adminserv.getSelectInfo('rotaciones');
+	$scope.diagnosticos = adminserv.getSelectInfo('diagnosticos');
+	$scope.cirugias = adminserv.getSelectInfo('cirugias');
+	$scope.complicaciones = adminserv.getSelectInfo('complicaciones');
+	$scope.profesores = adminserv.getSelectInfo('profesores');
 	$.material.init();
+
 	$scope.selectedStep = [true, false, false, false];
 	$scope.stepClasses = ["active", "", "", ""];
+
+	$scope.$on('adminserv:directricesListas', function() {
+		$scope.lugares = adminserv.getSelectInfo('lugares');
+		$scope.rotaciones = adminserv.getSelectInfo('rotaciones');
+		$scope.diagnosticos = adminserv.getSelectInfo('diagnosticos');
+		$scope.cirugias = adminserv.getSelectInfo('cirugias');
+		$scope.complicaciones = adminserv.getSelectInfo('complicaciones');
+		$scope.profesores = adminserv.getSelectInfo('profesores');
+		$.material.init();
+	})
 
 	$scope.changeToStep = function(step){
 		$scope.selectedStep = [false, false, false, false];
@@ -51,4 +82,63 @@ angular.module('logbookweb.entry', ['ui.router'])
 		$scope.stepClasses[step-1] = "active"
 	}
 
+	$scope.toggleSelection = function (tipo, seleccion, index) {
+	    if (tipo == 'diagnostico') {
+	    	var idx = $scope.seleccionDiag.indexOf(seleccion.id);
+
+	    	// Is currently selected
+	    	if (idx > -1) {
+	    	  $scope.seleccionDiag.splice(idx, 1);
+	    	  $scope.diagnosticosElegidos.splice(index,1);
+	    	  console.log("diag eliminado")
+	    	}
+
+	    	// Is newly selected
+	    	else {
+	    	  	$scope.seleccionDiag.push(seleccion.id);
+	    	  	// Materialize.toast(adminserv.getNameById('diagnostico',seleccion.id,true), 900, 'rounded');
+	    	  	$scope.diagnosticosElegidos.push(seleccion);
+	    	  	//$scope.diagnosticos.splice(index, 1);
+	    	  	// $scope.diagnosticos.unshift(seleccion);
+	    	}
+	    	$scope.filtroDiagnosticos = "";
+	    	//$( "#filtroDiagnosticos" ).focus();
+	    }else if(tipo == 'complicacion'){
+	    	var idx = $scope.seleccionComplic.indexOf(seleccion.id);
+
+	    	// Is currently selected
+	    	if (idx > -1) {
+	    	  	$scope.seleccionComplic.splice(idx, 1);
+	    	}
+	    	// Is newly selected
+	    	else {
+	    	  	$scope.seleccionComplic.push(seleccion.id);
+	    	}
+	    }else{
+	    	var idx = $scope.seleccionCiru.indexOf(seleccion.id);
+
+	    	// Is currently selected
+	    	if (idx > -1) {
+	    	  $scope.seleccionCiru.splice(idx, 1);
+	    	  $scope.cirugiasElegidas.splice(index,1);
+	    	  $scope.entrada.mininv.splice(index,1);
+	    	}
+
+	    	// Is newly selected
+	    	else {
+	    	  $scope.seleccionCiru.push(seleccion.id);
+	    	  Materialize.toast(adminserv.getNameById('cirugia',seleccion.id, true), 900, 'rounded');
+	    	  $scope.cirugiasElegidas.push(seleccion)
+	    	  $scope.entrada.mininv.push(false);
+	    	  // $scope.cirugias.splice(index, 1);
+	    	  // $scope.cirugias.unshift(seleccion);
+	    	}
+	    	$scope.filtroCirugias = "";
+	    	//$( "#filtroCirugias" ).focus();
+	    };
+	    $.material.init();
+	};
+	$scope.preview = function (){
+		console.log($scope.entrada)
+	}
 }])
