@@ -162,7 +162,7 @@ logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','co
           return meses[mes];
       },
       setDatosCondicionales: function(especialidad){
-          //crearModelo(1,parseInt(especialidad));
+          crearModelo(1,parseInt(especialidad));
       },
       getSelectInfo: function(campo){
           switch(campo){

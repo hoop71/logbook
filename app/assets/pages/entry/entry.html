@@ -169,8 +169,8 @@
                             <div class="card-header2 card-header-inline" data-background-color="blue">
                                 <p><i class="material-icons">note</i><span style="opacity: 0">__</span>Identificación del paciente</p>
                             </div>
-                            <div class="form-control-hover card-footer2">
-                                <textarea class="form-control" rows="4" placeholder="Algo" ng-model="entrada.identificacion"></textarea>
+                            <div class="form-group card-footer2">
+                                <input type="text" class="form-control" rows="4" placeholder="Algo" ng-model="entrada.identificacion"/>
                             </div> 
                         </div>
                     </div>
@@ -179,8 +179,8 @@
                             <div class="card-header2 card-header-inline" data-background-color="blue">
                                 <p><i class="material-icons">note</i><span style="opacity: 0">__</span> Iniciales del paciente</p>
                             </div>
-                            <div class="form-control-hover card-footer2">
-                                <textarea class="form-control" rows="4" placeholder="Algo" ng-model="entrada.nombrePaciente"></textarea>
+                            <div class="form-group card-footer2">
+                                <input type="text" class="form-control" rows="4" placeholder="Algo" ng-model="entrada.nombrePaciente"/>
                             </div> 
                         </div>
                     </div>
@@ -310,13 +310,20 @@
                             </div>
                         </div>
                         <!-- Muestro luego el resto de la lista-->
-                        <table class="table">
-                            <tbody>
-                                <tr ng-repeat="(key,diagnostico) in diagnosticos | filter:filtroDiagnosticos | limitTo: 50" ng-hide="seleccionDiag.indexOf(diagnostico.id) > -1" ng-click="toggleSelection('diagnostico',diagnostico, key)">
-                                    <td>{{diagnostico.nombreLargo}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="card">
+                            <div class="card-header" data-background-color="green">
+                                <h4 class="title">Recientes</h4>
+                            </div>
+                            <div class="card-content table-responsive">
+                                <table class="table">
+                                    <tbody>
+                                        <tr ng-repeat="(key,diagnostico) in diagnosticos | filter:filtroDiagnosticos | limitTo: 50" ng-hide="seleccionDiag.indexOf(diagnostico.id) > -1" ng-click="toggleSelection('diagnostico',diagnostico, key)">
+                                            <td>{{diagnostico.nombreLargo}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Next Button -->
@@ -352,7 +359,7 @@
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="button">Buscar!</button>
                                 </span>
-                                <input type="text" class="form-control" placeholder="Buscar Cirugía(s)...">
+                                <input type="text" class="form-control" placeholder="Buscar Cirugía(s)..." ng-model="filtroCirugias">
                             </div><!-- /input-group -->
                            
                         </div>
@@ -360,108 +367,28 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
+                        <!-- Muestro primero los que el usuario ha elegido-->
+                        <div ng-repeat="(key,cirugia) in cirugiasElegidas | filter:filtroCirugias | limitTo: 10">
+                            <div class="alert alert-info" ng-click="openModal(cirugia)">
+                                <div class="container-fluid">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection('cirugia',cirugia, key)">
+                                        <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                                    </button>
+                                    {{cirugia.nombreLargo}}
+                                </div>
+                            </div>
+                        </div>
                         <div class="card">
                             <div class="card-header" data-background-color="green">
                                 <h4 class="title">Recientes</h4>
-                                
                             </div>
+                            
+                            <!-- Muestro luego el resto de la lista-->
                             <div class="card-content table-responsive">
                                 <table class="table">
-                                    <thead class="text-primary">
-                                        <th>Cirugías</th>
-                                        <th>Minimamente Invasivo?</th>Conversión
-                                        <th>Conversión?</th>                                            
-                                    </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Puncion Cisternal, Via Lateral</td>
-                                            <td>
-                                                <div class="btn-sim">
-                                                    <input class="btn-sim" type="checkbox" name="mi1" id="mi1" />
-                                                    <label class="btn btn-sm" for="mi1">Min. Inv.</label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="btn-sim">
-                                                    <input class="btn-sim" type="checkbox" name="con1" id="con1" />
-                                                    <label class="btn btn-sm" for="con1">Conversión</label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Fiebre Paratifoidea B</td>
-                                            <td>
-                                                <div class="btn-sim">
-                                                    <input class="btn-sim" type="checkbox" name="mi2" id="mi2" />
-                                                    <label class="btn btn-sm" for="mi2">Min. Inv.</label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="btn-sim">
-                                                    <input class="btn-sim" type="checkbox" name="con2" id="con2" />
-                                                    <label class="btn btn-sm" for="con2">Conversión</label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Colera Debido A Vibrio Cholerae O1, Biotipo El Tor</td>
-                                            <td>
-                                                <div class="btn-sim">
-                                                    <input class="btn-sim" type="checkbox" name="mi3" id="mi3" />
-                                                    <label class="btn btn-sm" for="mi3">Min. Inv.</label>
-                                                </div>
-                                            </td>
-                                            <td>    
-                                                <div class="btn-sim">
-                                                    <input class="btn-sim" type="checkbox" name="con3" id="con3" />
-                                                    <label class="btn btn-sm" for="con3">Conversión</label>
-                                                </div>
-                                            </td>
-                                       </tr>
-                                        <tr>
-                                            <td>Otras Infecciones Intestinales Debidas A Escherichia Coli</td>
-                                            <td>
-                                                <div class="btn-sim">
-                                                    <input class="btn-sim" type="checkbox" name="mi4" id="mi4" />
-                                                    <label class="btn btn-sm" for="mi4">Min. Inv.</label>
-                                                </div>
-                                            </td>
-                                            <td>    
-                                                <div class="btn-sim">
-                                                    <input class="btn-sim" type="checkbox" name="con4" id="con4" />
-                                                    <label class="btn btn-sm" for="con4">Conversión</label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Giardiasis [Lambliasis]</td>
-                                            <td>
-                                                <div class="btn-sim">
-                                                    <input class="btn-sim" type="checkbox" name="mi5" id="mi5" />
-                                                    <label class="btn btn-sm" for="mi5">Min. Inv.</label>
-                                                </div>
-                                            </td>
-                                            <td>    
-                                                <div class="btn-sim">
-                                                    <input class="btn-sim" type="checkbox" name="con5" id="con5" />
-                                                    <label class="btn btn-sm" for="con5">Conversión</label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Isosporiasis</td>
-                                            <td>
-                                                <div class="btn-sim">
-                                                    <input class="btn-sim" type="checkbox" name="mi6" id="mi6" />
-                                                    <label class="btn btn-sm" for="mi6">Min. Inv.</label>
-                                                </div>
-                                            </td>
-                                            <td>    
-                                                <div class="btn-sim">
-                                                    <input class="btn-sim" type="checkbox" name="con6" id="con6" />
-                                                    <label class="btn btn-sm" for="con6">Conversión</label>
-                                                </div>
-                                            </td>
+                                        <tr ng-repeat="(key,cirugia) in cirugias | filter:filtroCirugias | limitTo: 50" ng-hide="seleccionCiru.indexOf(cirugia.id) > -1" ng-click="toggleSelection('cirugia',cirugia, key)">
+                                            <td>{{cirugia.nombreLargo}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -518,7 +445,7 @@
                                                     <td>
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
+                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionCervicotomia">
                                                             </label>
                                                         </div>
                                                     </td>
@@ -526,26 +453,17 @@
                                                          <td>
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
+                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreCervicotomia">
                                                             </label>
                                                         </div>
                                                     </td>
                                                     <td>Cerré la Cervicotomía</td>
-
-                                                    <!-- <td class="td-actions text-right">
-                                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-                                                            <i class="material-icons">edit</i>
-                                                        </button>
-                                                        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                            <i class="material-icons">close</i>
-                                                        </button>
-                                                    </td> -->
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
+                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionToracotomia">
                                                             </label>
                                                         </div>
                                                     </td>
@@ -553,7 +471,7 @@
                                                          <td>
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
+                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreToracotomia">
                                                             </label>
                                                         </div>
                                                     </td>
@@ -563,7 +481,7 @@
                                                     <td>
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
+                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionLaparotomia">
                                                             </label>
                                                         </div>
                                                     </td>
@@ -571,7 +489,7 @@
                                                          <td>
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
+                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreLaparotomia">
                                                             </label>
                                                         </div>
                                                     </td>
@@ -581,7 +499,7 @@
                                                     <td>
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
+                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.anastomosisVisceral">
                                                             </label>
                                                         </div>
                                                     </td>
@@ -589,7 +507,7 @@
                                                          <td>
                                                         <div class="checkbox">
                                                             <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
+                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.anastomosisVascular">
                                                             </label>
                                                         </div>
                                                     </td>
@@ -599,124 +517,23 @@
                                         </table>
                                     </div>
                                     <div class="tab-pane" id="complicaciones">
+                                        <!-- Muestro primero los que el usuario ha elegido-->
+                                        <div ng-repeat="(key,complicacion) in complicacionesElegidas">
+                                            <div class="alert alert-warning">
+                                                <div class="container-fluid">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection('complicacion',complicacion, key)">
+                                                        <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                                                    </button>
+                                                    {{complicacion.nombreLargo}}
+                                                </div>
+                                            </div>
+                                        </div>
                                         <table class="table">
                                             <tbody>
-                                                <tr>
+                                                <tr ng-repeat="(key,complicacion) in complicaciones" ng-click="toggleSelection('complicacion',complicacion, key)">
                                                     <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
-                                                            </label>
-                                                        </div>
+                                                        {{complicacion.nombreLargo}}
                                                     </td>
-                                                    <td>Neumotorax / Hemotorax</td>
-                                                         <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Estenosis</td>
-
-                                                    <!-- <td class="td-actions text-right">
-                                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-                                                            <i class="material-icons">edit</i>
-                                                        </button>
-                                                        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-                                                            <i class="material-icons">close</i>
-                                                        </button>
-                                                    </td> -->
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Evisceracion</td>
-                                                         <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Filtracion</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Fistula</td>
-                                                         <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>ISO</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Lesion Via Biliar</td>
-                                                         <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Recidiva</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Sangrado</td>
-                                                         <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Trombosis</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Muerte</td>
-                                                         <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Otra</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -733,8 +550,8 @@
                             <div class="card-header2 card-header-inline" data-background-color="green">
                                 <p><i class="material-icons">note</i>Observaciones</p>
                             </div>
-                            <div class="form-control-hover card-footer2">
-                                <textarea class="form-control" rows="5" placeholder="Algo"></textarea>
+                            <div class="form-group card-footer2">
+                                <textarea class="form-control" rows="5" placeholder="Escribe tus observaciones..." ng-model="entrada.opcionales.observaciones"></textarea>
                             </div> 
                         </div>
                     </div>
@@ -772,19 +589,46 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
-        
-                
-        
                 <!-- Next Button -->
                 <div class="">
                     <button type="submit" class="btn btn-info pull-right" ng-click="preview();"><i class="material-icons">save</i>
                     </button>
                 </div>
-
-
             </div> <!-- /container-fluid -->
         </div>  <!-- /content --> 
+    </div>
+</div>
+<div class="modal fade" id="modalMininv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{cirugiaMod.nombreLargo}}</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="optionsCheckboxes" ng-checked="cirugiaMod.mininv" ng-click="toggleCaracteristica('mininv',cirugiaMod)">
+                                Mínimamente invasivo
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="optionsCheckboxes" ng-checked="cirugiaMod.conv" ng-click="toggleCaracteristica('conv',cirugiaMod)">
+                                Por conversión
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
     </div>
 </div>

@@ -35,6 +35,7 @@ angular.module('logbookweb.entry', ['ui.router'])
 	$scope.diagnosticosElegidos = [];
 	$scope.seleccionCiru = [];
 	$scope.seleccionComplic = [];
+	$scope.complicacionesElegidas = [];
 	$scope.cirugiasElegidas = [];
 
 	$scope.entrada = {};
@@ -43,6 +44,10 @@ angular.module('logbookweb.entry', ['ui.router'])
 	$scope.entrada.fecha =new Date();
 	$scope.cirugiasRecientes = [];
 	$scope.diagnosticosRecientes = [];
+
+	$('#modalMininv').modal({
+		show: false
+	})
 	
 	var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
@@ -80,6 +85,7 @@ angular.module('logbookweb.entry', ['ui.router'])
 		$scope.selectedStep[step-1] = true;
 		$scope.stepClasses = ["","","",""];
 		$scope.stepClasses[step-1] = "active"
+		$.material.init();
 	}
 
 	$scope.toggleSelection = function (tipo, seleccion, index) {
@@ -109,35 +115,52 @@ angular.module('logbookweb.entry', ['ui.router'])
 	    	// Is currently selected
 	    	if (idx > -1) {
 	    	  	$scope.seleccionComplic.splice(idx, 1);
+	    	  	$scope.complicacionesElegidas.splice(index, 1)
 	    	}
 	    	// Is newly selected
 	    	else {
 	    	  	$scope.seleccionComplic.push(seleccion.id);
+	    	  	$scope.complicacionesElegidas.push(seleccion)
 	    	}
 	    }else{
 	    	var idx = $scope.seleccionCiru.indexOf(seleccion.id);
 
 	    	// Is currently selected
 	    	if (idx > -1) {
-	    	  $scope.seleccionCiru.splice(idx, 1);
-	    	  $scope.cirugiasElegidas.splice(index,1);
-	    	  $scope.entrada.mininv.splice(index,1);
+				$scope.seleccionCiru.splice(idx, 1);
+				$scope.cirugiasElegidas.splice(index,1);
+				//$scope.entrada.mininv.splice(index,1);
 	    	}
 
 	    	// Is newly selected
 	    	else {
-	    	  $scope.seleccionCiru.push(seleccion.id);
-	    	  Materialize.toast(adminserv.getNameById('cirugia',seleccion.id, true), 900, 'rounded');
-	    	  $scope.cirugiasElegidas.push(seleccion)
-	    	  $scope.entrada.mininv.push(false);
-	    	  // $scope.cirugias.splice(index, 1);
-	    	  // $scope.cirugias.unshift(seleccion);
+	    		seleccion.mininv = false;
+	    		seleccion.conv = false;
+				$scope.seleccionCiru.push(seleccion.id);
+				$scope.cirugiasElegidas.push(seleccion)
+				//$scope.entrada.mininv.push(false);
+				// $scope.cirugias.splice(index, 1);
+				// $scope.cirugias.unshift(seleccion);
 	    	}
 	    	$scope.filtroCirugias = "";
 	    	//$( "#filtroCirugias" ).focus();
 	    };
 	    $.material.init();
 	};
+	$scope.openModal = function(cirugia){
+		$scope.cirugiaMod = cirugia;
+		$('#modalMininv').modal('show')
+	}
+	$scope.toggleCaracteristica = function(caracteristica, cirugia){
+		switch(caracteristica){
+			case "mininv":
+				cirugia.mininv = !cirugia.mininv;
+				break;
+			case "conv":
+				cirugia.conv = !cirugia.conv;
+				break;
+		}
+	}
 	$scope.preview = function (){
 		console.log($scope.entrada)
 	}
