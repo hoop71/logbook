@@ -109,7 +109,7 @@
                                             <th>Complicaiones</th>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="entrada in entradas" ng-if="entradas.length>0">
+                                            <tr ng-repeat="(key, entrada) in entradas | filter: filtroEntradas | orderBy: orderFcn:true | limitTo: 50" ng-if="entradas.length>0">
                                                 <td>{{adminserv.getNameById('cirugia',entrada.cirugia[0].id, true)}}</td>
                                                 <td>{{entrada.nombrePaciente}}</td>
                                                 <td>{{entrada.identificacion}}</td>

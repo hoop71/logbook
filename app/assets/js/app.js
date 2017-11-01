@@ -4,6 +4,7 @@
 var logbookweb = angular.module('logbookweb', [
     'ui.router',
     'firebase',
+    'socialbase.sweetAlert',
     'logbookweb.login',
     'logbookweb.signup',
     'logbookweb.dashboard',

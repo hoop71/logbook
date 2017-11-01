@@ -27,7 +27,7 @@ angular.module('logbookweb.entry', ['ui.router'])
 
 
 
-.controller('entryCtrl', ['$scope','$state', 'adminserv', 'MENU_ITEMS', function($scope, $state, adminserv, MENU_ITEMS) {
+.controller('entryCtrl', ['$scope','$state', 'adminserv', 'MENU_ITEMS', 'firebase', '$firebaseObject', '$firebaseArray', 'SweetAlert', function($scope, $state, adminserv, MENU_ITEMS, firebase, $firebaseObject, $firebaseArray, SweetAlert) {
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
 	$scope.menuItems[2].class="active"
 
@@ -78,6 +78,30 @@ angular.module('logbookweb.entry', ['ui.router'])
 		$scope.complicaciones = adminserv.getSelectInfo('complicaciones');
 		$scope.profesores = adminserv.getSelectInfo('profesores');
 		$.material.init();
+	})
+	var userId = adminserv.getUser();
+
+	var refUsuario = firebase.database().ref('users/'+userId);
+	var objUsuario = $firebaseObject(refUsuario);
+	var fechainicio = new Date();
+	objUsuario.$loaded().then(function(){
+		// $scope.lugares = adminserv.getSelectInfo('lugares');
+		// $scope.rotaciones = adminserv.getSelectInfo('rotaciones');
+		// $scope.diagnosticos = adminserv.getSelectInfo('diagnosticos');
+		// $scope.cirugias = adminserv.getSelectInfo('cirugias');
+		// $scope.complicaciones = adminserv.getSelectInfo('complicaciones');
+		// $scope.profesores = adminserv.getSelectInfo('profesores');
+		fechainicio = new Date(objUsuario.fechainicio);
+		if (objUsuario.cirugiasRecientes) {
+			objUsuario.cirugiasRecientes.forEach(function(entryRec){
+				$scope.cirugiasRecientes.push(adminserv.searchById($scope.cirugias, entryRec)) 
+			})
+		};
+		if (objUsuario.diagnosticosRecientes) {
+			objUsuario.diagnosticosRecientes.forEach(function(entryRec){
+				$scope.diagnosticosRecientes.push(adminserv.searchById($scope.diagnosticos, entryRec)) 
+			})
+		};
 	})
 
 	$scope.changeToStep = function(step){
@@ -161,7 +185,82 @@ angular.module('logbookweb.entry', ['ui.router'])
 				break;
 		}
 	}
+	$scope.setConditional = function(variable, valor){
+		switch(variable){
+			case "feeling":
+				$scope.entrada.opcionales.feeling = valor;
+				break;
+			case "tipoCir":
+				$scope.entrada.tipoCir = valor;
+				break;
+			case "rol":
+				$scope.entrada.rol = valor;
+				break;
+		}
+		
+	}
 	$scope.preview = function (){
+		
+		console.log("trying")
+		$scope.cargando = true;
+		$scope.entrada.diagnostico = $scope.seleccionDiag;
+		$scope.entrada.cirugia = [];
+		if ($scope.entrada.profesor && $scope.cirugiasElegidas.length>0 && $scope.entrada.diagnostico.length>0 && $scope.entrada.lugar && $scope.entrada.identificacion && $scope.entrada.rol && $scope.entrada.rotacion && $scope.entrada.tipoCir) {
+			//agregarRecientes();
+			$scope.seleccionCiru.forEach(function(entry, index){
+				$scope.entrada.cirugia[index] = {
+					'id': entry,
+					'mininv': $scope.cirugiasElegidas[index].mininv,
+					'conv': $scope.cirugiasElegidas[index].conv
+				}
+			});
+			if ($scope.seleccionComplic.length>0) {
+				$scope.entrada.complicaciones = $scope.seleccionComplic;
+			};
+			$scope.entrada.anores = Math.ceil(($scope.entrada.fecha - fechainicio)/31536000000);
+			$scope.entrada.fecha = $scope.entrada.fecha.toString();
+			$scope.entrada.especialidad = 1;
+
+			var refEntradas = firebase.database().ref('entradas/'+userId);
+			var listEntradas = $firebaseArray(refEntradas);
+			listEntradas.$add($scope.entrada).then(function(result){
+				
+				
+				// if(objeserv.agregarEntrada(objUsuario, $scope.entrada, result.key)){
+				// 	objUsuario.$save().then(function(){
+				// 		Materialize.toast('la entrada se agregó a al menos un objetivo!', 3000, 'rounded')
+				// 	}).catch(function(){})
+					
+				// }
+				$scope.cargando = false;
+				SweetAlert.swal({
+					type: 'success',
+					text: 'La entrada se agregó exitosamente!'
+				}).then(function (response) {
+					$state.go('table')
+				})
+				
+			}).catch(function(error){
+				$scope.cargando = false;
+				console.log(error)
+				Materialize.toast('Error. La entrada no se ha guardado.', 3000, 'rounded')
+			})
+		}else{
+			$scope.cargando = false;
+			var faltan = "Te falta llenar los campos: ";
+			if (!$scope.entrada.profesor) {faltan = faltan+"Profesor, "};
+			if ($scope.entrada.cirugia.length<=0) {faltan = faltan+"Cirugias, "};
+			if ($scope.entrada.diagnostico.length<=0) {faltan = faltan+"Diagnósticos, "};
+			if (!$scope.entrada.lugar) {faltan = faltan+"Lugar, "};
+			if (!$scope.entrada.rotacion) {faltan = faltan+"Rotación, "};
+			if (!$scope.entrada.identificacion) {faltan = faltan+"Identificación del paciente, "};
+			if (!$scope.entrada.rol) {faltan = faltan+"Tu rol en la cirugía, "};
+			if (!$scope.entrada.tipoCir) {faltan = faltan+"El tipo de la cirugía, "};
+			SweetAlert.swal({
+				type: 'warning',
+				text: faltan
+			})
+		}
 		console.log($scope.entrada)
 	}
 }])

@@ -51,4 +51,24 @@ angular.module('logbookweb.table', ['ui.router'])
     	$scope.entradas = listEntradas;
     	console.log($scope.entradas.length)
     })
+    
+    $scope.ordernarPor = function(filtro){
+    	switch(filtro){
+    		case 'fecha':
+    			$scope.orderFcn = $scope.orderByDate;
+    			$scope.activo = [false, 'active'];
+    			break;
+    		default:
+    			$scope.orderFcn = "";
+    			$scope.activo = ['active', false];
+    			break;
+    	}
+    }
+
+    $scope.orderByDate = function(item) {
+        var date = new Date(item.fecha);
+
+        return date;
+    };
+    $scope.orderFcn = $scope.orderByDate;
 }])
