@@ -10,7 +10,8 @@ var logbookweb = angular.module('logbookweb', [
     'logbookweb.dashboard',
     'logbookweb.table',
     'logbookweb.profile',
-    'logbookweb.entry'
+    'logbookweb.entry',
+    'logbookweb.detail'
 
 
     ]);

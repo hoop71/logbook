@@ -258,7 +258,10 @@ angular.module('logbookweb.entry', ['ui.router'])
 			if (!$scope.entrada.tipoCir) {faltan = faltan+"El tipo de la cirugía, "};
 			SweetAlert.swal({
 				type: 'warning',
-				text: faltan
+				text: faltan,
+				onOpen: function () {
+				    swal.showLoading()
+				  }
 			})
 		}
 		console.log($scope.entrada)

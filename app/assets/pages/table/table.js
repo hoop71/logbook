@@ -70,5 +70,11 @@ angular.module('logbookweb.table', ['ui.router'])
 
         return date;
     };
+
     $scope.orderFcn = $scope.orderByDate;
+
+    $scope.verEntrada = function(entradaId){
+    	adminserv.setSeleccion(entradaId);
+    	$state.go('detail')
+    }
 }])
