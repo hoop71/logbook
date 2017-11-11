@@ -18,17 +18,17 @@ var logbookweb = angular.module('logbookweb', [
 
 logbookweb.config(function($stateProvider, $urlRouterProvider) {
     
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/perfil');
 
   	
         
 });
 
-logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','constCirugias','constEspecialidades', 'constUniversidades', 'constDirectrices', 'constDiagnosticos', function($firebaseArray,$rootScope,Auth, $http, constCirugias, constEspecialidades, constUniversidades, constDirectrices, constDiagnosticos) {
+logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','constCirugias','constEspecialidades', 'constUniversidades', 'constDirectrices', 'constDiagnosticos', 'constIconos', function($firebaseArray,$rootScope,Auth, $http, constCirugias, constEspecialidades, constUniversidades, constDirectrices, constDiagnosticos, constIconos) {
   $rootScope.constantsLoaded = false;
   var entradas = [];
   //var datosAnestesia = datosAnestesia;
-  var entradaSeleccionada = null;
+  var entradaSeleccionada = "-KoE6_-sAZdMn5apKbQp"; //ojo poner esto a null al finalizar pruebas!!!
   var user = '';
   var dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
   var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -36,7 +36,7 @@ logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','co
   
   var myServ = this;
 
-  // var iconos = constIconos;
+  var iconos = constIconos;
   
   
   var diagnosticos = constDiagnosticos;
@@ -195,6 +195,8 @@ logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','co
           }
       },
       getNameById: function(constante, id, largo){
+        if (id && $rootScope.constantsLoaded) {
+
           switch(constante){
               case 'lugar':
                   if (largo) {
@@ -288,8 +290,13 @@ logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','co
                   };
                   break;
           }
+        }else{
+          return null;
+        }
+          
       },
       getIconById: function(tipo, id){
+        if (id) {
           switch(tipo){
               case 'rol':
                   return searchById(iconos.rol, id).url;
@@ -304,6 +311,10 @@ logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','co
                   return searchById(iconos.asa, id).url;
                   break;
           }
+        }else{
+          return null;
+        }
+          
       },
       searchById: function(array, id){
           for(var entry of array){

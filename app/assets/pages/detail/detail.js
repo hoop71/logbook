@@ -14,13 +14,27 @@ angular.module('logbookweb.detail', ['ui.router'])
 
 
 
-.controller('detailCtrl', ['adminserv','$scope','$state','$rootScope','$firebaseObject', function(adminserv, $scope, $state, $rootScope, $firebaseObject) {
+.controller('detailCtrl', ['adminserv','$scope','$state','$rootScope','$firebaseObject', 'MENU_ITEMS', function(adminserv, $scope, $state, $rootScope, $firebaseObject, MENU_ITEMS) {
 	
 	if (!adminserv.getSeleccion()) {
 		$state.go('perfil');
 	};
 
+	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
+	$scope.menuItems[1].class="active"
+
 	$scope.adminserv = adminserv;
+
+	var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+
+	if (isWindows) {
+	    // if we are on windows OS we activate the perfectScrollbar function
+	    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+	    $('html').addClass('perfect-scrollbar-on');
+	} else {
+	    $('html').addClass('perfect-scrollbar-off');
+	}
 
 	//LLAMO DATOS DEL USUARIO
 	var userId = adminserv.getUser();
