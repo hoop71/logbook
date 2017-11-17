@@ -43,3 +43,7 @@
     	transform: rotate(-360deg);
     }
 }
+
+.ct-char {
+    stroke-width: 60px
+}

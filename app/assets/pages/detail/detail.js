@@ -17,7 +17,7 @@ angular.module('logbookweb.detail', ['ui.router'])
 .controller('detailCtrl', ['adminserv','$scope','$state','$rootScope','$firebaseObject', 'MENU_ITEMS', function(adminserv, $scope, $state, $rootScope, $firebaseObject, MENU_ITEMS) {
 	
 	if (!adminserv.getSeleccion()) {
-		$state.go('perfil');
+		$state.go('profile');
 	};
 
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
@@ -51,9 +51,6 @@ angular.module('logbookweb.detail', ['ui.router'])
 	$scope.diagnosticos = adminserv.getSelectInfo('diagnosticos');
 	$scope.cirugias = adminserv.getSelectInfo('cirugias');
 	$scope.profesores = adminserv.getSelectInfo('profesores');
-	// $http.get("js/diagnosticos.js").then(function(data) {
-	//     $scope.diagjson  = data.data;
-	// })
 	var seleccion = adminserv.getSeleccion();
 	var refEntrada = firebase.database().ref('entradas/'+userId+'/'+seleccion);
 	var objEntrada = $firebaseObject(refEntrada);

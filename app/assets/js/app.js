@@ -28,7 +28,8 @@ logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','co
   $rootScope.constantsLoaded = false;
   var entradas = [];
   //var datosAnestesia = datosAnestesia;
-  var entradaSeleccionada = "-KoE6_-sAZdMn5apKbQp"; //ojo poner esto a null al finalizar pruebas!!!
+  var entradaSeleccionada = "-KoE6_-sAZdMn5apKbQp"; //esto es para hacer pruebas en detail!!!
+  //var entradaSeleccionada = null; //esto para cuando esté listo!!!
   var user = '';
   var dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
   var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -135,203 +136,215 @@ logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','co
     getSeleccion: function(){
       return entradaSeleccionada;
     },
-      getUser: function() {
-          if(user==''){
-              user = localStorage.getItem("userKey");
-          }
-          return user;
-      },
-      setUser: function(userKey) {
-          localStorage.setItem("userKey", userKey)
-          user = userKey;
-      },
-      getEspecialidad: function(){
-          return localStorage.getItem("especialidad");
-      },
-      setEspecialidad: function(especialidad){
-          localStorage.setItem("especialidad", especialidad);
-      },
-      logoutUser: function(){
-          Auth.$signOut();
-          user = '';
-          localStorage.removeItem('userKey');
-          localStorage.removeItem('especialidad');
-      },
-      getDia: function(dia){
-          return dias[dia];
-      },
-      getMes: function(mes){
-          return meses[mes];
-      },
-      setDatosCondicionales: function(especialidad){
-          crearModelo(1,parseInt(especialidad));
-      },
-      getSelectInfo: function(campo){
-          switch(campo){
-              case 'lugares':
-                  return lugares;
-                  break;
-              case 'rotaciones':
-                  return rotaciones;
-                  break;
-              case 'diagnosticos':
-                  return diagnosticos;
-                  break;
-              case 'cirugias':
-                  return cirugias;
-                  break;
-              case 'datosAnestesia':
-                  return datosAnestesia;
-                  break;
-              case 'complicaciones':
-                  return complicaciones;
-                  break;
-              case 'especialidades':
-                  return especialidades;
-                  break; 
-              case 'profesores':
-                  return profesores;
-                  break;        
-          }
-      },
-      getNameById: function(constante, id, largo){
-        if (id && $rootScope.constantsLoaded) {
+    getUser: function() {
+        if(user==''){
+            user = localStorage.getItem("userKey");
+        }
+        return user;
+    },
+    setUser: function(userKey) {
+        localStorage.setItem("userKey", userKey)
+        user = userKey;
+    },
+    getEspecialidad: function(){
+        return localStorage.getItem("especialidad");
+    },
+    setEspecialidad: function(especialidad){
+        localStorage.setItem("especialidad", especialidad);
+    },
+    logoutUser: function(){
+        Auth.$signOut();
+        user = '';
+        localStorage.removeItem('userKey');
+        localStorage.removeItem('especialidad');
+    },
+    getDia: function(dia){
+        return dias[dia];
+    },
+    getMes: function(mes){
+        return meses[mes];
+    },
+    setDatosCondicionales: function(especialidad){
+        crearModelo(1,parseInt(especialidad));
+    },
+    getSelectInfo: function(campo){
+        switch(campo){
+            case 'lugares':
+                return lugares;
+                break;
+            case 'rotaciones':
+                return rotaciones;
+                break;
+            case 'diagnosticos':
+                return diagnosticos;
+                break;
+            case 'cirugias':
+                return cirugias;
+                break;
+            case 'datosAnestesia':
+                return datosAnestesia;
+                break;
+            case 'complicaciones':
+                return complicaciones;
+                break;
+            case 'especialidades':
+                return especialidades;
+                break; 
+            case 'profesores':
+                return profesores;
+                break;        
+        }
+    },
+    getNameById: function(constante, id, largo){
+      if (id && $rootScope.constantsLoaded) {
 
-          switch(constante){
-              case 'lugar':
-                  if (largo) {
-                      return searchById(lugares, id).nombreLargo;
-                  }else{
-                      return searchById(lugares, id).nombreCorto;
-                  };
-                  break;  
-              case 'rotacion':
-                  if (largo) {
-                      return searchById(rotaciones, id).nombreLargo;
-                  }else{
-                      return searchById(rotaciones, id).nombreCorto;
-                  };
-                  break;
-              case 'diagnostico':
-                  if (largo) {
-                      return searchById(diagnosticos, id).nombreLargo;
-                  }else{
-                      return searchById(diagnosticos, id).nombreCorto;
-                  };
-                  break;
-              case 'cirugia':
-                  if (largo) {
-                      return searchById(cirugias, id).nombreLargo;
-                  }else{
-                      return searchById(cirugias, id).nombreCorto;
-                  };
-                  break;
-              case 'complicacion':
-                  if (largo) {
-                      return searchById(complicaciones, id).nombreLargo;
-                  }else{
-                      return searchById(complicaciones, id).nombreCorto;
-                  };
-                  break;
-              case 'rol':
-                  if (largo) {
-                      return searchById(iconos.rol, id).nombreLargo;
-                  }else{
-                      return searchById(iconos.rol, id).nombreCorto;
-                  };
-                  break;
-              case 'tipo':
-                  if (largo) {
-                      return searchById(iconos.tipo, id).nombreLargo;
-                  }else{
-                      return searchById(iconos.tipo, id).nombreCorto;
-                  };
-                  break;
-              case 'feeling':
-                  if (largo) {
-                      return searchById(iconos.feeling, id).nombreLargo;
-                  }else{
-                      return searchById(iconos.feeling, id).nombreCorto;
-                  };
-                  break;
-              case 'especialidad':
-                  if (largo) {
-                      return searchById(especialidades, id).nombreLargo;
-                  }else{
-                      return searchById(especialidades, id).nombreCorto;
-                  };
-                  break;
-              case 'universidad':
-                  if (largo) {
-                      return searchById(universidades, id).nombreLargo;
-                  }else{
-                      return searchById(universidades, id).nombreCorto;
-                  };
-                  break;
-              case 'nodo0':
-                  if (largo) {
-                      return searchById(datosAnestesia[0], id).nombreLargo;
-                  }else{
-                      return searchById(datosAnestesia[0], id).nombreCorto;
-                  };
-                  break;
-              case 'profesor':
-                  if (largo) {
-                      return searchById(profesores, id).nombreLargo;
-                  }else{
-                      return searchById(profesores, id).nombreCorto;
-                  };
-                  break;
-              case 'mes':
-                  if (largo) {
-                      return meses[id];
-                  }else{
-                      return meses[id];
-                  };
-                  break;
-          }
-        }else{
-          return null;
+        switch(constante){
+            case 'lugar':
+                if (largo) {
+                    return searchById(lugares, id).nombreLargo;
+                }else{
+                    return searchById(lugares, id).nombreCorto;
+                };
+                break;  
+            case 'rotacion':
+                if (largo) {
+                    return searchById(rotaciones, id).nombreLargo;
+                }else{
+                    return searchById(rotaciones, id).nombreCorto;
+                };
+                break;
+            case 'diagnostico':
+                if (largo) {
+                    return searchById(diagnosticos, id).nombreLargo;
+                }else{
+                    return searchById(diagnosticos, id).nombreCorto;
+                };
+                break;
+            case 'cirugia':
+                if (largo) {
+                    return searchById(cirugias, id).nombreLargo;
+                }else{
+                    return searchById(cirugias, id).nombreCorto;
+                };
+                break;
+            case 'complicacion':
+                if (largo) {
+                    return searchById(complicaciones, id).nombreLargo;
+                }else{
+                    return searchById(complicaciones, id).nombreCorto;
+                };
+                break;
+            case 'rol':
+                if (largo) {
+                    return searchById(iconos.rol, id).nombreLargo;
+                }else{
+                    return searchById(iconos.rol, id).nombreCorto;
+                };
+                break;
+            case 'tipo':
+                if (largo) {
+                    return searchById(iconos.tipo, id).nombreLargo;
+                }else{
+                    return searchById(iconos.tipo, id).nombreCorto;
+                };
+                break;
+            case 'feeling':
+                if (largo) {
+                    return searchById(iconos.feeling, id).nombreLargo;
+                }else{
+                    return searchById(iconos.feeling, id).nombreCorto;
+                };
+                break;
+            case 'especialidad':
+                if (largo) {
+                    return searchById(especialidades, id).nombreLargo;
+                }else{
+                    return searchById(especialidades, id).nombreCorto;
+                };
+                break;
+            case 'universidad':
+                if (largo) {
+                    return searchById(universidades, id).nombreLargo;
+                }else{
+                    return searchById(universidades, id).nombreCorto;
+                };
+                break;
+            case 'nodo0':
+                if (largo) {
+                    return searchById(datosAnestesia[0], id).nombreLargo;
+                }else{
+                    return searchById(datosAnestesia[0], id).nombreCorto;
+                };
+                break;
+            case 'profesor':
+                if (largo) {
+                    return searchById(profesores, id).nombreLargo;
+                }else{
+                    return searchById(profesores, id).nombreCorto;
+                };
+                break;
+            case 'mes':
+                if (largo) {
+                    return meses[id];
+                }else{
+                    return meses[id];
+                };
+                break;
         }
-          
-      },
-      getIconById: function(tipo, id){
-        if (id) {
-          switch(tipo){
-              case 'rol':
-                  return searchById(iconos.rol, id).url;
-                  break;
-              case 'tipo':
-                  return searchById(iconos.tipo, id).url;
-                  break;
-              case 'feeling':
-                  return searchById(iconos.feeling, id).url;
-                  break;
-              case 'asa':
-                  return searchById(iconos.asa, id).url;
-                  break;
-          }
-        }else{
-          return null;
-        }
-          
-      },
-      searchById: function(array, id){
-          for(var entry of array){
-              if (entry.id == parseInt(id)) {
-                  return entry;
-                  break;
-              };
-          }  
-      },
-      interpretarFecha: function(fechaStr){
-          var laFecha = new Date(fechaStr)
-          var ano = laFecha.getFullYear();
-          var mes = meses[laFecha.getMonth()];
-          var dia = laFecha.getDate();
-          var nombreDia = dias[laFecha.getDay()];
-          return nombreDia + " " + mes + " " + dia + " de " + ano;
+      }else{
+        return null;
       }
+        
+    },
+    getIconById: function(tipo, id){
+      if (id) {
+        switch(tipo){
+            case 'rol':
+                return searchById(iconos.rol, id).url;
+                break;
+            case 'tipo':
+                return searchById(iconos.tipo, id).url;
+                break;
+            case 'feeling':
+                return searchById(iconos.feeling, id).url;
+                break;
+            case 'asa':
+                return searchById(iconos.asa, id).url;
+                break;
+        }
+      }else{
+        return null;
+      }
+        
+    },
+    searchById: function(array, id){
+        for(var entry of array){
+            if (entry.id == parseInt(id)) {
+                return entry;
+                break;
+            };
+        }  
+    },
+    interpretarFecha: function(fechaStr){
+        var laFecha = new Date(fechaStr)
+        var ano = laFecha.getFullYear();
+        var mes = meses[laFecha.getMonth()];
+        var dia = laFecha.getDate();
+        var nombreDia = dias[laFecha.getDay()];
+        return nombreDia + " " + mes + " " + dia + " de " + ano;
+    },
+    interpretarFechaShort: function(fechaStr){
+      var laFecha = new Date(fechaStr)
+      var ano = laFecha.getFullYear();
+      var mes = meses[laFecha.getMonth()];
+      var dia = laFecha.getDate();
+      return dia + '/' + mes + '/' + ano
+    },
+    getAnores: function(initDate, targetDate){
+      var dateInit = new Date(initDate);
+      var dateTarget = new Date(targetDate)
+      return Math.ceil((dateTarget - dateInit)/31536000000);
+    }
   };
 }]);
 

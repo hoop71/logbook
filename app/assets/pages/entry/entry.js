@@ -47,7 +47,7 @@ angular.module('logbookweb.entry', ['ui.router'])
 
 	$('#modalMininv').modal({
 		show: false
-	})
+	}) 
 	
 	var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 

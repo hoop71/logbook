@@ -1,6 +1,7 @@
 type = ['', 'info', 'success', 'warning', 'danger'];
 
 
+
 demo = {
     initPickColor: function() {
         $('.pick-class-label').click(function() {
@@ -42,7 +43,8 @@ demo = {
 
         var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
 
-        md.startAnimationForLineChart(dailySalesChart);
+        
+        //md.startAnimationForLineChart(dailySalesChart);
     },
 
     initDashboardPageCharts: function() {
@@ -61,18 +63,20 @@ demo = {
                 tension: 0
             }),
             low: 0,
-            high: 130, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+            high: 30, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
             chartPadding: {
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0
+                top: 20,
+                right: 5,
+                bottom: 5,
+                left: 5
             },
         }
 
-        var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+        //var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
 
-        md.startAnimationForLineChart(dailySalesChart);
+
+
+        //md.startAnimationForLineChart(dailySalesChart);
 
 
 
@@ -102,7 +106,7 @@ demo = {
         var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
 
         // start animation for the Completed Tasks Chart - Line Chart
-        md.startAnimationForLineChart(completedTasksChart);
+        //md.startAnimationForLineChart(completedTasksChart);
 
 
 
@@ -143,7 +147,7 @@ demo = {
         var emailsSubscriptionChart = Chartist.Bar('#emailsSubscriptionChart', dataEmailsSubscriptionChart, optionsEmailsSubscriptionChart, responsiveOptions);
 
         //start animation for the Emails Subscription Chart
-        md.startAnimationForBarChart(emailsSubscriptionChart);
+        //md.startAnimationForBarChart(emailsSubscriptionChart);
 
     },
 
