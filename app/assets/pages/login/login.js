@@ -12,12 +12,28 @@ angular.module('logbookweb.login', ['ui.router'])
 		controller: 'loginCtrl',
 		resolve: {
 
-			'checkUser': ['adminserv', '$state', function(adminserv, $stateProvider) {
-				if (adminserv.getUser()) {
-					$state.go('profile');
-				}else{
-					return true;
-				}
+			// 'currentAuth': ['Auth', function(Auth) {
+			// 	// $requireSignIn returns a promise so the resolve waits for it to complete
+			// 	// If the promise is rejected, it will throw a $stateChangeError (see above)
+			// 	console.log("trying")
+			// 	return Auth.$requireSignIn();
+			// }]
+			'checkUser': ['adminserv', '$state', 'firebase', function(adminserv, $state, firebase) {
+				// if (adminserv.getUser()) {
+				// 	$state.go('profile');
+				// }else{
+				// 	return true;
+				// }
+				firebase.auth().onAuthStateChanged(function(user) {
+					console.log(user)
+					if (user) {
+						$state.go('profile')
+					// User is signed in.
+					} else {
+						return true;
+					// No user is signed in.
+					}
+				});
 			}]
 		}
 	})
@@ -26,7 +42,7 @@ angular.module('logbookweb.login', ['ui.router'])
 
 
 
-.controller('loginCtrl', ['$scope','$state','adminserv','Auth','$firebaseArray', function($scope, $state, adminserv, Auth, $firebaseArray) {
+.controller('loginCtrl', ['$scope','$state','adminserv','Auth','$firebaseArray', 'errorHandler', 'SweetAlert', function($scope, $state, adminserv, Auth, $firebaseArray, errorHandler, SweetAlert) {
 	// CSS initializations
 	$.material.init();
 	//$scope.user = {}
@@ -50,6 +66,11 @@ angular.module('logbookweb.login', ['ui.router'])
 				$scope.cargando = false;
 		    	$scope.error = error;
 		    	console.log(error);
+		    	var errorMessage = errorHandler.getErrorMessage(error.code);
+		    	SweetAlert.swal({
+		    		type: 'error',
+		    		text: errorMessage
+		    	})
 		    	//Materialize.toast('Usuario o contraseña no válido', 3000, 'rounded')
 		    	//swal('Any fool can use a computer')
 		    })

@@ -18,7 +18,7 @@ var logbookweb = angular.module('logbookweb', [
 
 logbookweb.config(function($stateProvider, $urlRouterProvider) {
     
-    $urlRouterProvider.otherwise('/perfil');
+    $urlRouterProvider.otherwise('/login');
 
   	
         

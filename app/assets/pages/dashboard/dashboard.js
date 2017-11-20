@@ -17,7 +17,7 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 			'currentAuth': ['Auth', function(Auth) {
 				// $requireSignIn returns a promise so the resolve waits for it to complete
 				// If the promise is rejected, it will throw a $stateChangeError (see above)
-			
+				console.log("dash")
 				return Auth.$requireSignIn();
 			}]
 		}
