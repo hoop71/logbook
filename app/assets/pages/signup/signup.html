@@ -20,7 +20,7 @@
 											<i class="material-icons">person_outline</i>
 										</span>
 										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Primer Nombre..." required>
+											<input type="text" class="form-control" placeholder="Tu Nombre..." required ng-model="user.nombre">
 										</div>
 									</div>
 
@@ -29,7 +29,7 @@
 											<i class="material-icons">mail_outline</i>
 										</span>
 										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Correo..." required>
+											<input type="email" class="form-control" placeholder="Correo..." required ng-model="user.email">
 										</div>
 									</div>
 
@@ -38,13 +38,22 @@
 											<i class="material-icons">lock_outline</i>
 										</span>
 										<div class="form-group">
-										<input type="password" placeholder="Contraseña..." class="form-control" required>
+											<input type="password" placeholder="Contraseña (al menos 8 caracteres)" class="form-control" required ng-model="user.password">
+										</div>
 									</div>
-									
+									<div class="input-group">
+										<span class="input-group-addon">
+											<i class="material-icons">school</i>
+										</span>
+									    <select class="form-control form-group dropdown-toggle" id="" required ng-model="user.universidad">
+									    	<option value="" disabled selected>Universidad</option>
+									        <option ng-repeat="universidad in universidades | orderBy:'-nombreLargo':true" id="uni{{universidad.id}}" value="{{universidad.id}}">{{universidad.nombreLargo}}</option>
+									        <option value="-1">Otra</option>
+									    </select>
 									</div>
 								</div>
-								<div class="footer text-center">
-									<a href="user" class="btn btn-simple btn-primary btn-lg">Suscríbete Ya!</a>
+								<div class="footer text-center" ng-show="!cargando">
+									<a ng-click="crearUsuario()" class="btn btn-simple btn-primary btn-lg">Registrarme</a>
 									<div class="row"></div>
 										<div class="col-xs-12">
 											<a href="#!/login" class="btn btn-simple btn-default btn-sm">Ya Tengo Una Cuenta</a>

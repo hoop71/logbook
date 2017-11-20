@@ -11,7 +11,8 @@ var logbookweb = angular.module('logbookweb', [
     'logbookweb.table',
     'logbookweb.profile',
     'logbookweb.entry',
-    'logbookweb.detail'
+    'logbookweb.detail',
+    'logbookweb.error'
 
 
     ]);
@@ -117,10 +118,10 @@ logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','co
       })
   }
   if(localStorage.getItem("especialidad")){
-
-      crearModelo(1, parseInt(localStorage.getItem("especialidad")))
+    if (localStorage.getItem("universidad")) {
+      crearModelo(parseInt(localStorage.getItem("universidad")), parseInt(localStorage.getItem("especialidad")))
+    }
   }
-  //crearModelo(1, 1)
   
 
   return {
@@ -152,6 +153,9 @@ logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','co
     setEspecialidad: function(especialidad){
         localStorage.setItem("especialidad", especialidad);
     },
+    setUniversidad: function(universidad){
+        localStorage.setItem("universidad", universidad);
+    },
     logoutUser: function(){
         Auth.$signOut();
         user = '';
@@ -164,8 +168,8 @@ logbookweb.service('adminserv',['$firebaseArray','$rootScope','Auth','$http','co
     getMes: function(mes){
         return meses[mes];
     },
-    setDatosCondicionales: function(especialidad){
-        crearModelo(1,parseInt(especialidad));
+    setDatosCondicionales: function(universidad,especialidad){
+        crearModelo(parseInt(universidad),parseInt(especialidad));
     },
     getSelectInfo: function(campo){
         switch(campo){
