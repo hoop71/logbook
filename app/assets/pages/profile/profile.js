@@ -30,9 +30,57 @@ angular.module('logbookweb.profile', ['ui.router'])
 
 
 
-.controller('profileCtrl', ['$scope','$state','MENU_ITEMS', function($scope, $state, MENU_ITEMS) {
-	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
-	$scope.menuItems[3].class="active"
+.controller('profileCtrl', ['$scope','$state','MENU_ITEMS', 'adminserv','$firebaseObject','firebase','SweetAlert', function($scope, $state, MENU_ITEMS, adminserv, $firebaseObject, firebase, SweetAlert) {
 	$.material.init();
-	//js
+	var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
+
+	if (isWindows) {
+	    // if we are on windows OS we activate the perfectScrollbar function
+	    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+	    $('html').addClass('perfect-scrollbar-on');
+	} else {
+	    $('html').addClass('perfect-scrollbar-off');
+	}
+	$scope.adminserv = adminserv;
+	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
+	$scope.menuItems[3].class="active";
+
+	$scope.modoEdit = false;
+
+	$scope.today = new Date();
+	
+
+	var userId = adminserv.getUser();
+
+	var refUsuario = firebase.database().ref('users/'+userId);
+	var objUsuario = $firebaseObject(refUsuario);
+	objUsuario.$loaded().then(function(){
+		$scope.user = objUsuario;
+		$scope.fechainicio = new Date($scope.user.fechainicio);
+		$scope.universidad = adminserv.getNameById('universidad',$scope.user.universidad, true);
+		if (!$scope.user.anores) {
+			$scope.user.anores = adminserv.getAnores($scope.fechainicio, $scope.today);
+		}
+	})
+
+	$scope.editar = function(){
+		$scope.modoEdit = true;
+	}
+
+	$scope.guardar = function(){
+		$scope.user.fechainicio = $scope.fechainicio.toString();
+		$scope.modoEdit = false;
+		console.log($scope.user)
+		$scope.user.$save().then(function(ref) {
+			SweetAlert.swal({
+				type: 'success',
+				text: 'Tu perfil se ha actualizado de manera exitosa!'
+			}).then(function (response) {
+				
+			})
+		}, function(error) {
+		  console.log("Error:", error);
+		});
+	}
 }])

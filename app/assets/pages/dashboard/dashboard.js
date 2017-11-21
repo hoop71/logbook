@@ -28,7 +28,7 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 
 
 
-.controller('dashboardCtrl', ['$scope','$state','adminserv', 'MENU_ITEMS', 'Auth', 'firebase', '$firebaseObject', '$firebaseArray', function($scope, $state, adminserv, MENU_ITEMS, Auth, firebase, $firebaseObject, $firebaseArray) {
+.controller('dashboardCtrl', ['$scope','$state','adminserv', 'MENU_ITEMS', 'Auth', 'firebase', '$firebaseObject', '$firebaseArray','constDirectrices', function($scope, $state, adminserv, MENU_ITEMS, Auth, firebase, $firebaseObject, $firebaseArray, constDirectrices) {
 	//js
 	$.material.init();
 	var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
@@ -110,4 +110,15 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 		adminserv.logoutUser();
 		$state.go('login');
 	}
+	$scope.subirDirectrices = function(){
+		var refDir = firebase.database().ref('constantes/directrices');
+		var listDir = $firebaseArray(refDir);
+		var directrices = constDirectrices
+		listDir.$loaded().then(function(){
+			for (var i = directrices.length - 1; i >= 0; i--) {
+				listDir.$add(directrices[i]);
+			}
+			console.log("listo")
+		})
+	}	
 }])

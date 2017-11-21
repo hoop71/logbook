@@ -92,6 +92,7 @@ angular.module('logbookweb.entry', ['ui.router'])
 		// $scope.complicaciones = adminserv.getSelectInfo('complicaciones');
 		// $scope.profesores = adminserv.getSelectInfo('profesores');
 		fechainicio = new Date(objUsuario.fechainicio);
+		$scope.entrada.anores = objUsuario.anores;
 		if (objUsuario.cirugiasRecientes) {
 			objUsuario.cirugiasRecientes.forEach(function(entryRec){
 				$scope.cirugiasRecientes.push(adminserv.searchById($scope.cirugias, entryRec)) 
@@ -217,7 +218,7 @@ angular.module('logbookweb.entry', ['ui.router'])
 			if ($scope.seleccionComplic.length>0) {
 				$scope.entrada.complicaciones = $scope.seleccionComplic;
 			};
-			$scope.entrada.anores = Math.ceil(($scope.entrada.fecha - fechainicio)/31536000000);
+			//$scope.entrada.anores = Math.ceil(($scope.entrada.fecha - fechainicio)/31536000000);
 			$scope.entrada.fecha = $scope.entrada.fecha.toString();
 			$scope.entrada.especialidad = 1;
 
