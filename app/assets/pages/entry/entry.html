@@ -103,20 +103,6 @@
         <div class="content" ng-show="selectedStep[0]"> 
             <div class="container-fluid">
                 <div class="row">
-                     <div class="col-sm-3">
-                        <div class="card card-stats">
-                            <div class="card-header2 " data-background-color="green">
-                                <i class="material-icons">date_range</i><p>Fecha:</p>
-                            </div>
-                        
-                            <div class="form-control-hover card-footer2">
-                                <div class="form-group card-footer2">
-                                    <input type="date" class="form-control" ng-model="entrada.fecha"/>
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="col-sm-3">
                         <div class="card card-stats">
                             <div class="card-header2 " data-background-color="blue">
@@ -156,6 +142,21 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="card card-stats">
+                            <div class="card-header2 " data-background-color="green">
+                                <i class="material-icons">date_range</i><p>Fecha:</p>
+                            </div>
+                        
+                            <div class="form-control-hover card-footer2">
+                                <div class="form-group card-footer2">
+                                    <input type="date" class="form-control" ng-model="entrada.fecha"/>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-sm-3">
                         <div class="card card-stats">
                             <div class="card-header2" data-background-color="orange">
@@ -172,6 +173,7 @@
                         </div>
                     </div>
                 </div>
+                    
 
 
                 <!-- Datos Pacientes -->
@@ -329,6 +331,9 @@
                             <div class="card-content table-responsive">
                                 <table class="table">
                                     <tbody>
+                                        <tr ng-repeat="(key,diagnosticoRec) in diagnosticosRecientes | filter:filtroDiagnosticos | limitTo: 50" ng-hide="seleccionDiag.indexOf(diagnosticoRec.id) > -1" ng-click="toggleSelection('diagnostico',diagnosticoRec, key)">
+                                            <td>{{diagnosticoRec.nombreLargo}}</td>
+                                        </tr>
                                         <tr ng-repeat="(key,diagnostico) in diagnosticos | filter:filtroDiagnosticos | limitTo: 50" ng-hide="seleccionDiag.indexOf(diagnostico.id) > -1" ng-click="toggleSelection('diagnostico',diagnostico, key)">
                                             <td>{{diagnostico.nombreLargo}}</td>
                                         </tr>
@@ -399,6 +404,9 @@
                             <div class="card-content table-responsive">
                                 <table class="table">
                                     <tbody>
+                                        <tr ng-repeat="(key,cirugiaRec) in cirugiasRecientes | filter:filtroCirugias | limitTo: 50" ng-hide="seleccionCiru.indexOf(cirugiaRec.id) > -1" ng-click="toggleSelection('cirugia',cirugiaRec, key)">
+                                            <td>{{cirugiaRec.nombreLargo}}</td>
+                                        </tr>
                                         <tr ng-repeat="(key,cirugia) in cirugias | filter:filtroCirugias | limitTo: 50" ng-hide="seleccionCiru.indexOf(cirugia.id) > -1" ng-click="toggleSelection('cirugia',cirugia, key)">
                                             <td>{{cirugia.nombreLargo}}</td>
                                         </tr>
@@ -576,7 +584,7 @@
                                 <label class="custom-control custom-radio" >                
                                     <input id="radio7" name="radio" type="radio" class="custom-control-input">
                                     <figure class="figure mx-auto align-middle">
-                                        <img src="./assets/icons/feliz.svg" class="rounded mx-auto" alt="feliz">
+                                        <img src="./assets/icons/muyfeliz.svg" class="rounded mx-auto" alt="feliz">
                                         <figcaption class="text-center figure-caption">Feliz</figcaption>
                                     </figure>                                        
                                 </label>          
@@ -631,15 +639,14 @@
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" name="optionsCheckboxes" ng-checked="cirugiaMod.conv" ng-click="toggleCaracteristica('conv',cirugiaMod)">
-                                Por conversión
+                                Conversión
                             </label>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Listo</button>
             </div>
         </div>
     </div>

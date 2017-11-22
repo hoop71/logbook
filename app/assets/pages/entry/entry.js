@@ -200,6 +200,33 @@ angular.module('logbookweb.entry', ['ui.router'])
 		}
 		
 	}
+
+	var agregarRecientes = function(){
+		if (objUsuario.cirugiasRecientes) {
+			$scope.seleccionCiru.forEach(function(entrySel){
+				if (objUsuario.cirugiasRecientes.indexOf(entrySel)<0) {
+					objUsuario.cirugiasRecientes.push(entrySel)
+				};
+			})
+		}else{
+			objUsuario.cirugiasRecientes = $scope.seleccionCiru;
+		}
+		if (objUsuario.diagnosticosRecientes) {
+			$scope.seleccionDiag.forEach(function(entrySel){
+				if (objUsuario.diagnosticosRecientes.indexOf(entrySel)<0) {
+					objUsuario.diagnosticosRecientes.push(entrySel)
+				};
+			})
+		}else{
+			objUsuario.diagnosticosRecientes = $scope.seleccionDiag;
+		}
+
+
+		objUsuario.$save().then(function(result){
+
+		});
+	}
+
 	$scope.preview = function (){
 		
 		console.log("trying")
@@ -207,7 +234,7 @@ angular.module('logbookweb.entry', ['ui.router'])
 		$scope.entrada.diagnostico = $scope.seleccionDiag;
 		$scope.entrada.cirugia = [];
 		if ($scope.entrada.profesor && $scope.cirugiasElegidas.length>0 && $scope.entrada.diagnostico.length>0 && $scope.entrada.lugar && $scope.entrada.identificacion && $scope.entrada.rol && $scope.entrada.rotacion && $scope.entrada.tipoCir) {
-			//agregarRecientes();
+			agregarRecientes();
 			$scope.seleccionCiru.forEach(function(entry, index){
 				$scope.entrada.cirugia[index] = {
 					'id': entry,

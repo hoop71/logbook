@@ -44,14 +44,45 @@ angular.module('logbookweb.table', ['ui.router'])
 	}
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
 	$scope.menuItems[1].class="active"
-	console.log(adminserv.getUser())
+	
+	$scope.$on('adminserv:directricesListas', function() {
+		$scope.complicaciones = adminserv.getSelectInfo('complicaciones');
+	})
+
+
 	var refEntradas = firebase.database().ref('entradas/'+adminserv.getUser()).orderByChild("especialidad").equalTo(parseInt('1'));
     var listEntradas = $firebaseArray(refEntradas);
     listEntradas.$loaded().then(function(){
     	$scope.entradas = listEntradas;
     	console.log($scope.entradas.length)
     })
+
+
+    var selectedEntrada = null;
+    $scope.complicacion = function(entrada){
+    	$scope.seleccionComplic = [];
+    	$('#modalCompli').modal('show');
+    	//console.log(listEntradas.$getRecord(entrada.$id))
+    	selectedEntrada = entrada;
+    	if (entrada.complicaciones) {
+    		$scope.seleccionComplic = entrada.complicaciones;
+    	};
+    }
     
+    $scope.toggleSelection = function (seleccion, index) {
+    	var idx = $scope.seleccionComplic.indexOf(seleccion.id);
+
+    	// Is currently selected
+    	if (idx > -1) {
+    	  $scope.seleccionComplic.splice(idx, 1);
+    	}
+
+    	// Is newly selected
+    	else {
+    	  	$scope.seleccionComplic.push(seleccion.id);
+    	}
+    }
+
     $scope.ordernarPor = function(filtro){
     	switch(filtro){
     		case 'fecha':
