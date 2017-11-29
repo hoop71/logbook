@@ -71,7 +71,6 @@ angular.module('logbookweb.profile', ['ui.router'])
 	$scope.guardar = function(){
 		$scope.user.fechainicio = $scope.fechainicio.toString();
 		$scope.modoEdit = false;
-		console.log($scope.user)
 		$scope.user.$save().then(function(ref) {
 			SweetAlert.swal({
 				type: 'success',

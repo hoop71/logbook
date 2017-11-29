@@ -60,6 +60,7 @@ angular.module('logbookweb.table', ['ui.router'])
 
     var selectedEntrada = null;
     $scope.complicacion = function(entrada){
+    	$scope.complicaciones = adminserv.getSelectInfo('complicaciones');
     	//$scope.seleccionComplic = [];
     	$('#modalCompli').modal('show');
     	//console.log(listEntradas.$getRecord(entrada.$id))

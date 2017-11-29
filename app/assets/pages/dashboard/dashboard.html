@@ -36,6 +36,7 @@
                                 <li ng-class="stepClasses[1]"><a ng-click="changeToStep(2)">R1</a></li>
                                 <li ng-class="stepClasses[2]"><a ng-click="changeToStep(3)">R2</a></li>
                                 <li ng-class="stepClasses[3]"><a ng-click="changeToStep(4)">R3</a></li>
+                                <li ng-class="stepClasses[4]"><a ng-click="changeToStep(5)">R4</a></li>
                             </ol>
                         </div>
                     </div>
@@ -95,6 +96,7 @@
 
             <div class="content" ng-show="selectedStep[0]">
                 <div class="container-fluid">
+                    ========
                     <div class="row">
                         <div class="col-lg-4 col-sm-6">
                             <div class="card card-stats">
@@ -431,6 +433,45 @@
                 </div>
             </div>
             <div class="content" ng-show="selectedStep[3]">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="orange">
+                                    <i class="fa fa-heartbeat"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Cirugías Totales</p>
+                                    
+                                    <h3 class="title">{{entriesByYear[3].length}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Desde {{adminserv.interpretarFechaShort(anoresDates[3])}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">date_range</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Promedio de cirugías</p>
+                                    <h3 class="title">{{(entriesByYear[3].length/12).toFixed(2)}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Cirugías al mes
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content" ng-show="selectedStep[4]">
                 AÑO 4
             </div>
             <!-- footer -->

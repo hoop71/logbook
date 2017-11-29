@@ -49,6 +49,8 @@ angular.module('logbookweb.entry', ['ui.router'])
 		show: false
 	}) 
 	
+	$scope.tabShow = ["active", ""];
+
 	var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
 	if (isWindows) {
@@ -172,6 +174,19 @@ angular.module('logbookweb.entry', ['ui.router'])
 	    };
 	    $.material.init();
 	};
+	$scope.changeTab = function(tabName){
+		//$('#'+tabName).tab('show');
+		$scope.tabShow = ["", ""];
+		switch(tabName){
+			case 'opcionales':
+				$scope.tabShow = ["active", ""];
+				break;
+			case 'complicaciones':
+				$scope.tabShow = ["", "active"];
+				break;
+		}
+		$('#opcionales').tab('show')
+	}
 	$scope.openModal = function(cirugia){
 		$scope.cirugiaMod = cirugia;
 		$('#modalMininv').modal('show')
@@ -233,6 +248,8 @@ angular.module('logbookweb.entry', ['ui.router'])
 		$scope.cargando = true;
 		$scope.entrada.diagnostico = $scope.seleccionDiag;
 		$scope.entrada.cirugia = [];
+		var today = new Date();
+		$scope.entrada.fechaIngreso = today.toString();
 		if ($scope.entrada.profesor && $scope.cirugiasElegidas.length>0 && $scope.entrada.diagnostico.length>0 && $scope.entrada.lugar && $scope.entrada.identificacion && $scope.entrada.rol && $scope.entrada.rotacion && $scope.entrada.tipoCir) {
 			agregarRecientes();
 			$scope.seleccionCiru.forEach(function(entry, index){

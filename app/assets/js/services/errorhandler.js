@@ -49,6 +49,18 @@ logbookweb.service('errorHandler', [function(){
 						message: "Debes llenar todos los campos obligatorios."
 					}
 					break;
+				case('EDIT/success'):
+					return{
+						type: "success",
+						message: "La entrada ha sido editada exitosamente"
+					}
+					break;
+				case('EDIT/no-success'):
+					return{
+						type: "error",
+						message: "Hubo un error, por favor intentalo más tarde..."
+					}
+					break;
 				default:
 					return{
 						type: "warning",

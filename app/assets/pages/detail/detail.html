@@ -120,6 +120,11 @@
                                                     <figcaption class="text-center figure-caption">{{adminserv.getNameById('tipo', entrada.tipoCir, true)}}</figcaption>
                                                 </figure> 
                                             </div>
+                                            <select ng-show="modeEdit" class="form-control dropdown-toggle"  ng-model="entrada.tipoCir">
+                                                <option id="tipo1" ng-value=1>Electiva</option>
+                                                <option id="tipo2" ng-value=2>Urgente</option>
+                                                <option id="tipo3" ng-value=3>Emergente</option>
+                                            </select>
                                         </div>
                                         <div class="col-md-3 col-xs-4">
                                             <div class="form-group">
@@ -128,6 +133,11 @@
                                                     <figcaption class="text-center figure-caption">{{adminserv.getNameById('rol', entrada.rol, true)}}</figcaption>
                                                 </figure> 
                                             </div>
+                                            <select ng-show="modeEdit" class="form-control dropdown-toggle"  ng-model="entrada.rol">
+                                                <option id="rol1" ng-value=1>Cirujano</option>
+                                                <option id="rol2" ng-value=2>Primer ayudante</option>
+                                                <option id="rol3" ng-value=3>Segundo ayudante</option>
+                                            </select>
                                         </div>
                                         <div class="col-md-3 col-xs-4" ng-if="entrada.opcionales.feeling">
                                             <div class="form-group label-floating">
@@ -136,23 +146,28 @@
                                                     <figcaption class="text-center figure-caption">{{adminserv.getNameById('feeling', entrada.opcionales.feeling, true)}}</figcaption>
                                                 </figure> 
                                             </div>
+                                            <select ng-show="modeEdit" class="form-control dropdown-toggle"  ng-model="entrada.opcionales.feeling">
+                                                <option id="feel1" ng-value=1>Bien</option>
+                                                <option id="feel2" ng-value=3>Neutral</option>
+                                                <option id="feel3" ng-value=5>Mal</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row justify-content-md-center">
                                         <div class="col-sm-12 col-md-10 text-left">        
                                             <h3 class="title" style="border-bottom: 1px solid grey" ng-show="!modeEdit">{{adminserv.getNameById('lugar',entrada.lugar,true)}}</h3>
-                                            <select class="form-control dropdown-toggle" ng-model="entrada.lugar" ng-show="modeEdit" ng-value="entrada.lugar">
-                                                <option ng-repeat="lugar in lugares" value="{{lugar.id}}">{{lugar.nombreLargo}}</option>
+                                            <select class="form-control dropdown-toggle" ng-model="entrada.lugar" ng-show="modeEdit" >
+                                                <option ng-repeat="lugar in lugares" ng-value="{{lugar.id}}">{{lugar.nombreLargo}}</option>
                                             </select>
                                             <p class="category">Lugar</p>
                                             <h3 class="title" style="border-bottom: 1px solid grey" ng-show="!modeEdit">{{adminserv.getNameById('profesor',entrada.profesor,true)}}</h3>
-                                            <select class="form-control dropdown-toggle" ng-model="entrada.profesor" ng-show="modeEdit" ng-value="entrada.profesor">
-                                                <option ng-repeat="profesor in profesores" value="{{profesor.id}}">{{profesor.nombreLargo}}</option>
+                                            <select class="form-control dropdown-toggle" ng-model="entrada.profesor" ng-show="modeEdit">
+                                                <option ng-repeat="profesor in profesores" ng-value="{{profesor.id}}">{{profesor.nombreLargo}}</option>
                                             </select>
                                             <p class="category">Profesor</p>
                                             <h3 class="title" style="border-bottom: 1px solid grey" ng-show="!modeEdit">{{adminserv.getNameById('rotacion',entrada.rotacion,true)}}</h3>
-                                            <select class="form-control dropdown-toggle" ng-model="entrada.rotacion" ng-show="modeEdit" ng-value="entrada.rotacion">
-                                                <option ng-repeat="rotacion in rotaciones" value="{{rotacion.id}}">{{rotacion.nombreLargo}}</option>
+                                            <select class="form-control dropdown-toggle" ng-model="entrada.rotacion" ng-show="modeEdit" >
+                                                <option ng-repeat="rotacion in rotaciones" ng-value="{{rotacion.id}}">{{rotacion.nombreLargo}}</option>
                                             </select>
                                             <p class="category">Rotación</p>
                                             <h3 class="title" style="border-bottom: 1px solid grey" ng-show="!modeEdit">{{adminserv.interpretarFecha(entrada.fecha)}}</h3>
@@ -163,7 +178,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6">
                                 <div class="card card-stats">
                                     <div class="card-header" data-background-color="blue">
@@ -209,10 +224,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row">
-                            <button type="submit" class="btn btn-info pull-right" ng-click="startEdit()"><i class="material-icons">mode_edit</i></button>
-                            <button type="submit" class="btn btn-info pull-right" onclick="demo.showNotificationDelete('bottom','center')"><i class="material-icons">delete</i></button>
+                            <button type="submit" class="btn btn-info pull-right" ng-click="startEdit()" ng-show="!modeEdit && canEdit"><i class="material-icons">mode_edit</i></button>
+                            <button type="submit" class="btn btn-info pull-right" ng-click="saveEdit()" ng-show="modeEdit"><i class="material-icons">save</i></button>
+                            <button type="submit" class="btn btn-info pull-right"><i class="material-icons">delete</i></button>
                         </div>
                     </div> 
             
@@ -251,38 +267,121 @@
                                     <tbody>
                                         <tr>
                                             <td class="text text-left">Identificación</td>
-                                            <td class="text text-left">{{entrada.nombrePaciente}} - {{entrada.identificacion}}</td>
+                                            <td ng-show="!modeEdit" class="text text-left">{{entrada.nombrePaciente}} - {{entrada.identificacion}}</td>
+                                            <td ng-show="modeEdit" class="text text-left"><input type="text" class="form-control" rows="4" placeholder="iniciales del paciente" ng-model="entrada.nombrePaciente"/> <input type="text" class="form-control" rows="4" placeholder="Identificacion∫" ng-model="entrada.identificacion"/></td>
                                         </tr>
                                         <tr>
                                             <td class="text text-left">Observaciones</td>
-                                            <td class="text text-left">{{entrada.opcionales.observaciones}}</td>
+                                            <td ng-show="!modeEdit" class="text text-left">{{entrada.opcionales.observaciones}}</td>
+                                            <td ng-show="modeEdit" class="text text-left"><input type="text" class="form-control" rows="4" placeholder="Observaciones" ng-model="entrada.opcionales.observaciones"/> </td>
                                         </tr>
-                                        <tr ng-if="entrada.opcionales.incisionCervicotomia">
-                                            <td>Realicé la Cervicotomía</td>
-                                        </tr>
-                                        <tr ng-if="entrada.opcionales.incisionToracotomia">
-                                            <td>Realicé la Toracotomía</td>
-                                        </tr>
-                                        <tr ng-if="entrada.opcionales.incisionLaparotomia">
-                                            <td>Realicé la Laparotomía</td>
-                                        </tr>
-                                        <tr ng-if="entrada.opcionales.cierreCervicotomia">
-                                            <td>Cerré la Cervicotomía</td>
-                                        </tr>
-                                        <tr ng-if="entrada.opcionales.cierreToracotomia">
-                                            <td>Cerré la Toracotomía</td>
-                                        </tr>
-                                        <tr ng-if="entrada.opcionales.cierreLaparotomia">
-                                            <td>Cerré la Laparotomía</td>
-                                        </tr>
-                                        <tr ng-if="entrada.opcionales.anastomosisVisceral">
-                                            <td>Realicé anastomosis visceral</td>
-                                        </tr>
-                                        <tr ng-if="entrada.opcionales.anastomosisVascular">
-                                            <td>Realicé anastomosis vascular</td>
-                                        </tr>
+                                        
                                     </tbody>
                                 </table>
+                                <div class="row" ng-show="!modeEdit">
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.incisionCervicotomia">
+                                        <p>Realicé la Cervicotomía</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.incisionToracotomia">
+                                        <p>Realicé la Toracotomía</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.incisionLaparotomia">
+                                        <p>Realicé la Laparotomía</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.cierreCervicotomia">
+                                        <p>Cerré la Cervicotomía</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.cierreToracotomia">
+                                        <p>Cerré la Toracotomía</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.cierreLaparotomia">
+                                        <p>Cerré la Laparotomía</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.anastomosisVisceral">
+                                        <p>Realicé anastomosis visceral</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.anastomosisVascular">
+                                        <p>Realicé anastomosis vascular</p>
+                                    </div>
+                                </div>
+                                <div class="row" ng-show="modeEdit">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionCervicotomia" ng-checked="entrada.opcionales.incisionCervicotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé la Cervicotomía</td>
+                                                     <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreCervicotomia" ng-checked="entrada.opcionales.cierreCervicotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Cerré la Cervicotomía</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionToracotomia" ng-chekced="entrada.opcionales.incisionToracotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé la Toracotomía</td>
+                                                     <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreToracotomia" ng-checked="entrada.opcionales.cierreToracotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Cerré la Toracotomía</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionLaparotomia" ng-checked="entrada.opcionales.incisionLaparotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé la Laparotomía</td>
+                                                     <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreLaparotomia" ng-checked="entrada.opcionales.cierreLaparotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Cerré la Laparotomía</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.anastomosisVisceral" ng-checked="entrada.opcionales.anastomosisVisceral">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé Anastomosis Visceral</td>
+                                                     <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.anastomosisVascular" ng-checked="entrada.opcionales.anastomosisVascular">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé Anastomosis Vascular</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

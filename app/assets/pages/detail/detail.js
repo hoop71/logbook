@@ -14,7 +14,7 @@ angular.module('logbookweb.detail', ['ui.router'])
 
 
 
-.controller('detailCtrl', ['adminserv','$scope','$state','$rootScope','$firebaseObject', 'MENU_ITEMS', function(adminserv, $scope, $state, $rootScope, $firebaseObject, MENU_ITEMS) {
+.controller('detailCtrl', ['adminserv','$scope','$state','$rootScope','$firebaseObject', 'MENU_ITEMS','errorHandler','SweetAlert', function(adminserv, $scope, $state, $rootScope, $firebaseObject, MENU_ITEMS, errorHandler, SweetAlert) {
 	
 	if (!adminserv.getSeleccion()) {
 		$state.go('profile');
@@ -23,6 +23,7 @@ angular.module('logbookweb.detail', ['ui.router'])
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
 	$scope.menuItems[1].class="active"
 	$scope.modeEdit = false;
+	$scope.canEdit = false;
 
 	$scope.adminserv = adminserv;
 
@@ -55,11 +56,17 @@ angular.module('logbookweb.detail', ['ui.router'])
 	var seleccion = adminserv.getSeleccion();
 	var refEntrada = firebase.database().ref('entradas/'+userId+'/'+seleccion);
 	var objEntrada = $firebaseObject(refEntrada);
-	
+	var today = new Date();
 	$scope.cargando = false;
 	objEntrada.$loaded().then(function(result) {
 		$scope.entrada = result;
 		$scope.entrada.fecha = new Date($scope.entrada.fecha);
+		var daysSince = (today - $scope.entrada.fecha)/86400000;
+		if (daysSince>=60) {
+			$scope.canEdit = false;
+		}else{
+			$scope.canEdit = true;
+		}
 		// interpretarFecha($scope.entrada.fecha);
 		// $scope.seleccionDiag = $scope.entrada.diagnostico;
 		// $scope.seleccionCiru = [];
@@ -71,5 +78,23 @@ angular.module('logbookweb.detail', ['ui.router'])
 
 	$scope.startEdit = function(){
 		$scope.modeEdit = true;
+	}
+	$scope.saveEdit = function(){
+		$scope.entrada.fecha = $scope.entrada.fecha.toString();
+		$scope.entrada.$save().then(function(){
+			var errorMessage = errorHandler.getErrorMessage('EDIT/success');
+			SweetAlert.swal({
+				type: errorMessage.type,
+				text: errorMessage.message
+			})
+			$scope.modeEdit = false;
+		}).catch(function(error) {
+			var errorMessage = errorHandler.getErrorMessage('EDIT/no-success');
+			SweetAlert.swal({
+				type: errorMessage.type,
+				text: errorMessage.message
+			})
+			$scope.modeEdit = false;
+		})
 	}
 }])

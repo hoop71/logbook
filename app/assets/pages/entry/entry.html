@@ -111,7 +111,7 @@
                         
                             <div class="form-control-hover card-footer2">
                                 <select class="form-control dropdown-toggle" id="" required ng-model="entrada.lugar">
-                                    <option ng-repeat="lugar in lugares" value="{{lugar.id}}">{{lugar.nombreLargo}}</option>
+                                    <option ng-repeat="lugar in lugares" ng-value="{{lugar.id}}">{{lugar.nombreLargo}}</option>
                                 </select>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                         
                             <div class="form-control-hover card-footer2">
                                 <select class="form-control dropdown-toggle" id="" required ng-model="entrada.rotacion">
-                                    <option ng-repeat="rotacion in rotaciones" value="{{rotacion.id}}">{{rotacion.nombreLargo}}</option>
+                                    <option ng-repeat="rotacion in rotaciones" ng-value="{{rotacion.id}}">{{rotacion.nombreLargo}}</option>
                                 </select>
                             </div>
                         </div>
@@ -137,7 +137,7 @@
                         
                             <div class="form-control-hover card-footer2">
                                 <select class="form-control dropdown-toggle" id="" required ng-model="entrada.profesor">
-                                    <option ng-repeat="profesor in profesores | orderBy:'-nombreLargo':true" id="prof{{profesor.id}}" value="{{profesor.id}}">{{profesor.nombreLargo}}</option>
+                                    <option ng-repeat="profesor in profesores | orderBy:'-nombreLargo':true" id="prof{{profesor.id}}" ng-value="{{profesor.id}}">{{profesor.nombreLargo}}</option>
                                 </select>
                             </div>
                         </div>
@@ -439,14 +439,14 @@
                                     <div class="nav-tabs-wrapper">
                                         <span class="nav-tabs-title">Datos:</span>
                                         <ul class="nav nav-tabs" data-tabs="tabs">
-                                            <li class="">
-                                                <a href="#opcionales" data-toggle="tab">
+                                            <li class="active">
+                                                <a ng-click="changeTab('opcionales')" role="tab" data-toggle="tab">
                                                     <i class="material-icons">info_outline</i>Opcionales
                                                     <div class="ripple-container"></div>
                                                 </a>
                                             </li>
-                                            <li class="active">
-                                                <a href="#complicaciones" data-toggle="tab">
+                                            <li class="">
+                                                <a ng-click="changeTab('complicaciones')" role="tab" data-toggle="tab">
                                                     <i class="material-icons">warning</i>Complicaciones
                                                     <div class="ripple-container"></div>
                                                 </a>
@@ -456,9 +456,8 @@
                                 </div>
                             </div>
                             <div class="card-content">
-                                <div class="tab-content">
-                                    <!-- Complicaciones --> 
-                                    <div class="tab-pane active" id="opcionales">
+                                <div class="tab-content"> 
+                                    <div class="tab-pane " id="opcionales" role="tabpanel" ng-class="tabShow[0]">
                                         <table class="table">
                                             <tbody>
                                                 <tr>
@@ -536,7 +535,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="tab-pane" id="complicaciones">
+                                    <div class="tab-pane" id="complicaciones" role="tabpanel" ng-class="tabShow[1]">
                                         <!-- Muestro primero los que el usuario ha elegido-->
                                         <div ng-repeat="(key,complicacion) in complicacionesElegidas">
                                             <div class="alert alert-warning">
@@ -602,7 +601,7 @@
                                 <label class="custom-control custom-radio">                
                                     <input id="radio9" name="radio" type="radio" class="custom-control-input">
                                     <figure class="figure mx-auto">
-                                        <img src="./assets/icons/triste.svg" class="rounded mx-auto" alt="triste">
+                                        <img src="./assets/icons/muytriste.svg" class="rounded mx-auto" alt="triste">
                                         <figcaption class="text-center figure-caption">Triste</figcaption>
                                     </figure>
                                 </label>
