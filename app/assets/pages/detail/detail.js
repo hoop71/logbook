@@ -22,6 +22,7 @@ angular.module('logbookweb.detail', ['ui.router'])
 
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
 	$scope.menuItems[1].class="active"
+	$scope.modeEdit = false;
 
 	$scope.adminserv = adminserv;
 
@@ -54,7 +55,7 @@ angular.module('logbookweb.detail', ['ui.router'])
 	var seleccion = adminserv.getSeleccion();
 	var refEntrada = firebase.database().ref('entradas/'+userId+'/'+seleccion);
 	var objEntrada = $firebaseObject(refEntrada);
-	$scope.modoEdit = false;
+	
 	$scope.cargando = false;
 	objEntrada.$loaded().then(function(result) {
 		$scope.entrada = result;
@@ -67,4 +68,8 @@ angular.module('logbookweb.detail', ['ui.router'])
 		// })
 	});
 	$.material.init();
+
+	$scope.startEdit = function(){
+		$scope.modeEdit = true;
+	}
 }])

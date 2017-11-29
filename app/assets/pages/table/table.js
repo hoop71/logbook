@@ -60,27 +60,34 @@ angular.module('logbookweb.table', ['ui.router'])
 
     var selectedEntrada = null;
     $scope.complicacion = function(entrada){
-    	$scope.seleccionComplic = [];
+    	//$scope.seleccionComplic = [];
     	$('#modalCompli').modal('show');
     	//console.log(listEntradas.$getRecord(entrada.$id))
     	selectedEntrada = entrada;
-    	if (entrada.complicaciones) {
-    		$scope.seleccionComplic = entrada.complicaciones;
+    	if (!entrada.complicaciones) {
+            entrada.complicaciones = [];
+    		//$scope.seleccionComplic = entrada.complicaciones;
     	};
+        $scope.seleccionComplic = entrada.complicaciones;
     }
     
     $scope.toggleSelection = function (seleccion, index) {
-    	var idx = $scope.seleccionComplic.indexOf(seleccion.id);
+    	//var idx = $scope.seleccionComplic.indexOf(seleccion);
+        var idx = selectedEntrada.complicaciones.indexOf(seleccion);
 
     	// Is currently selected
     	if (idx > -1) {
-    	  $scope.seleccionComplic.splice(idx, 1);
+    	  //$scope.seleccionComplic.splice(idx, 1);
+          selectedEntrada.complicaciones.splice(idx,1);
     	}
 
     	// Is newly selected
     	else {
-    	  	$scope.seleccionComplic.push(seleccion.id);
+    	  	//$scope.seleccionComplic.push(seleccion);
+            selectedEntrada.complicaciones.push(seleccion)
     	}
+        $scope.entradas.$save(selectedEntrada);
+        $scope.seleccionComplic = selectedEntrada.complicaciones;
     }
 
     $scope.ordernarPor = function(filtro){

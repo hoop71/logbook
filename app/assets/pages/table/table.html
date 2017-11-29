@@ -114,9 +114,9 @@
                                             <td>{{entrada.nombrePaciente}}</td>
                                             <td>{{entrada.identificacion}}</td>
                                             <td>{{adminserv.interpretarFecha(entrada.fecha)}}</td>
-                                            <td ng-if="entrada.complicaciones.length>4" class="text-danger">MUCHO</td>
-                                            <td ng-if="entrada.complicaciones.length<=4 && entrada.complicaciones.length>2" class="text-warning">Algo</td>
-                                            <td ng-if="entrada.complicaciones.length<=2 && entrada.complicaciones.length>=1" class="text-info">Poco</td>
+                                            <td ng-if="entrada.complicaciones.length>4" class="text-danger"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
+                                            <td ng-if="entrada.complicaciones.length<=4 && entrada.complicaciones.length>2" class="text-warning"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
+                                            <td ng-if="entrada.complicaciones.length<=2 && entrada.complicaciones.length>=1" class="text-info"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
                                             <td ng-if="entrada.complicaciones.length==0 || !entrada.complicaciones" class="text-success"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
                                         </tr>
                                     </tbody>
@@ -144,31 +144,37 @@
         </footer>
     </div>
 </div>
+
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalCompli">
   <div class="modal-dialog modal-lg">
-    <div class="modal-content container">
-        <h4>Complicaciones</h4>
-        <p>Selecciona las complicaciones</p>
-        <!-- Muestro primero los que el usuario ha elegido-->
-        <div ng-repeat="(key,complicacion) in seleccionComplic">
-            <div class="alert alert-warning">
-                <div class="container-fluid">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection(complicacion, key)">
-                        <span aria-hidden="true"><i class="material-icons">clear</i></span>
-                    </button>
-                    {{complicacion.nombreLargo}}
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Complicaciones</h4>
+            <p>Selecciona las complicaciones</p>
+        </div>
+        <div class="modal-body">
+            <!-- Muestro primero los que el usuario ha elegido-->
+            <div ng-repeat="(key,complicacionSel) in seleccionComplic">
+                <div class="alert alert-warning">
+                    <div class="container-fluid">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection(complicacionSel, key)">
+                            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                        </button>
+                        {{adminserv.getNameById('complicacion',complicacionSel, true)}}
+                    </div>
                 </div>
             </div>
+            <table class="table">
+                <tbody>
+                    <tr ng-repeat="(key,complicacion) in complicaciones" ng-click="toggleSelection(complicacion.id, key)">
+                        <td>
+                            {{complicacion.nombreLargo}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <table class="table">
-            <tbody>
-                <tr ng-repeat="(key,complicacion) in complicaciones" ng-click="toggleSelection(complicacion, key)">
-                    <td>
-                        {{complicacion.nombreLargo}}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+      
     </div>
   </div>
 </div>

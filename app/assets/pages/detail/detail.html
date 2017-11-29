@@ -109,38 +109,62 @@
                         <div class="row">
                             <div class="card card-stats">
                                 <div class="card-header" data-background-color="blue">
-                                    R{{entrada.anores}}
+                                    <h3>R{{entrada.anores}}</h3> 
                                 </div>
                                 <div class="card-content">
-                                    <div class="col-md-3 col-xs-3">
-                                        <div class="form-group">
-                                            <figure class="figure mx-auto align-middle">
-                                                <img ng-src="{{adminserv.getIconById('tipo',entrada.tipoCir)}}" class="rounded mx-auto" alt="tipo">
-                                                <figcaption class="text-center figure-caption">{{adminserv.getNameById('tipo', entrada.tipoCir, true)}}</figcaption>
-                                            </figure> 
+                                    <div class="row">
+                                        <div class="col-md-3 col-xs-3">
+                                            <div class="form-group">
+                                                <figure class="figure mx-auto align-middle">
+                                                    <img ng-src="{{adminserv.getIconById('tipo',entrada.tipoCir)}}" class="rounded mx-auto" alt="tipo">
+                                                    <figcaption class="text-center figure-caption">{{adminserv.getNameById('tipo', entrada.tipoCir, true)}}</figcaption>
+                                                </figure> 
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xs-4">
+                                            <div class="form-group">
+                                                <figure class="figure mx-auto align-middle">
+                                                    <img ng-src="{{adminserv.getIconById('rol',entrada.rol)}}" class="rounded mx-auto" alt="rol">
+                                                    <figcaption class="text-center figure-caption">{{adminserv.getNameById('rol', entrada.rol, true)}}</figcaption>
+                                                </figure> 
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-xs-4" ng-if="entrada.opcionales.feeling">
+                                            <div class="form-group label-floating">
+                                                <figure class="figure mx-auto align-middle">
+                                                    <img ng-src="{{adminserv.getIconById('feeling',entrada.opcionales.feeling)}}" class="rounded mx-auto" alt="feeling">
+                                                    <figcaption class="text-center figure-caption">{{adminserv.getNameById('feeling', entrada.opcionales.feeling, true)}}</figcaption>
+                                                </figure> 
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="form-group">
-                                            <figure class="figure mx-auto align-middle">
-                                                <img ng-src="{{adminserv.getIconById('rol',entrada.rol)}}" class="rounded mx-auto" alt="rol">
-                                                <figcaption class="text-center figure-caption">{{adminserv.getNameById('rol', entrada.rol, true)}}</figcaption>
-                                            </figure> 
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-xs-4" ng-if="entrada.opcionales.feeling">
-                                        <div class="form-group label-floating">
-                                            <figure class="figure mx-auto align-middle">
-                                                <img ng-src="{{adminserv.getIconById('feeling',entrada.opcionales.feeling)}}" class="rounded mx-auto" alt="feeling">
-                                                <figcaption class="text-center figure-caption">{{adminserv.getNameById('feeling', entrada.opcionales.feeling, true)}}</figcaption>
-                                            </figure> 
-                                        </div>
+                                    <div class="row justify-content-md-center">
+                                        <div class="col-sm-12 col-md-10 text-left">        
+                                            <h3 class="title" style="border-bottom: 1px solid grey" ng-show="!modeEdit">{{adminserv.getNameById('lugar',entrada.lugar,true)}}</h3>
+                                            <select class="form-control dropdown-toggle" ng-model="entrada.lugar" ng-show="modeEdit" ng-value="entrada.lugar">
+                                                <option ng-repeat="lugar in lugares" value="{{lugar.id}}">{{lugar.nombreLargo}}</option>
+                                            </select>
+                                            <p class="category">Lugar</p>
+                                            <h3 class="title" style="border-bottom: 1px solid grey" ng-show="!modeEdit">{{adminserv.getNameById('profesor',entrada.profesor,true)}}</h3>
+                                            <select class="form-control dropdown-toggle" ng-model="entrada.profesor" ng-show="modeEdit" ng-value="entrada.profesor">
+                                                <option ng-repeat="profesor in profesores" value="{{profesor.id}}">{{profesor.nombreLargo}}</option>
+                                            </select>
+                                            <p class="category">Profesor</p>
+                                            <h3 class="title" style="border-bottom: 1px solid grey" ng-show="!modeEdit">{{adminserv.getNameById('rotacion',entrada.rotacion,true)}}</h3>
+                                            <select class="form-control dropdown-toggle" ng-model="entrada.rotacion" ng-show="modeEdit" ng-value="entrada.rotacion">
+                                                <option ng-repeat="rotacion in rotaciones" value="{{rotacion.id}}">{{rotacion.nombreLargo}}</option>
+                                            </select>
+                                            <p class="category">Rotación</p>
+                                            <h3 class="title" style="border-bottom: 1px solid grey" ng-show="!modeEdit">{{adminserv.interpretarFecha(entrada.fecha)}}</h3>
+                                            <input type="date" ng-model="entrada.fecha" ng-show="modeEdit">
+                                            <p class="category">Fecha</p>
+                                        </div> 
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12 col-sm-12 col-lg-6">
+                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6">
                                 <div class="card card-stats">
                                     <div class="card-header" data-background-color="blue">
                                         <i class="material-icons">location_on</i>
@@ -148,10 +172,11 @@
                                     <div class="card-content">
                                         <p class="category">Lugar</p>
                                         <h3 class="title">{{adminserv.getNameById('lugar',entrada.lugar,true)}}</h3>
+                                        <p class="category">lkjdf</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-sm-12 col-lg-6">
+                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6">
                                 <div class="card card-stats">
                                     <div class="card-header" data-background-color="blue">
                                         <i class="material-icons">perm_identity</i>
@@ -162,7 +187,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-sm-12 col-lg-6">
+                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6">
                                 <div class="card card-stats">
                                     <div class="card-header" data-background-color="blue">
                                         <i class="material-icons">swap_horiz</i>
@@ -173,7 +198,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12 col-sm-12 col-lg-6">
+                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6">
                                 <div class="card card-stats">
                                     <div class="card-header" data-background-color="blue">
                                         <i class="material-icons">date_range</i>
@@ -186,13 +211,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type="submit" class="btn btn-info pull-right" onclick="demo.showNotification('bottom','center')"><i class="material-icons">mode_edit</i></button>
+                            <button type="submit" class="btn btn-info pull-right" ng-click="startEdit()"><i class="material-icons">mode_edit</i></button>
                             <button type="submit" class="btn btn-info pull-right" onclick="demo.showNotificationDelete('bottom','center')"><i class="material-icons">delete</i></button>
                         </div>
                     </div> 
             
                     <div class="col-md-5">
-                        <div class="col-md-12 col-sm-12 col-lg-6">
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6">
                             <div class="card">
                                 <div class="card-header" data-background-color="blue">
                                     <h5 class="title">Procedimientos</h5>
@@ -204,7 +229,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 col-sm-12 col-lg-6">
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6">
                             <div class="card">
                                 <div class="card-header" data-background-color="red">
                                     <h5 class="title">Complicaciones</h5>
