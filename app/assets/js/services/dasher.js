@@ -10,12 +10,22 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 		r3: {},
 		r4: {}, 
 	};
+
 	var dataLugar = [];
 	var labelsLugar = [];
+
 	var dataRotacion = [];
 	var labelsRotacion = [];
+
 	var dataTipo = [];
 	var labelsTipo = [];
+
+	var dataDiagnostico = [];
+	var labelsDiagnostico = [];
+
+	var dataCirugia = [];
+	var labelsCirugia = [];
+
 	var today = new Date();
 	function monthDiff(d1, d2) {
 	    var months;
@@ -37,7 +47,9 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 					byLocation: {},
 					byRotation: {},
 					byRole: {},
-					byType: {}
+					byType: {},
+					byDiagnosis:{},
+					byProcedure: {} 
 				},
 				r1: {},
 				r2: {}, 
@@ -54,6 +66,12 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 
     		dataTipo = [];
     		labelsTipo = [];
+
+    		dataDiagnostico = [];
+    		labelsDiagnostico = [];
+
+    		dataCirugia = [];
+    		labelsCirugia = [];
 
     		var registre = false;
 
@@ -106,9 +124,9 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 			 	};
 
 			 	//anido por diagnosticos
-			 	for(var diagnostico in entry.diagnostico){
+			 	for (var i = entry.diagnostico.length - 1; i >= 0; i--) {
 			 		registre = false;
-				 	var nombre = adminserv.getNameById('diagnostico',diagnostico, false);
+				 	var nombre = adminserv.getNameById('diagnostico',entry.diagnostico[i], true);
 				 	labelsDiagnostico.forEach(function(entryR, indR){
 				 	    if (nombre == entryR) {
 				 	        dataDiagnostico[indR]++;
@@ -117,7 +135,23 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 				 	})
 				 	if (!registre) {
 				 	    labelsDiagnostico.push(nombre);
-				 	    dataDiagnostico.push(1); // OJO, AQUI VOY!!! noviembre 30 falta poner todas las variables apenas copie y pegue el codigo
+				 	    dataDiagnostico.push(1); 
+				 	};
+			 	}
+
+			 	//anido por procedimiento
+			 	for (var i = entry.cirugia.length - 1; i >= 0; i--) {
+			 		registre = false;
+				 	var nombre = adminserv.getNameById('cirugia',entry.cirugia[i].id, true);
+				 	labelsCirugia.forEach(function(entryR, indR){
+				 	    if (nombre == entryR) {
+				 	        dataCirugia[indR]++;
+				 	        registre = true;
+				 	    };
+				 	})
+				 	if (!registre) {
+				 	    labelsCirugia.push(nombre);
+				 	    dataCirugia.push(1); 
 				 	};
 			 	}
 			 	
@@ -139,6 +173,12 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 
 		  	dashboardData.general.byType.data=entriesByType;
 		  	dashboardData.general.byType.labels=["Electiva", "Urgente", "Emergente"];
+
+		  	dashboardData.general.byDiagnosis.data=[dataDiagnostico];
+			dashboardData.general.byDiagnosis.labels=labelsDiagnostico;
+
+			dashboardData.general.byProcedure.data=[dataCirugia];
+			dashboardData.general.byProcedure.labels=labelsCirugia;
 
 		  	dashboardData.r1.totalQx = entriesByYear[1].length;
 		  	dashboardData.r2.totalQx = entriesByYear[2].length;

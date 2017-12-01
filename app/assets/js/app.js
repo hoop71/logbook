@@ -83,7 +83,7 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
     var listDir = $firebaseArray(refDir.orderByChild('id').equalTo(universidad));
     listDir.$loaded().then(function(){
       var directriz = listDir[0];
-      console.log(directriz)
+      //console.log(directriz)
       console.log("directrices cargadas")
       var refProfesores = firebase.database().ref('constantes/medellin/profesores');
       var listProfesores = $firebaseArray(refProfesores);
@@ -348,7 +348,8 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
     interpretarFechaShort: function(fechaStr){
       var laFecha = new Date(fechaStr)
       var ano = laFecha.getFullYear();
-      var mes = meses[laFecha.getMonth()];
+      //var mes = meses[laFecha.getMonth()];
+      var mes = laFecha.getMonth()+1;
       var dia = laFecha.getDate();
       return dia + '/' + mes + '/' + ano
     },

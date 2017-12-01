@@ -35,7 +35,7 @@ logbookweb.constant('CHART_CONF', {
 
 		},
 		legend: {
-            display: true,
+            display: false,
             labels: {
                 fontColor: 'rgb(255, 255, 255)'
             }

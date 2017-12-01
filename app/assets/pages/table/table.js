@@ -54,7 +54,7 @@ angular.module('logbookweb.table', ['ui.router'])
     var listEntradas = $firebaseArray(refEntradas);
     listEntradas.$loaded().then(function(){
     	$scope.entradas = listEntradas;
-    	console.log($scope.entradas.length)
+    
     })
 
 

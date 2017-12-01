@@ -113,7 +113,7 @@
                                             <td ng-click="verEntrada(entrada.$id)">{{adminserv.getNameById('cirugia',entrada.cirugia[0].id, true)}}</td>
                                             <td>{{entrada.nombrePaciente}}</td>
                                             <td>{{entrada.identificacion}}</td>
-                                            <td>{{adminserv.interpretarFecha(entrada.fecha)}}</td>
+                                            <td>{{adminserv.interpretarFechaShort(entrada.fecha)}}</td>
                                             <td ng-if="entrada.complicaciones.length>4" class="text-danger"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
                                             <td ng-if="entrada.complicaciones.length<=4 && entrada.complicaciones.length>2" class="text-warning"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
                                             <td ng-if="entrada.complicaciones.length<=2 && entrada.complicaciones.length>=1" class="text-info"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
