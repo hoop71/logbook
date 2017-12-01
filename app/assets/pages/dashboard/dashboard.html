@@ -34,9 +34,9 @@
                             <ol class="breadcrumb">
                                 <li ng-class="stepClasses[0]"><a ng-click="changeToStep(1)">General</a></li>
                                 <li ng-class="stepClasses[1]"><a ng-click="changeToStep(2)">R1</a></li>
-                                <li ng-class="stepClasses[2]"><a ng-click="changeToStep(3)">R2</a></li>
-                                <li ng-class="stepClasses[3]"><a ng-click="changeToStep(4)">R3</a></li>
-                                <li ng-class="stepClasses[4]"><a ng-click="changeToStep(5)">R4</a></li>
+                                <li ng-class="stepClasses[2]" ng-show="user.anores>=2"><a ng-click="changeToStep(3)">R2</a></li>
+                                <li ng-class="stepClasses[3]" ng-show="user.anores>=3"><a ng-click="changeToStep(4)">R3</a></li>
+                                <li ng-class="stepClasses[4]" ng-show="user.anores>=4"><a ng-click="changeToStep(5)">R4</a></li>
                             </ol>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                                 <div class="card-content">
                                     <p class="category">Cirugías Totales</p>
                                     
-                                    <h3 class="title">{{entries.length}}</h3>                             
+                                    <h3 class="title">{{dashData.general.totalQx}}</h3>                             
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -122,7 +122,7 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Promedio por Año de residencia</p>
-                                    <h3 class="title">{{(entries.length/adminserv.getAnores(anoresDates[0], today)).toFixed(2)}}</h3>                             
+                                    <h3 class="title">{{dashData.general.qxPerYear}}</h3>                             
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -139,11 +139,11 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Promedio mensual</p>
-                                    <h3 class="title">{{(entriesByYear[adminserv.getAnores(anoresDates[0], today)-1].length/monthsAnores).toFixed(2)}}</h3>                             
+                                    <h3 class="title">{{dashData.general.qxPerMonth}}</h3>                             
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        Cirugías por mes, este año de residencia
+                                        Cirugías por mes, durante toda la residencia
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +153,7 @@
 
                      <!-- Cirujias -->
                     <div class="row">
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <div class="card">
                                 <div class="card-header card-chart" data-background-color="green">
                                     <div class="ct-chart" id="dailySalesChart"></div>
@@ -175,11 +175,26 @@
                                     </div>
                                 </div>
                             </div>
+                        </div> -->
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="green">
+                                    <div class="myGraph">
+                                        <canvas id="bar" class="chart chart-bar" chart-data="dashData.general.barsByYearData" chart-labels="labels" chart-series="series" chart-colors="colours" chart-options="options">
+                                        </canvas>
+                                    </div>  
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Por año de residencia</h4>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-header card-chart" data-background-color="blue">
-                                    <div class="ct-slice-pie" id="pie1"></div>
+                                    <!-- <div class="ct-slice-pie" id="pie1"></div> -->
+                                    <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick">
+                                    </canvas>
                                 </div>
                                 <div class="card-content">
                                     <h4 class="title">Mi rol</h4>
@@ -224,8 +239,10 @@
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="card-header card-chart" data-background-color="orange">
-                                    <div class="ct-chart" id="emailsSubscriptionChart"></div>
-                                </div>
+                                    <div class="myGraph">
+                                        <canvas id="doughnut" class="chart chart-doughnut" chart-data="dashData.general.byRole.data" chart-labels="dashData.general.byRole.labels" chart-options="options2.pie" chart-dataset-override="options2.pie.override">
+                                        </canvas>
+                                    </div>                                </div>
                                 <div class="card-content">
                                     <h4 class="title">En este año</h4>
                                     <p class="category">
@@ -244,9 +261,13 @@
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="card-header card-chart" data-background-color="red">
-                                    <div class="ct-chart" id="completedTasksChart"></div>
+                                    
                                 </div>
                                 <div class="card-content">
+                                    <div class="myGraph">
+                                        <canvas id="doughnutTipo" class="chart chart-doughnut" chart-data="dashData.general.byType.data" chart-labels="dashData.general.byType.labels" chart-options="options2.pie" chart-dataset-override="options2.pie.override">
+                                        </canvas>
+                                    </div>
                                     <h4 class="title">En este mes</h4>
                                     <p class="category">
                                         <span class="text-danger"><i class="material-icons">trending_down</i></span> tendencia hacia abajo
@@ -272,7 +293,10 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-header card-chart" data-background-color="purple">
-                                    <div class="ct-slice-pie" id="pie1"></div>
+                                    <div class="myGraph">
+                                        <canvas id="baseRotacion" class="chart chart-horizontal-bar" chart-data="dashData.general.byRotation.data" chart-labels="dashData.general.byRotation.labels" chart-colors="colours" chart-options="optionsHor">
+                                        </canvas>
+                                    </div> 
                                 </div>
                                 <div class="card-content">
                                     <h4 class="title">Mis Rotaciones</h4>
@@ -292,7 +316,10 @@
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-header card-chart" data-background-color="green">
-                                    <div class="ct-slice-pie" id="pie1"></div>
+                                    <div class="myGraph">
+                                        <canvas id="baseLugar" class="chart chart-horizontal-bar" chart-data="dashData.general.byLocation.data" chart-labels="dashData.general.byLocation.labels" chart-colors="colours" chart-options="optionsHor">
+                                        </canvas>
+                                    </div> 
                                 </div>
                                 <div class="card-content">
                                     <h4 class="title">Mis Lugares</h4>
@@ -365,7 +392,7 @@
                                 <div class="card-content">
                                     <p class="category">Cirugías Totales</p>
                                     
-                                    <h3 class="title">{{entriesByYear[1].length}}</h3>                             
+                                    <h3 class="title">{{dashData.r1.totalQx}}</h3>                             
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -381,7 +408,7 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Promedio de cirugías</p>
-                                    <h3 class="title">{{(entriesByYear[1].length/12).toFixed(2)}}</h3>                             
+                                    <h3 class="title">{{(dashData.r1.qxMonthAvg).toFixed(2)}}</h3>                             
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -404,7 +431,7 @@
                                 <div class="card-content">
                                     <p class="category">Cirugías Totales</p>
                                     
-                                    <h3 class="title">{{entriesByYear[2].length}}</h3>                             
+                                    <h3 class="title">{{dashData.r2.totalQx}}</h3>                             
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -420,7 +447,7 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Promedio de cirugías</p>
-                                    <h3 class="title">{{(entriesByYear[2].length/12).toFixed(2)}}</h3>                             
+                                    <h3 class="title">{{(dashData.r2.qxMonthAvg).toFixed(2)}}</h3>                             
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -443,7 +470,7 @@
                                 <div class="card-content">
                                     <p class="category">Cirugías Totales</p>
                                     
-                                    <h3 class="title">{{entriesByYear[3].length}}</h3>                             
+                                    <h3 class="title">{{dashData.r3.totalQx}}</h3>                             
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -459,7 +486,7 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Promedio de cirugías</p>
-                                    <h3 class="title">{{(entriesByYear[3].length/12).toFixed(2)}}</h3>                             
+                                    <h3 class="title">{{(dashData.r3.qxMonthAvg).toFixed(2)}}</h3>                             
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
@@ -472,7 +499,43 @@
                 </div>
             </div>
             <div class="content" ng-show="selectedStep[4]">
-                AÑO 4
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="orange">
+                                    <i class="fa fa-heartbeat"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Cirugías Totales</p>
+                                    
+                                    <h3 class="title">{{dashData.r4.totalQx}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Desde {{adminserv.interpretarFechaShort(anoresDates[4])}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">date_range</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Promedio de cirugías</p>
+                                    <h3 class="title">{{(dashData.r4.qxMonthAvg).toFixed(2)}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Cirugías al mes
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- footer -->
             <footer class="footer">

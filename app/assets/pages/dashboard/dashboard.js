@@ -28,7 +28,7 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 
 
 
-.controller('dashboardCtrl', ['$scope','$state','adminserv', 'MENU_ITEMS', 'Auth', 'firebase', '$firebaseObject', '$firebaseArray','constDirectrices', function($scope, $state, adminserv, MENU_ITEMS, Auth, firebase, $firebaseObject, $firebaseArray, constDirectrices) {
+.controller('dashboardCtrl', ['$scope','$state','adminserv', 'MENU_ITEMS','CHART_CONF', 'Auth', 'firebase', '$firebaseObject', '$firebaseArray','constDirectrices', 'dataCruncher', function($scope, $state, adminserv, MENU_ITEMS, CHART_CONF, Auth, firebase, $firebaseObject, $firebaseArray, constDirectrices, dataCruncher) {
 	//js
 	$.material.init();
 	var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
@@ -74,27 +74,15 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 		var d3 = new Date(d1.getFullYear()+2, d1.getMonth(), d1.getDate())
 		var d4 = new Date(d1.getFullYear()+3, d1.getMonth(), d1.getDate())
 		$scope.anoresDates = [d1,d1,d2,d3,d4];
-		console.log($scope.anoresDates)
 		$scope.monthsAnores = monthDiff($scope.anoresDates[$scope.currentAnores-1],$scope.today)
 	})
 
 	var refEntries = firebase.database().ref('entradas/'+userId);
 	var listEntries = $firebaseArray(refEntries);
 	listEntries.$loaded().then(function(){
-		$scope.entries = listEntries;
-		for (var entry of $scope.entries) {
-		 	if (entry.anores>=0) {
-		 		$scope.entriesByYear[entry.anores].push(entry)
-		 	}
-		}
-		demo.initDashboardPageCharts();
-		var mydataDailySalesChart = {
-            labels: ['R1', 'R2', 'R3', 'R4'],
-            series: [
-                [ $scope.entriesByYear[1].length, $scope.entriesByYear[2].length, $scope.entriesByYear[3].length, $scope.entriesByYear[4].length]
-            ]
-        };
-		var dailySalesChart = new Chartist.Bar('#dailySalesChart', mydataDailySalesChart, optionsDailySalesChart);
+		$scope.dashData = dataCruncher.getDashboardData($scope.user, listEntries);
+		$scope.data = $scope.dashData.general.barsByYearData;
+		console.log($scope.dashData)
 	})
 
 	$scope.changeToStep = function(step){
@@ -120,4 +108,19 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 			console.log("listo")
 		})
 	}	
+//INTENTOS!!!
+	 $scope.onClick = function (points, evt) {
+	   console.log(points, evt);
+	 };
+	 $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+	 $scope.options = CHART_CONF.options;
+	 $scope.options2 = CHART_CONF ;
+	 $scope.optionsHor = CHART_CONF.optionsHorizontal;
+
+	 $scope.labels = ['R1', 'R2', 'R3', 'R4'];
+	  $scope.series = ['Series A'];
+	  $scope.colours = ['rgba(255,255,255,1)', '#3498DB', '#717984', '#F1C40F'];
+	  
+
+	  
 }])
