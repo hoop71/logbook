@@ -51,6 +51,14 @@
 									        <option value="-1">Otra</option>
 									    </select>
 									</div>
+									<div class="input-group">
+										<div class="checkbox">
+											<label>
+												<input type="checkbox" name="optionsCheckboxes" ng-model="user.tacAccept">
+												Acepto <a href="http://localhost/logbookMatt/logbook/terminos_condiciones" target="_self">términos y condiciones</a> 
+											</label>
+										</div>
+									</div>
 								</div>
 								<div class="footer text-center" ng-show="!cargando">
 									<a ng-click="crearUsuario()" class="btn btn-simple btn-primary btn-lg">Registrarme</a>

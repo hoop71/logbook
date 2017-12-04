@@ -61,11 +61,17 @@ logbookweb.service('errorHandler', [function(){
 						message: "Hubo un error, por favor intentalo más tarde..."
 					}
 					break;
+				case('form/tac-not-agree'):
+					return{
+						type: 'warning',
+						message: 'Para poder crear una cuenta, es necesario que aceptes los términos y condiciones del sistema.'
+					}
 				default:
 					return{
 						type: "warning",
 						message: "parece que hubo un error. Inténtalo de nuevo."
 					}
+
 			}
 		}
 	}
