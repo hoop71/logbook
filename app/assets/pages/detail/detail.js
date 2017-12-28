@@ -97,4 +97,8 @@ angular.module('logbookweb.detail', ['ui.router'])
 			$scope.modeEdit = false;
 		})
 	}
+	$scope.logout = function(){
+		adminserv.logoutUser();
+		$state.go('login');
+	}
 }])

@@ -66,6 +66,11 @@ logbookweb.service('errorHandler', [function(){
 						type: 'warning',
 						message: 'Para poder crear una cuenta, es necesario que aceptes los términos y condiciones del sistema.'
 					}
+				case('mssg/success'):
+					return{
+						type: 'success',
+						message: 'Gracias por contactarnos. Intentaremos leer tu mensaje lo más pronto posible para darte una respuesta rápida. Saludos!'
+					}
 				default:
 					return{
 						type: "warning",

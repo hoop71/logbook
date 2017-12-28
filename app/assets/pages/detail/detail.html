@@ -14,9 +14,9 @@
                     </a>
                 </li>       
                 <li class="active-pro">
-                    <a href="#">
+                    <a ng-click="logout()">
                         <i class="material-icons">error</i>
-                        <p>Reportar un error</p>
+                        <p>Logout</p>
                     </a>
                 </li>
             </ul>
@@ -32,60 +32,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"> DETALLES </a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="material-icons">dashboard</i>
-                                <p class="hidden-lg hidden-md">Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="material-icons">notifications</i>
-                                <span class="notification">5</span>
-                                <p class="hidden-lg hidden-md">Notifications</p>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#"><i class="material-icons text-warning">whatshot</i><span style="opacity: 0">__</span>5 días seguidos - estás en llamas!</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="material-icons text-success">new_releases</i></i><span style="opacity: 0">__</span>Hay nuevos objetivos a completar</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="material-icons text-info">location_on</i><span style="opacity: 0">__</span>Tarea completada en una nuevo lugar</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="material-icons text-danger">watch_later</i><span style="opacity: 0">__</span>Una meta termina pronto</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="material-icons text-info">thumbs_up_down</i><span style="opacity: 0">__</span>Califica tu mentor</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="material-icons">person</i>
-                                <p class="hidden-lg hidden-md">Profile</p>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <a href="#"><i class="material-icons">power_settings_new</i>Cerrar sesión</a>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="navbar-form navbar-right" role="search">
-                        <div class="form-group  is-empty">
-                            <input type="text" class="form-control" placeholder="Buscar">
-                            <span class="material-input"></span>
-                        </div>
-                        <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                            <i class="material-icons">search</i>
-                            <div class="ripple-container"></div>
-                        </button>
-                    </form>
+                    <a class="navbar-brand" href="#!/bitacora"> DETALLES </a>
                 </div>
             </div>
         </nav>
@@ -109,11 +56,23 @@
                         <div class="row">
                             <div class="card card-stats">
                                 <div class="card-header" data-background-color="blue">
-                                    <h3>R{{entrada.anores}}</h3> 
+                                    <h3>{{entrada.nombrePaciente}} - {{entrada.identificacion}}</h3> 
                                 </div>
                                 <div class="card-content">
-                                    <div class="row">
-                                        <div class="col-md-3 col-xs-3">
+                                    <div class="row" ng-show="modeEdit">
+                                        <div class="col-sm-12">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Iniciales del paciente</label>
+                                                <input type="text" class="form-control" placeholder="iniciales del paciente" ng-model="entrada.nombrePaciente"/> 
+                                            </div>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Identificación</label>
+                                                <input type="text" class="form-control" placeholder="Identificacion" ng-model="entrada.identificacion"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 90px">
+                                        <div class="col-md-3 col-xs-4">
                                             <div class="form-group">
                                                 <figure class="figure mx-auto align-middle">
                                                     <img ng-src="{{adminserv.getIconById('tipo',entrada.tipoCir)}}" class="rounded mx-auto" alt="tipo">
@@ -239,13 +198,21 @@
                                     <h5 class="title">Procedimientos</h5>
                                 </div>
                                 <div class="card-content">
-                                    <p class="category" ng-repeat="cirugia in entrada.cirugia">{{adminserv.getNameById('cirugia',cirugia.id,true)}}</p>
-                                    <h4 class="title">Diagnósticos:</h4>
-                                    <p class="category" ng-repeat="diagnostico in entrada.diagnostico">{{adminserv.getNameById('diagnostico',diagnostico,true)}}</p>
+                                    <h3 class="category" ng-repeat="cirugia in entrada.cirugia">{{adminserv.getNameById('cirugia',cirugia.id,true)}}</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6">
+                            <div class="card">
+                                <div class="card-header" data-background-color="blue">
+                                    <h5 class="title">Diagnósticos</h5>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="category" ng-repeat="diagnostico in entrada.diagnostico">{{adminserv.getNameById('diagnostico',diagnostico,true)}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6" ng-show="entrada.complicaciones.length > 0">
                             <div class="card">
                                 <div class="card-header" data-background-color="red">
                                     <h5 class="title">Complicaciones</h5>
@@ -266,9 +233,16 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="text text-left">Identificación</td>
-                                            <td ng-show="!modeEdit" class="text text-left">{{entrada.nombrePaciente}} - {{entrada.identificacion}}</td>
-                                            <td ng-show="modeEdit" class="text text-left"><input type="text" class="form-control" rows="4" placeholder="iniciales del paciente" ng-model="entrada.nombrePaciente"/> <input type="text" class="form-control" rows="4" placeholder="Identificacion∫" ng-model="entrada.identificacion"/></td>
+                                            <td class="text text-left">Año residencia</td>
+                                            <td ng-show="!modeEdit" class="text text-left">R{{entrada.anores}}</td>
+                                            <td ng-show="modeEdit" class="text text-left">
+                                                <select class="form-control dropdown-toggle"  ng-model="entrada.anores">
+                                                    <option id="anores1" ng-value=1>R1</option>
+                                                    <option id="anores2" ng-value=2>R2</option>
+                                                    <option id="anores3" ng-value=3>R3</option>
+                                                    <option id="anores4" ng-value=4>R4</option>
+                                                </select>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="text text-left">Observaciones</td>

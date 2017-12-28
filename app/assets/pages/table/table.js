@@ -28,7 +28,7 @@ angular.module('logbookweb.table', ['ui.router'])
 
 
 .controller('tableCtrl', ['$scope','$state','MENU_ITEMS','adminserv','$firebaseArray', function($scope, $state, MENU_ITEMS, adminserv, $firebaseArray) {
-	
+	$scope.orderStr = 'fecha'
 	
 	$.material.init();
 	$scope.adminserv = adminserv;
@@ -115,5 +115,14 @@ angular.module('logbookweb.table', ['ui.router'])
     $scope.verEntrada = function(entradaId){
     	adminserv.setSeleccion(entradaId);
     	$state.go('detail')
+    }
+
+    $scope.setOrder = function(str){
+        $scope.orderStr = str;
+    }
+
+    $scope.logout = function(){
+        adminserv.logoutUser();
+        $state.go('login');
     }
 }])

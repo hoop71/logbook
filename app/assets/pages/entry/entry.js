@@ -42,8 +42,15 @@ angular.module('logbookweb.entry', ['ui.router'])
 	$scope.entrada.opcionales = {};
 	$scope.entrada.mininv = [];
 	$scope.entrada.fecha =new Date();
+	$scope.entrada.simulacion = false;
 	$scope.cirugiasRecientes = [];
 	$scope.diagnosticosRecientes = [];
+
+	$scope.DxViewAll = false;
+	$scope.QxViewAll = false;
+
+	$scope.favQx = [];
+	$scope.favDx = [];
 
 	$('#modalMininv').modal({
 		show: false
@@ -87,14 +94,16 @@ angular.module('logbookweb.entry', ['ui.router'])
 	var objUsuario = $firebaseObject(refUsuario);
 	var fechainicio = new Date();
 	objUsuario.$loaded().then(function(){
-		// $scope.lugares = adminserv.getSelectInfo('lugares');
-		// $scope.rotaciones = adminserv.getSelectInfo('rotaciones');
-		// $scope.diagnosticos = adminserv.getSelectInfo('diagnosticos');
-		// $scope.cirugias = adminserv.getSelectInfo('cirugias');
-		// $scope.complicaciones = adminserv.getSelectInfo('complicaciones');
-		// $scope.profesores = adminserv.getSelectInfo('profesores');
 		fechainicio = new Date(objUsuario.fechainicio);
+
 		$scope.entrada.anores = objUsuario.anores;
+		
+
+		if (objUsuario.ultimaEntrada) {
+			$scope.entrada.lugar = objUsuario.ultimaEntrada.lugar;
+			$scope.entrada.rotacion = objUsuario.ultimaEntrada.rotacion;
+			$scope.entrada.profesor = objUsuario.ultimaEntrada.profesor;
+		}
 		if (objUsuario.cirugiasRecientes) {
 			objUsuario.cirugiasRecientes.forEach(function(entryRec){
 				$scope.cirugiasRecientes.push(adminserv.searchById($scope.cirugias, entryRec)) 
@@ -103,6 +112,16 @@ angular.module('logbookweb.entry', ['ui.router'])
 		if (objUsuario.diagnosticosRecientes) {
 			objUsuario.diagnosticosRecientes.forEach(function(entryRec){
 				$scope.diagnosticosRecientes.push(adminserv.searchById($scope.diagnosticos, entryRec)) 
+			})
+		};
+		if (objUsuario.favDx) {
+			objUsuario.favDx.forEach(function(entryFavDx){
+				$scope.favDx.push(adminserv.searchById($scope.diagnosticos, entryFavDx))
+			})
+		};
+		if (objUsuario.favQx) {
+			objUsuario.favQx.forEach(function(entryFavQx){
+				$scope.favQx.push(adminserv.searchById($scope.cirugias, entryFavQx))
 			})
 		};
 	})
@@ -236,15 +255,21 @@ angular.module('logbookweb.entry', ['ui.router'])
 			objUsuario.diagnosticosRecientes = $scope.seleccionDiag;
 		}
 
+		var recent = {
+			lugar: $scope.entrada.lugar,
+			rotacion: $scope.entrada.rotacion,
+			profesor: $scope.entrada.profesor
+		}
+		objUsuario.ultimaEntrada = {};
+		objUsuario.ultimaEntrada = recent;
 
 		objUsuario.$save().then(function(result){
 
 		});
 	}
 
+
 	$scope.preview = function (){
-		
-		console.log("trying")
 		$scope.cargando = true;
 		$scope.entrada.diagnostico = $scope.seleccionDiag;
 		$scope.entrada.cirugia = [];
@@ -269,14 +294,6 @@ angular.module('logbookweb.entry', ['ui.router'])
 			var refEntradas = firebase.database().ref('entradas/'+userId);
 			var listEntradas = $firebaseArray(refEntradas);
 			listEntradas.$add($scope.entrada).then(function(result){
-				
-				
-				// if(objeserv.agregarEntrada(objUsuario, $scope.entrada, result.key)){
-				// 	objUsuario.$save().then(function(){
-				// 		Materialize.toast('la entrada se agregó a al menos un objetivo!', 3000, 'rounded')
-				// 	}).catch(function(){})
-					
-				// }
 				$scope.cargando = false;
 				SweetAlert.swal({
 					type: 'success',
@@ -310,5 +327,19 @@ angular.module('logbookweb.entry', ['ui.router'])
 			})
 		}
 		console.log($scope.entrada)
+	}
+	$scope.toggleDxView = function(value){
+		$scope.DxViewAll = value;
+	}
+	$scope.toggleQxView = function(value){
+		$scope.QxViewAll = value;
+	}
+	$scope.toggleSim = function(){
+		$scope.entrada.simulacion = !$scope.entrada.simulacion;
+	}
+
+	$scope.logout = function(){
+		adminserv.logoutUser();
+		$state.go('login');
 	}
 }])

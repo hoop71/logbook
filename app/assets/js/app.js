@@ -46,8 +46,8 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
   var cirugias = constCirugias;
   
   // var datosAnestesia = constProcedAnestesia;
-  var especialidades = constEspecialidades;
-  var universidades = constUniversidades;
+  var especialidades = null;
+  var universidades = null;
   //var directrices = constDirectrices;
   var directrices = null;
 
@@ -70,6 +70,7 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
   var profesores =[];
 
   var searchById = function(array, id){
+      id = parseInt(id)
       for(var entry of array){
           if (entry.id == id) {
               return entry;
@@ -85,43 +86,53 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
       var directriz = listDir[0];
       //console.log(directriz)
       console.log("directrices cargadas")
-      var refProfesores = firebase.database().ref('constantes/medellin/profesores');
-      var listProfesores = $firebaseArray(refProfesores);
-      listProfesores.$loaded().then(function(){
-        console.log('cargados profesores')
-        var constantes = searchById(directriz.especialidades, especialidad);
-        var refLugares = firebase.database().ref('constantes/medellin/lugares');
-        var listLugares = $firebaseArray(refLugares);
-        listLugares.$loaded().then(function(){
-          console.log('cargados lugares')
-          var refRotaciones = firebase.database().ref('constantes/general/rotaciones');
-          var listRotaciones = $firebaseArray(refRotaciones);
-          listRotaciones.$loaded().then(function(){
-            var refComplicaciones = firebase.database().ref('constantes/general/complicaciones');
-            var listComplicaciones = $firebaseArray(refComplicaciones);
-            listComplicaciones.$loaded().then(function(){
-              console.log('cargadas complicaciones')
-              lugares = [];
-              for (var i = 0; i < constantes.listaLugares.length; i++) {
-                  lugares.push(searchById(listLugares, constantes.listaLugares[i]))
-              };
-              rotaciones = [];
-              for (var i = 0; i < constantes.listaRotaciones.length; i++) {
-                  rotaciones.push(searchById(listRotaciones, constantes.listaRotaciones[i]))
-              };
-              complicaciones = [];
-              for (var i = 0; i < constantes.listaComplicaciones.length; i++) {
-                  complicaciones.push(searchById(listComplicaciones, constantes.listaComplicaciones[i]))
-              };
-              profesores = [];
-              for (var i = 0; i < constantes.listaProfesores.length; i++) {
-                  profesores.push(searchById(listProfesores, constantes.listaProfesores[i]))
-              };
-              $rootScope.constantsLoaded = true;
-              $rootScope.$broadcast('adminserv:directricesListas');
+      var refUnis = firebase.database().ref('constantes/general/unis');
+      var listUnis = $firebaseArray(refUnis);
+      listUnis.$loaded().then(function(){
+        universidades = listUnis;
+        var refEsp = firebase.database().ref('constantes/general/especialidades');
+        var listEsp = $firebaseArray(refEsp);
+        listEsp.$loaded().then(function(){
+          especialidades = listEsp;
+          var refProfesores = firebase.database().ref('constantes/general/profesores');
+          var listProfesores = $firebaseArray(refProfesores);
+          listProfesores.$loaded().then(function(){
+            console.log('cargados profesores')
+            var constantes = searchById(directriz.especialidades, especialidad);
+            var refLugares = firebase.database().ref('constantes/general/lugares');
+            var listLugares = $firebaseArray(refLugares);
+            listLugares.$loaded().then(function(){
+              console.log('cargados lugares')
+              var refRotaciones = firebase.database().ref('constantes/general/rotaciones');
+              var listRotaciones = $firebaseArray(refRotaciones);
+              listRotaciones.$loaded().then(function(){
+                var refComplicaciones = firebase.database().ref('constantes/general/complicaciones');
+                var listComplicaciones = $firebaseArray(refComplicaciones);
+                listComplicaciones.$loaded().then(function(){
+                  console.log('cargadas complicaciones')
+                  lugares = [];
+                  for (var i = 0; i < constantes.listaLugares.length; i++) {
+                      lugares.push(searchById(listLugares, constantes.listaLugares[i]))
+                  };
+                  rotaciones = [];
+                  for (var i = 0; i < constantes.listaRotaciones.length; i++) {
+                      rotaciones.push(searchById(listRotaciones, constantes.listaRotaciones[i]))
+                  };
+                  complicaciones = [];
+                  for (var i = 0; i < constantes.listaComplicaciones.length; i++) {
+                      complicaciones.push(searchById(listComplicaciones, constantes.listaComplicaciones[i]))
+                  };
+                  profesores = [];
+                  for (var i = 0; i < constantes.listaProfesores.length; i++) {
+                      profesores.push(searchById(listProfesores, constantes.listaProfesores[i]))
+                  };
+                  $rootScope.constantsLoaded = true;
+                  $rootScope.$broadcast('adminserv:directricesListas');
+                });
+              })
             });
           })
-        });
+        })
       })
     }) 
   }
@@ -208,8 +219,10 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
         }
     },
     getNameById: function(constante, id, largo){
-      if (id && $rootScope.constantsLoaded) {
 
+      if (id && $rootScope.constantsLoaded) {
+        id = parseInt(id)
+        console.log(id)
         switch(constante){
             case 'lugar':
                 if (largo) {

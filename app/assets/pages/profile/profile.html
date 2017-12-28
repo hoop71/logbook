@@ -14,9 +14,9 @@
             </li> 
                     
             <li class="active-pro">
-                <a href="#">
+                <a ng-click="logout()">
                     <i class="material-icons">error</i>
-                    <p>Reportar un error</p>
+                    <p>Logout</p>
                 </a>
             </li>
         </ul>
@@ -33,59 +33,6 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#"> Perfil </a>
-            </div>
-            <div class="collapse navbar-collapse" >
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="material-icons">dashboard</i>
-                            <p class="hidden-lg hidden-md">Dashboard</p>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="material-icons">notifications</i>
-                            <span class="notification">5</span>
-                            <p class="hidden-lg hidden-md">Notifications</p>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#"><i class="material-icons text-warning">whatshot</i><span style="opacity: 0">__</span>5 días seguidos - estás en llamas!</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="material-icons text-success">new_releases</i></i><span style="opacity: 0">__</span>Hay nuevos objetivos a completar</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="material-icons text-info">location_on</i><span style="opacity: 0">__</span>Tarea completada en una nuevo lugar</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="material-icons text-danger">watch_later</i><span style="opacity: 0">__</span>Una meta termina pronto</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="material-icons text-info">thumbs_up_down</i><span style="opacity: 0">__</span>Califica tu mentor</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="material-icons">person</i>
-                            <p class="hidden-lg hidden-md">Profile</p>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <a href="#"><i class="material-icons">power_settings_new</i>Cerrar sesión</a>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group  is-empty">
-                        <input type="text" class="form-control" placeholder="Buscar">
-                        <span class="material-input"></span>
-                    </div>
-                    <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                        <i class="material-icons">search</i>
-                        <div class="ripple-container"></div>
-                    </button>
-                </form>
             </div>
         </div>
     </nav>
@@ -198,7 +145,110 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="card ">
+                        <div class="card-header" data-background-color="orange">
+                            <i class="material-icons">mail_outline</i> <span>Mensaje al administrador</span>
+                        </div>
+                        <div class="card-content">
+                            <textarea class="form-control" placeholder="Escríbenos un mensaje con alguna inquietud o comentario" rows="5" ng-model="mensaje"></textarea>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-info" ng-click="enviarMsj()">Enviar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header" data-background-color="blue">
+                            <h4 class="title">Procedimientos favoritos</h4>
+                        </div>
+                        <div class="card-content table-responsive">
+                            <table class="table" ng-show="user.favQx.length>0">
+                                <tbody>
+                                    <tr ng-repeat="cirugia in user.favQx">
+                                        <td>{{adminserv.getNameById('cirugia', cirugia, true)}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons text-success">playlist_add</i> <a ng-click="addNew('qx')" data-toggle="modal" data-target=".bd-example-modal-lg">Agregar procedimientos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header" data-background-color="blue">
+                            <h4 class="title">Diagnósticos favoritos</h4>
+                        </div>
+                        <div class="card-content table-responsive">
+                            <table class="table" ng-show="user.favDx.length>0">
+                                <tbody>
+                                    <tr ng-repeat="diagnostico in user.favDx">
+                                        <td>{{adminserv.getNameById('diagnostico', diagnostico, true)}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <i class="material-icons text-success">playlist_add</i> <a ng-click="addNew('dx')" data-toggle="modal" data-target=".bd-example-modal-lg">Agregar diagnósticos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Modal Add -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="green">Agregar {{currentContext}} a mis favoritos</div>
+                    <div class="card-content">
+                        <div class="row">
+                            <div ng-repeat="(key,elementoId) in seleccion">
+                                <div class="alert alert-info">
+                                    <div class="container-fluid">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection(elementoId, key)">
+                                            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                                        </button>
+                                        {{adminserv.getNameById(currentContext, elementoId, true)}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <input type="text" value="" placeholder="Buscar..." class="form-control" ng-model="filtro" />
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <tbody>
+                                <tr ng-repeat="(key,elemento) in listaElementos | filter:filtro | limitTo: 10" ng-hide="seleccion.indexOf(elemento.id) > -1" ng-click="toggleSelection(elemento.id, key)">
+                                    <td>{{elemento.nombreLargo}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" ng-click="saveFav(currentContext)">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>
