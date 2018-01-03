@@ -22,9 +22,13 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 
 	var dataDiagnostico = [];
 	var labelsDiagnostico = [];
+	var labelsDx = [];
+	var maxDx = 5;
 
 	var dataCirugia = [];
 	var labelsCirugia = [];
+	var labelsQx = [];
+	var maxQx = 5;
 
 	var today = new Date();
 	function monthDiff(d1, d2) {
@@ -89,13 +93,19 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 			 		//falta ver qué hacer con las entradas que no tienen anores por algun motivo.
 			 	}
 
+			 	//*****************************
 			 	//anido por rol
+			 	//*****************************
 			 	entriesByRole[entry.rol-1]++;
 
+			 	//*****************************
 			 	//anido por tipo
+			 	//*****************************
 			 	entriesByType[entry.tipoCir-1]++;
 
+			 	//*****************************
 			 	//anido por lugar
+			 	//*****************************
 			 	registre = false;
 			 	var nombre = adminserv.getNameById('lugar',entry.lugar, false);
 			 	labelsLugar.forEach(function(entryLL, indLL){
@@ -109,7 +119,9 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 			 	    dataLugar.push(1);
 			 	};
 
+			 	//*****************************
 			 	//anido por rotacion
+			 	//*****************************
 			 	registre = false;
 			 	var nombre = adminserv.getNameById('rotacion',entry.rotacion, false);
 			 	labelsRotacion.forEach(function(entryR, indR){
@@ -123,7 +135,9 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 			 	    dataRotacion.push(1);
 			 	};
 
+			 	//*****************************
 			 	//anido por diagnosticos
+			 	//*****************************
 			 	for (var i = entry.diagnostico.length - 1; i >= 0; i--) {
 			 		registre = false;
 				 	var nombre = adminserv.getNameById('diagnostico',entry.diagnostico[i], true);
@@ -138,8 +152,11 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 				 	    dataDiagnostico.push(1); 
 				 	};
 			 	}
+			 	
 
+			 	//*****************************
 			 	//anido por procedimiento
+			 	//*****************************
 			 	for (var i = entry.cirugia.length - 1; i >= 0; i--) {
 			 		registre = false;
 				 	var nombre = adminserv.getNameById('cirugia',entry.cirugia[i].id, true);
@@ -153,10 +170,47 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 				 	    labelsCirugia.push(nombre);
 				 	    dataCirugia.push(1); 
 				 	};
-			 	}
-			 	
+			 	}	
 			}
 
+
+			//*****************************
+			//Recorto Dx al top elegido
+			//*****************************
+			var dataDxRaw = dataDiagnostico.slice();
+			dataDiagnostico.sort(function(a, b){return b-a});
+
+			if (dataDiagnostico.length>maxDx) {
+			    dataDiagnostico.splice(maxDx, dataDiagnostico.length - maxDx)
+			};
+
+			for (var i = 0; i < dataDiagnostico.length; i++) {
+			    var theInd = dataDxRaw.indexOf(dataDiagnostico[i]);
+			    labelsDx[i] = labelsDiagnostico[theInd];
+			    dataDxRaw.splice(theInd, 1);
+			    labelsDiagnostico.splice(theInd, 1)
+			};
+
+			//*****************************
+			//Recorto Qx al top elegido
+			//*****************************
+			var dataQxRaw = dataCirugia.slice();
+			dataCirugia.sort(function(a, b){return b-a});
+			if (dataCirugia.length>maxQx) {
+			    dataCirugia.splice(maxQx, dataCirugia.length - maxQx)
+			};
+
+			for (var i = 0; i < dataCirugia.length; i++) {
+			    var theInd = dataQxRaw.indexOf(dataCirugia[i]);
+			    labelsQx[i] = labelsCirugia[theInd];
+			    dataQxRaw.splice(theInd, 1);
+			    labelsCirugia.splice(theInd, 1)
+			};
+
+
+			//*****************************
+			//Preparo datos a devolver
+			//*****************************
 			dashboardData.general.byLocation.data=[dataLugar];
 			dashboardData.general.byLocation.labels=labelsLugar;
 
@@ -175,10 +229,10 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 		  	dashboardData.general.byType.labels=["Electiva", "Urgente", "Emergente"];
 
 		  	dashboardData.general.byDiagnosis.data=[dataDiagnostico];
-			dashboardData.general.byDiagnosis.labels=labelsDiagnostico;
+			dashboardData.general.byDiagnosis.labels=labelsDx;
 
 			dashboardData.general.byProcedure.data=[dataCirugia];
-			dashboardData.general.byProcedure.labels=labelsCirugia;
+			dashboardData.general.byProcedure.labels=labelsQx;
 
 		  	dashboardData.r1.totalQx = entriesByYear[1].length;
 		  	dashboardData.r2.totalQx = entriesByYear[2].length;
@@ -190,7 +244,6 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 		  			break;
 		  		}else{
 		  			monthAvgByYear[i] = entriesByYear[i+1].length/12;
-
 		  		}
 		  	}
 		  	dashboardData.r1.qxMonthAvg = monthAvgByYear[0];

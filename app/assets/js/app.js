@@ -222,12 +222,12 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
 
       if (id && $rootScope.constantsLoaded) {
         id = parseInt(id)
-        console.log(id)
         switch(constante){
             case 'lugar':
                 if (largo) {
                     return searchById(lugares, id).nombreLargo;
                 }else{
+                    console.log(lugares)
                     return searchById(lugares, id).nombreCorto;
                 };
                 break;  
