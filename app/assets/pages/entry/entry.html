@@ -285,9 +285,9 @@
                                         <tr ng-repeat="(key,diagnosticoRec) in diagnosticosRecientes | filter:filtroDiagnosticos | limitTo: 50" ng-hide="seleccionDiag.indexOf(diagnosticoRec.id) > -1" ng-click="toggleSelection('diagnostico',diagnosticoRec, key)">
                                             <td>
                                                 <div class="col-xs-5 col-sm-10">{{diagnosticoRec.nombreLargo}}</div>
-                                                <div class="col-xs-2">
+                                                <!-- <div class="col-xs-2">
                                                     <i class="material-icons">favorite_border</i>
-                                                </div>
+                                                </div> -->
                                             </td>
                                         </tr>
                                         <tr ng-repeat="(key,diagnostico) in diagnosticos | filter:filtroDiagnosticos | limitTo: 50" ng-hide="seleccionDiag.indexOf(diagnostico.id) > -1" ng-click="toggleSelection('diagnostico',diagnostico, key)">

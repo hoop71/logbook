@@ -27,7 +27,7 @@ angular.module('logbookweb.login', ['ui.router'])
 				firebase.auth().onAuthStateChanged(function(user) {
 					console.log(user)
 					if (user) {
-						$state.go('profile')
+						$state.go('table')
 					// User is signed in.
 					} else {
 						return true;
@@ -60,11 +60,12 @@ angular.module('logbookweb.login', ['ui.router'])
 			    	var list = $firebaseArray(ref.orderByChild('uid').equalTo(firebaseUser.uid));
 			    	list.$loaded().then(function(){
 				    	adminserv.setUser(list[0].$id);
+				    	console.log("login:"+adminserv.getUser())
 				    	adminserv.setEspecialidad(list[0].especialidad);
 				    	adminserv.setUniversidad(list[0].universidad);
 				    	adminserv.setDatosCondicionales(list[0].universidad,list[0].especialidad);
 				    	$scope.cargando = false;
-					 	$state.go('dashboard');
+					 	$state.go('table');
 			    	})
 		    	}
 			}).catch(function(error){

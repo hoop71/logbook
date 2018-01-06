@@ -47,10 +47,18 @@ angular.module('logbookweb.table', ['ui.router'])
 	
 	$scope.$on('adminserv:directricesListas', function() {
 		$scope.complicaciones = adminserv.getSelectInfo('complicaciones');
+            var refEntradas = firebase.database().ref('entradas/'+adminserv.getUser()).orderByChild("especialidad").equalTo(parseInt('1'));
+            
+            var listEntradas = $firebaseArray(refEntradas);
+            listEntradas.$loaded().then(function(){
+                $scope.entradas = listEntradas;
+            
+            })
 	})
 
 
 	var refEntradas = firebase.database().ref('entradas/'+adminserv.getUser()).orderByChild("especialidad").equalTo(parseInt('1'));
+
     var listEntradas = $firebaseArray(refEntradas);
     listEntradas.$loaded().then(function(){
     	$scope.entradas = listEntradas;
