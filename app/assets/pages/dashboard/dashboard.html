@@ -155,7 +155,25 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <!-- <div class="card">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="green">
+                                    <div class="myGraph">
+                                        <canvas id="line" class="chart chart-line" chart-data="dashData.general.byDateMonths[graphYear].data" chart-labels="options2.labels.year" chart-options="options2.optionsLine" chart-colors="colours" chart-series="[graphYear]">
+                                        </canvas>
+                                    </div>  
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <a ng-click="changeYear('prev')">Anterior</a>
+                                    </div>
+                                    <div class="stats pull-right">
+                                        <a ng-click="changeYear('next')" >Siguiente</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-md-6">
+                             <div class="card">
                                 <div class="card-header card-chart" data-background-color="blue">
                                     <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick">
                                     </canvas>
@@ -176,8 +194,8 @@
                                         
                                     </div>
                                 </div>
-                            </div> -->
-                        </div>
+                            </div> 
+                        </div>-->
                     </div>
 
 

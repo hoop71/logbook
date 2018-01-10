@@ -55,6 +55,8 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 
 	$scope.colors = ['#ab47bc', '#26c6da', '#ffa726', '#F1C40F']
 
+	$scope.graphYear = $scope.today.getFullYear().toString();
+
 	function monthDiff(d1, d2) {
 	    var months;
 	    months = (d2.getFullYear() - d1.getFullYear()) * 12;
@@ -111,17 +113,33 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 		})
 	}	
 //INTENTOS!!!
-	 $scope.onClick = function (points, evt) {
-	   console.log(points, evt);
-	 };
-	 $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
-	 $scope.options = CHART_CONF.options;
-	 $scope.options2 = CHART_CONF ;
-	 $scope.optionsHor = CHART_CONF.optionsHorizontal;
+	$scope.onClick = function (points, evt) {
+		console.log(points, evt);
+	};
 
-	 $scope.labels = ['R1', 'R2', 'R3', 'R4'];
-	  $scope.series = ['Series A'];
-	  $scope.colours = ['rgba(255,255,255,1)', '#3498DB', '#717984', '#F1C40F'];
+	$scope.changeYear = function(tipo){
+		var year = parseInt($scope.graphYear)
+		if (tipo == "next") {
+			year++;
+		}else{
+			year--;
+		}
+		
+		if ($scope.dashData.general.byDateMonths.hasOwnProperty(year.toString())) {
+			$scope.graphYear = year.toString()
+		}
+	}
+
+
+
+	$scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+	$scope.options = CHART_CONF.options;
+	$scope.options2 = CHART_CONF ;
+	$scope.optionsHor = CHART_CONF.optionsHorizontal;
+
+	$scope.labels = ['R1', 'R2', 'R3', 'R4'];
+	$scope.series = ['Series A'];
+	$scope.colours = ['rgba(255,255,255,1)', '#3498DB', '#717984', '#F1C40F'];
 	  
 
 	  

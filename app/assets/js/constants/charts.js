@@ -1,4 +1,7 @@
 logbookweb.constant('CHART_CONF', {
+	labels:{
+		year: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+	},
 	options:{
 		scales: {
 			yAxes: [
@@ -85,5 +88,47 @@ logbookweb.constant('CHART_CONF', {
         override: { 
         	borderWidth: 0
         }
+	},
+	optionsLine:{
+				scales: {
+					yAxes: [
+						{
+							id: 'y-axis-1',
+							type: 'linear',
+							display: true,
+							position: 'left',
+							gridLines:{
+								color: 'rgba(255,255,255,0.4)',
+								drawBorder: false,
+								zeroLineColor:'white'
+							},
+							ticks:{
+								fontColor: '#ffffff'
+							}
+						}
+					],
+					xAxes: [
+						{
+							id: 'x-axis-1',
+							display: true,
+							position: 'bottom',
+							gridLines:{
+								color: 'rgba(255,255,255,0.4)',
+								drawBorder: false,
+								zeroLineColor:'white'
+							},
+							ticks:{
+								fontColor: '#ffffff'
+							}
+						}
+					],
+
+				},
+				legend: {
+		            display: true,
+		            labels: {
+		                fontColor: 'rgb(255, 255, 255)'
+		            }
+		        }
 	}
 })

@@ -32,6 +32,7 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 
 	var detailRol = [{labels: [], data: [[]], total: 0},{labels: [], data: [[]], total: 0},{labels: [], data: [[]], total: 0}];
 	var byDate = {};
+	var nestedByDate = {};
 
 	var totalProced = 0;
 
@@ -59,7 +60,8 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 					byType: {},
 					byDiagnosis:{},
 					byProcedure: {},
-					byDateYear: {} 
+					byDateYear: {},
+					byDateMonths: {} 
 				},
 				r1: {},
 				r2: {}, 
@@ -83,6 +85,10 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
     		dataCirugia = [];
     		labelsCirugia = [];
 
+    		detailRol = [{labels: [], data: [[]], total: 0},{labels: [], data: [[]], total: 0},{labels: [], data: [[]], total: 0}];
+    		byDate = {};
+    		nestedByDate = {};
+
     		var registre = false;
 
     		//ARRANCO ANALISIS
@@ -90,17 +96,33 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 			dashboardData.general.totalQx = entries.length;
 			dashboardData.general.qxPerYear = (entries.length/user.anores).toFixed(2);
 			dashboardData.general.qxPerMonth = (entries.length/monthsOfStudy).toFixed(2);
-
+			console.log(entries.length)
 
 			for (var entry of entries) {
 				var entryDate = new Date(entry.fecha);
 				var entryYear = entryDate.getFullYear();
+				var entryMonth = entryDate.getMonth();
+				var entryDayNumber = entryDate.getDate();
+
 				if (entryYear.toString() in byDate) { //ya hay datos de ese año
 					byDate[entryYear.toString()]++;
+					nestedByDate[entryYear.toString()][entryMonth][entryDayNumber]++;
 				}else{ //no hay datos de ese año
-					byDate[entryYear.toString()]=1;
-
-					
+					byDate[entryYear.toString()]=1;	
+					nestedByDate[entryYear.toString()] = [
+		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+					nestedByDate[entryYear.toString()][entryMonth][entryDayNumber] = 1;
 				}
 				totalProced += entry.cirugia.length
 			 	if (entry.anores>=0) {
@@ -208,9 +230,6 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 				 	};
 			 	}	
 			}
-			console.log(byDate)
-// 			console.log(totalProced)
-// console.log(detailRol)
 
 			//*****************************
 			//Recorto Dx al top elegido
@@ -277,9 +296,26 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 		
 			dashboardData.general.byDateYear.data = [Object.values(byDate)] 
 			dashboardData.general.byDateYear.labels = Object.keys(byDate);
-			
-			console.log(dashboardData.general.byDateYear)
 
+			for (var property in nestedByDate) {
+			    if (nestedByDate.hasOwnProperty(property)) {
+			        console.log(property)
+			        var newData = []
+			        for (var i in nestedByDate[property]) {
+			        	var total = 0;
+			        	for (var j in nestedByDate[property][i]) {
+			        		total += nestedByDate[property][i][j];
+			        	}
+			        	newData.push(total)
+			        }
+			        var newObject = {
+			        	title: property,
+			        	data: [newData]
+			        }
+			        dashboardData.general.byDateMonths[property] = newObject;
+			    }
+			}
+			console.log(dashboardData.general.byDateMonths)
 		  	dashboardData.r1.totalQx = entriesByYear[1].length;
 		  	dashboardData.r2.totalQx = entriesByYear[2].length;
 		  	dashboardData.r3.totalQx = entriesByYear[3].length;
