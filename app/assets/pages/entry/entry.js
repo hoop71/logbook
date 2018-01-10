@@ -168,7 +168,7 @@ angular.module('logbookweb.entry', ['ui.router'])
 	    	  	$scope.seleccionComplic.push(seleccion.id);
 	    	  	$scope.complicacionesElegidas.push(seleccion)
 	    	}
-	    }else{
+	    }else{ //CIRUGIA
 	    	var idx = $scope.seleccionCiru.indexOf(seleccion.id);
 
 	    	// Is currently selected
@@ -184,6 +184,8 @@ angular.module('logbookweb.entry', ['ui.router'])
 	    		seleccion.conv = false;
 				$scope.seleccionCiru.push(seleccion.id);
 				$scope.cirugiasElegidas.push(seleccion)
+				$scope.cirugiaMod = seleccion;
+				$('#modalMininv').modal('show')
 				//$scope.entrada.mininv.push(false);
 				// $scope.cirugias.splice(index, 1);
 				// $scope.cirugias.unshift(seleccion);

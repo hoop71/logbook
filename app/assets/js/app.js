@@ -227,7 +227,6 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
                 if (largo) {
                     return searchById(lugares, id).nombreLargo;
                 }else{
-                    console.log(lugares)
                     return searchById(lugares, id).nombreCorto;
                 };
                 break;  

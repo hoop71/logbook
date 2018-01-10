@@ -42,6 +42,8 @@
                         <li ng-class="stepClasses[3]"><a ng-click="changeToStep(4)">OP</a></li>
                     </ol>
                 </div>
+                <button type="submit" class="btn btn-info pull-right" ng-click="preview();" ng-show="selectedStep[2] || selectedStep[3]"><i class="material-icons">save</i>
+                </button>
             </div>
         </nav>
 
@@ -50,6 +52,151 @@
         <div class="content" ng-show="selectedStep[0]"> 
             <div class="container-fluid">
                 <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-header card-header-inline" data-background-color="blue">
+                                <i class="material-icons">location_on</i><p>Datos generales</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="row form-control-hover card-footer2">
+                                    
+                                        <label class="control-label">Identificación del paciente</label>
+                                        <input type="text" class="form-control" ng-model="entrada.identificacion"/>
+                                    
+                                    <label class="control-label">Lugar</label>
+                                    <select class="form-control dropdown-toggle" id="" required ng-model="entrada.lugar">
+                                        <option ng-repeat="lugar in lugares" ng-value="{{lugar.id}}">{{lugar.nombreLargo}}</option>
+                                    </select>
+                                    <label class="control-label">Rotación</label>
+                                    <select class="form-control dropdown-toggle" id="" required ng-model="entrada.rotacion">
+                                        <option ng-repeat="rotacion in rotaciones" ng-value="{{rotacion.id}}">{{rotacion.nombreLargo}}</option>
+                                    </select>
+                                    <label class="control-label">Profesor</label>
+                                    <select class="form-control dropdown-toggle" id="" required ng-model="entrada.profesor">
+                                        <option ng-repeat="profesor in profesores | orderBy:'-nombreLargo':true" id="prof{{profesor.id}}" ng-value="{{profesor.id}}">{{profesor.nombreLargo}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header card-header-inline" data-background-color="blue">
+                                <i class="material-icons">location_on</i><p>Fecha y año</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="row">
+                                    <div class="form-control-hover card-footer2">
+                                        <label class="control-label">Fecha</label>
+                                        <div class="form-group card-footer2">
+                                            <input type="date" class="form-control" ng-model="entrada.fecha"/>
+                                        </div> 
+                                    </div>
+                                    <div class="form-control-hover card-footer2">
+                                        <label class="control-label">Año de residencia</label>
+                                        <select class="form-control dropdown-toggle" required ng-model="entrada.anores">
+                                            <option id="anores1" ng-value=1>1</option>
+                                            <option id="anores2" ng-value=2>2</option>
+                                            <option id="anores3" ng-value=3>3</option>
+                                            <option id="anores4" ng-value=4>4</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="card"> 
+                            <div class="card-header2 card-header-inline" data-background-color="blue">
+                                <p><i class="material-icons">note</i><span style="opacity: 0">__</span>Info del paciente</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="form-group card-footer2 label-floating">
+                                    <label class="control-label">Identificación</label>
+                                    <input type="text" class="form-control" ng-model="entrada.identificacion"/>
+                                </div> 
+                                <div class="form-group card-footer2 label-floating">
+                                    <label class="control-label">Iniciales</label>
+                                    <input type="text" class="form-control" ng-model="entrada.nombrePaciente"/>
+                                </div> 
+                            </div>
+                            
+                        </div> -->
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card"> 
+                            <div class="card-header2 card-header-inline" data-background-color="green">
+                                <div class="btn-sim pull-right">
+                                    <input class="btn-sim" type="checkbox" name="sim1" id="sim1" ng-click="toggleSim()"/>
+                                    <label class="btn btn-sm" for="sim1" id="statsim">Simulación</label>
+                                </div>
+                                <p>La Cirugía Fue</p>
+                            </div>
+                            <div class="card-content col-xs-4" ng-click="setConditional('tipoCir',1)">
+                                <label class="custom-control custom-radio" >                
+                                    <input id="radio1" name="radio" type="radio" class="custom-control-input">
+                                    <figure class="figure mx-auto align-middle">
+                                        <img src="./assets/icons/elective.svg" class="rounded mx-auto" alt="Ele">
+                                        <figcaption class="text-center figure-caption">Electiva</figcaption>
+                                    </figure>                                        
+                                </label>          
+                            </div>
+                            <div class="card-content col-xs-4" ng-click="setConditional('tipoCir',2)">
+                                <label class="custom-control custom-radio">                
+                                    <input id="radio2" name="radio" type="radio" class="custom-control-input">
+                                    <figure class="mx-auto">
+                                        <img src="./assets/icons/urgent.svg" class="rounded mx-auto" alt="Urg">
+                                        <figcaption class="text-center figure-caption">Urgente</figcaption> 
+                                    </figure>                                        
+                                </label>
+                            </div>
+                            <div class="card-content col-xs-4" ng-click="setConditional('tipoCir',3)">
+                                <label class="custom-control custom-radio">                
+                                    <input id="radio3" name="radio" type="radio" class="custom-control-input">
+                                    <figure class="figure mx-auto">
+                                        <img src="./assets/icons/emergente.svg" class="rounded mx-auto" alt="Emerg">
+                                        <figcaption class="text-center figure-caption">Emergente</figcaption>
+                                    </figure>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="card"> 
+                            <div class="card-header2 card-header-inline" data-background-color="green">
+                                <p>Tu Rol Fue</p>
+                            </div>
+                            <div class="card-content col-xs-4" ng-click="setConditional('rol',1)">
+                                <label class="custom-control custom-radio">                
+                                    <input id="radio4" name="radio2" type="radio" class="custom-control-input">
+                                    <figure class="figure mx-auto align-middle">
+                                        <img src="./assets/icons/scalpel.svg" class="rounded mx-auto" alt="Ele">
+                                        <figcaption class="text-center figure-caption">Cirujano</figcaption>
+                                    </figure>
+                                    <span class="custom-control-indicator"></span>                
+                                </label>      
+                            </div>
+                            <div class="card-content col-xs-4" ng-click="setConditional('rol',2)">
+                                <label class="custom-control custom-radio">                
+                                    <input id="radio5" name="radio2" type="radio" class="custom-control-input">
+                                    <figure class="mx-auto">
+                                        <img src="./assets/icons/scissors.svg" class="rounded align-middle mx-auto" alt="Urg">
+                                        <figcaption class="text-center figure-caption">1<sup>o</sup> Ayudante</figcaption>
+                                    </figure>
+                                    <span class="custom-control-indicator"></span>
+                                </label>
+                            </div>
+                            <div class="card-content col-xs-4" ng-click="setConditional('rol',3)">
+                                <label class="custom-control custom-radio">                
+                                    <input id="radio6" name="radio2" type="radio" class="custom-control-input">
+                                    <figure class="figure mx-auto">
+                                        <img src="./assets/icons/band-aid.svg" class="rounded mx-auto" alt="Emerg">
+                                        <figcaption class="text-center figure-caption">2<sup>o</sup> Ayudante</figcaption>
+                                    </figure>
+                                    <span class="custom-control-indicator"></span>              
+                                </label>
+                            </div>
+                        </div>
+                        <div class="pull-right">
+                            <a ng-click="changeToStep(2)" class="btn btn-primary">siguiente paso</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row">
                     <div class="col-sm-3">
                         <div class="card card-stats">
                             <div class="card-header2 card-header-inline" data-background-color="blue">
@@ -89,8 +236,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
+                </div> -->
+                <!-- <div class="row">
                     <div class="col-sm-3">
                         <div class="card card-stats">
                             <div class="card-header2 card-header-inline" data-background-color="green">
@@ -119,117 +266,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                     
-
-
-                <!-- Datos Pacientes -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card"> 
-                            <div class="card-header2 card-header-inline" data-background-color="blue">
-                                <p><i class="material-icons">note</i><span style="opacity: 0">__</span>Identificación del paciente</p>
-                            </div>
-                            <div class="form-group card-footer2">
-                                <input type="text" class="form-control" rows="4" placeholder="Algo" ng-model="entrada.identificacion"/>
-                            </div> 
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card"> 
-                            <div class="card-header2 card-header-inline" data-background-color="blue">
-                                <p><i class="material-icons">note</i><span style="opacity: 0">__</span> Iniciales del paciente</p>
-                            </div>
-                            <div class="form-group card-footer2">
-                                <input type="text" class="form-control" rows="4" placeholder="Algo" ng-model="entrada.nombrePaciente"/>
-                            </div> 
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- Statistics -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card"> 
-                            <div class="card-header2 card-header-inline" data-background-color="green">
-                                <div class="btn-sim pull-right">
-                                    <input class="btn-sim" type="checkbox" name="sim1" id="sim1" ng-click="toggleSim()"/>
-                                    <label class="btn btn-sm" for="sim1" id="statsim">Simulación</label>
-                                </div>
-                                <p>La Cirugía Fue</p>
-                            </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('tipoCir',1)">
-                                <label class="custom-control custom-radio" >                
-                                    <input id="radio1" name="radio" type="radio" class="custom-control-input">
-                                    <figure class="figure mx-auto align-middle">
-                                        <img src="./assets/icons/elective.svg" class="rounded mx-auto" alt="Ele">
-                                        <figcaption class="text-center figure-caption">Electiva</figcaption>
-                                    </figure>                                        
-                                </label>          
-                            </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('tipoCir',2)">
-                                <label class="custom-control custom-radio">                
-                                    <input id="radio2" name="radio" type="radio" class="custom-control-input">
-                                    <figure class="mx-auto">
-                                        <img src="./assets/icons/urgent.svg" class="rounded mx-auto" alt="Urg">
-                                        <figcaption class="text-center figure-caption">Urgente</figcaption> 
-                                    </figure>                                        
-                                </label>
-                            </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('tipoCir',3)">
-                                <label class="custom-control custom-radio">                
-                                    <input id="radio3" name="radio" type="radio" class="custom-control-input">
-                                    <figure class="figure mx-auto">
-                                        <img src="./assets/icons/emergente.svg" class="rounded mx-auto" alt="Emerg">
-                                        <figcaption class="text-center figure-caption">Emergente</figcaption>
-                                    </figure>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card"> 
-                            <div class="card-header2 card-header-inline" data-background-color="green">
-                                <p>Tu Rol Fue</p>
-                            </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('rol',1)">
-                                <label class="custom-control custom-radio">                
-                                    <input id="radio4" name="radio2" type="radio" class="custom-control-input">
-                                    <figure class="figure mx-auto align-middle">
-                                        <img src="./assets/icons/scalpel.svg" class="rounded mx-auto" alt="Ele">
-                                        <figcaption class="text-center figure-caption">Cirujano</figcaption>
-                                    </figure>
-                                    <span class="custom-control-indicator"></span>                
-                                </label>      
-                            </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('rol',2)">
-                                <label class="custom-control custom-radio">                
-                                    <input id="radio5" name="radio2" type="radio" class="custom-control-input">
-                                    <figure class="mx-auto">
-                                        <img src="./assets/icons/scissors.svg" class="rounded align-middle mx-auto" alt="Urg">
-                                        <figcaption class="text-center figure-caption">1<sup>o</sup> Ayudante</figcaption>
-                                    </figure>
-                                    <span class="custom-control-indicator"></span>
-                                </label>
-                            </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('rol',3)">
-                                <label class="custom-control custom-radio">                
-                                    <input id="radio6" name="radio2" type="radio" class="custom-control-input">
-                                    <figure class="figure mx-auto">
-                                        <img src="./assets/icons/band-aid.svg" class="rounded mx-auto" alt="Emerg">
-                                        <figcaption class="text-center figure-caption">2<sup>o</sup> Ayudante</figcaption>
-                                    </figure>
-                                    <span class="custom-control-indicator"></span>              
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>     
-            <div class="pull-right">
-                <a ng-click="changeToStep(2)" class="btn btn-primary">siguiente paso</a>
-            </div>
+            
         </div>
         
         <!--PASO 2-->
@@ -406,10 +446,9 @@
         </div>  <!-- /content --> 
 
         <!-- PASO 4 -->
-
+        
         <div class="content" ng-show="selectedStep[3]">
             <div class="container-fluid">
-
 
             <!-- Datos Pacientes Check Table -->
             <div class="row">

@@ -30,6 +30,11 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 	var labelsQx = [];
 	var maxQx = 5;
 
+	var detailRol = [{labels: [], data: [[]], total: 0},{labels: [], data: [[]], total: 0},{labels: [], data: [[]], total: 0}];
+	var byDate = {};
+
+	var totalProced = 0;
+
 	var today = new Date();
 	function monthDiff(d1, d2) {
 	    var months;
@@ -53,7 +58,8 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 					byRole: {},
 					byType: {},
 					byDiagnosis:{},
-					byProcedure: {} 
+					byProcedure: {},
+					byDateYear: {} 
 				},
 				r1: {},
 				r2: {}, 
@@ -87,6 +93,16 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 
 
 			for (var entry of entries) {
+				var entryDate = new Date(entry.fecha);
+				var entryYear = entryDate.getFullYear();
+				if (entryYear.toString() in byDate) { //ya hay datos de ese año
+					byDate[entryYear.toString()]++;
+				}else{ //no hay datos de ese año
+					byDate[entryYear.toString()]=1;
+
+					
+				}
+				totalProced += entry.cirugia.length
 			 	if (entry.anores>=0) {
 			 		entriesByYear[entry.anores].push(entry)
 			 	}else{
@@ -161,18 +177,40 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 			 		registre = false;
 				 	var nombre = adminserv.getNameById('cirugia',entry.cirugia[i].id, true);
 				 	labelsCirugia.forEach(function(entryR, indR){
-				 	    if (nombre == entryR) {
+				 	    if (nombre == entryR) {	//el nombre ya existe, ya había uno de este mismo procedimiento
 				 	        dataCirugia[indR]++;
 				 	        registre = true;
 				 	    };
 				 	})
-				 	if (!registre) {
+				 	if (!registre) {	//el nombre no existe, hay que crearlo nuevo.
 				 	    labelsCirugia.push(nombre);
 				 	    dataCirugia.push(1); 
 				 	};
+
+				 	//*****************************
+				 	//anido por procedimiento en cada rol (para los detalles)
+				 	//*****************************
+				 	registre = false;
+				 	var detailLabels = detailRol[entry.rol-1].labels;
+				 	var detailData = detailRol[entry.rol-1].data[0];
+				 	detailLabels.forEach(function(entryDet, indDet){
+				 		
+				 		if (nombre == entryDet) {	
+				 			detailRol[entry.rol-1].total++;
+				 	        detailData[indDet]++;
+				 	        registre = true;
+				 	    };
+				 	})
+				 	if (!registre) {	
+				 	    detailLabels.push(nombre);
+				 	    detailData.push(1); 
+				 	    detailRol[entry.rol-1].total++;
+				 	};
 			 	}	
 			}
-
+			console.log(byDate)
+// 			console.log(totalProced)
+// console.log(detailRol)
 
 			//*****************************
 			//Recorto Dx al top elegido
@@ -233,6 +271,14 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 
 			dashboardData.general.byProcedure.data=[dataCirugia];
 			dashboardData.general.byProcedure.labels=labelsQx;
+
+			dashboardData.general.byRoleDetail = detailRol;
+
+		
+			dashboardData.general.byDateYear.data = [Object.values(byDate)] 
+			dashboardData.general.byDateYear.labels = Object.keys(byDate);
+			
+			console.log(dashboardData.general.byDateYear)
 
 		  	dashboardData.r1.totalQx = entriesByYear[1].length;
 		  	dashboardData.r2.totalQx = entriesByYear[2].length;

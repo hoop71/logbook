@@ -53,6 +53,8 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 	$scope.selectedStep = [true, false, false, false, false];
 	$scope.stepClasses = ["active", "", "", "", ""];
 
+	$scope.colors = ['#ab47bc', '#26c6da', '#ffa726', '#F1C40F']
+
 	function monthDiff(d1, d2) {
 	    var months;
 	    months = (d2.getFullYear() - d1.getFullYear()) * 12;
