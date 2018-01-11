@@ -1,0 +1,127 @@
+<div class="wrapper">
+    <div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
+  
+        <div class="logo">
+            <a href="#" class="simple-text">
+                LOGBOOK
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li ng-repeat="item in menuItems" class="{{item.class}}">
+                    <a ng-href="#!/{{item.linkTo}}">
+                        <i class="material-icons">{{item.icon}}</i>
+                        <p>{{item.name}}</p>
+                    </a>
+                </li>       
+                <li class="active-pro">
+                    <a ng-click="logout()">
+                        <i class="material-icons">error</i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        <nav class="navbar navbar-transparent navbar-absolute">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"> Bitácora </a>
+                </div>
+            </div>
+        </nav>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header" data-background-color="green">
+                                <h4 class="title">Bitácora</h4>
+                                <p class="category">Informe de los procedimientos</p>
+                            </div>
+                            <div class="card-content table-responsive">
+                                <table class="table">
+                                    <thead class="text-primary">
+                                        <th ng-click="setOrder('cirugia')">Cirugías</th>
+                                        <th ng-click="setOrder('nombrePaciente')">Identificación del paciente</th>
+                                        <th ng-click="setOrder('identificacion')">Iniciales del Paciente</th>
+                                        <th ng-click="setOrder('fecha')">Fecha</th>
+                                        <th ng-click="setOrder('complicaciones')">Complicaiones</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="(key, entrada) in entradas | filter: filtroEntradas | orderBy: orderFcn:true | limitTo: 50" ng-if="entradas.length>0" >
+                                            <td ng-click="verEntrada(entrada.$id)">{{adminserv.getNameById('cirugia',entrada.cirugia[0].id, true)}}</td>
+                                            <td>{{entrada.nombrePaciente}}</td>
+                                            <td>{{entrada.identificacion}}</td>
+                                            <td>{{adminserv.interpretarFechaShort(entrada.fecha)}}</td>
+                                            <td ng-if="entrada.complicaciones.length>4" class="text-danger"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
+                                            <td ng-if="entrada.complicaciones.length<=4 && entrada.complicaciones.length>2" class="text-warning"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
+                                            <td ng-if="entrada.complicaciones.length<=2 && entrada.complicaciones.length>=1" class="text-info"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
+                                            <td ng-if="entrada.complicaciones.length==0 || !entrada.complicaciones" class="text-success"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                   
+                </nav>
+                <p class="copyright pull-right">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                     | Hecho con <i class="fa fa-heart heart"></i> por mhooper72 designs
+                </p>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalCompli">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Complicaciones</h4>
+            <p>Selecciona las complicaciones</p>
+        </div>
+        <div class="modal-body">
+            <!-- Muestro primero los que el usuario ha elegido-->
+            <div ng-repeat="(key,complicacionSel) in seleccionComplic">
+                <div class="alert alert-warning">
+                    <div class="container-fluid">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection(complicacionSel, key)">
+                            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                        </button>
+                        {{adminserv.getNameById('complicacion',complicacionSel, true)}}
+                    </div>
+                </div>
+            </div>
+            <table class="table">
+                <tbody>
+                    <tr ng-repeat="(key,complicacion) in complicaciones" ng-click="toggleSelection(complicacion.id, key)">
+                        <td>
+                            {{complicacion.nombreLargo}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      
+    </div>
+  </div>
+</div>

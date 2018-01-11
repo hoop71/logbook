@@ -5,6 +5,11 @@ logbookweb.constant('MENU_ITEMS', [
 		icon: 'dashboard'
 	},
 	{
+		name: 'Objetivos',
+		linkTo: 'objetivos',
+		icon: 'school'
+	},
+	{
 		name: 'Bitácora',
 		linkTo: 'bitacora',
 		icon: 'content_paste'

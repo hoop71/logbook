@@ -1,0 +1,43 @@
+<div class="wrapper">
+    <div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
+  
+        <div class="logo">
+            <a href="#" class="simple-text">
+                LOGBOOK
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li ng-repeat="item in menuItems" class="{{item.class}}">
+                    <a ng-href="#!/{{item.linkTo}}">
+                        <i class="material-icons">{{item.icon}}</i>
+                        <p>{{item.name}}</p>
+                    </a>
+                </li>
+                                
+                <li class="active-pro">
+                    <a ng-click="logout()">
+                        <i class="material-icons">error</i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        <nav class="navbar navbar-transparent navbar-absolute">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">OBJETIVOS</a>
+                    <ol class="breadcrumb">
+                        <li ng-class="stepClasses[0]"><a ng-click="changeToStep(1)">Pendientes</a></li>
+                        <li ng-class="stepClasses[1]"><a ng-click="changeToStep(2)">Completados</a></li>
+                    </ol>
+                </div>
+            </div>
+        </nav>
+        <div class="content" ng-show="selectedStep[0]"> 
+            lkjsdflkj
+        </div>
+    </div>
+</div>

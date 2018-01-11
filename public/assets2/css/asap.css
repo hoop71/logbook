@@ -1,0 +1,305 @@
+.apps { 
+text-transform: uppercase; 
+}
+
+h4 { 
+font-weight: 400; 
+}
+
+.title.apps  { 
+color: #ffffff;
+ }
+
+.section.text-center.appdl { 
+background-image: linear-gradient(120deg, #89f7fe 0%, #185567 100%);
+}
+
+.section.text-center.appdl a { 
+cursor: pointer;
+}
+
+#enviar { 
+background-color: #185567; 
+color: #FFFFFF;
+border-color: #ffffff;
+}
+
+#enviar:hover { 
+background-color: #FFFFFF;
+border: 2px solid #185567;
+color: #185567; 
+
+}
+
+/*:hover { 
+background-color: #ffffff;
+color: #000000;
+border: 1px solid #62efff;
+}*/
+
+#entrarNav {
+border-radius: 30px;
+padding: 1vh 2vh 1vh 2vh; 
+background-color: #6aefff;
+border-color: #6aefff;
+color: #000000;
+opacity: 1;
+filter: alpha(opacity=100);
+font-weight: 400;
+}
+
+/*#entradaNav { 
+background-color: #1fbcd2;
+color: #000000;
+border: 1px solid #1fbcd2;
+border-radius: 30px;
+padding: none; 
+}*/
+
+#entrarNav:hover, #entrarNav:focus, #entrarNav:active, #entrarNav.active, .show > #entrarNav.dropdown-toggle {
+  background-color: #6aefff;
+  color: #000000;
+  border-color: #1fbcd2;
+}
+
+.btn-info .caret {
+  border-top-color: #000000;
+}
+.btn-info.btn-link {
+  color: #51bcda;
+}
+.btn-info.btn-link:hover, .btn-info.btn-link:focus, .btn-info.btn-link:active, .btn-info.btn-link.active, .open > .btn-info.btn-link.dropdown-toggle {
+  background-color: transparent;
+  color: #2ba9cd;
+  border-color: #1fbcd2;
+}
+.btn-info.btn-link .caret {
+  border-top-color: #51bcda;
+}
+.btn-info .caret {
+  border-top-color: #FFFFFF;
+}
+
+.panel.toppers { 
+margin-bottom: 3vh; 
+color: #1c5666;
+}
+
+.panel.toppers button { 
+	display: inline;
+}
+
+
+/* Form Multi Select */
+
+form select option:checked ~ figure img { 
+filter: grayscale(0);
+}
+
+
+h3.no-margin { 
+margin: -10px 0 5px;
+}
+
+.supercard:hover { 
+background-color: white;
+border-radius: 2rem;
+}
+
+.card img { 
+max-width: 5rem;
+max-height: 5rem;
+padding: .25rem;
+}
+
+.card {
+padding-left: 1vw;
+
+}
+
+.card:hover { 
+cursor: pointer;
+}
+
+.card.toppers:hover { 
+cursor: default; 
+}
+
+.card.toppers {
+	border-bottom: 2px solid #4b8295;
+}
+
+.card.toppers { 
+  color: #185567;
+  max-height: 75px;
+  margin-top: 1rem;
+}
+
+.card.toppers:first-child { 
+  margin-top: 5rem;
+}
+
+#selections { 
+margin-top: 1.5vh; 
+margin-bottom: 1vh;
+}
+
+h4#selections.text-center { 
+margin-bottom: 1rem; 
+}
+
+.fue label img { 
+width: 100%;
+padding: 3vh;
+margin: 0;
+filter: grayscale(100);
+}
+
+
+.fue label img:hover { 
+width: 100%;
+margin: 0;
+filter: grayscale(0);
+padding: 3vh;
+}
+
+.fue label { 
+padding: 0; 
+margin: 0; 
+}
+
+.fue { 
+border: 1px solid #008ba3;
+margin-top: 1rem;
+padding: -5rem;
+}
+
+.box-shadow{
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+       -moz-box-shadow: 0 10px 6px -6px #777;
+            box-shadow: 0 10px 6px -6px #777;
+    border-radius: 5px;
+    margin-left: 1vw;
+}
+
+.custom-radio input:checked ~ figure img { 
+filter: grayscale(0);
+}
+
+.custom-control-indicator { 
+opacity: 0;
+}
+
+
+
+.next-button { 
+margin: 4vh; 
+}
+
+
+.btn.secondary { 
+border-color: #64ff4c;
+ }
+
+.btn.secondary:hover { 
+background-color: #64ff4c;
+ }
+
+
+.entrartop {
+margin-top: 15vh; 
+}
+
+body > div.master > div > div:nth-child(3) > div > h4
+
+/*.toppers:not(:first-child) {
+margin-top: 1vh;
+}*/
+
+.form-control.dropdown-toggle:hover { 
+background-color: #E3F6F4; 
+border-color: #4b8295;
+color: #000000;
+}
+
+.input-group.date:hover { 
+background-color: #E3F6F4; 
+border-color: #4b8295;
+color: #000000;
+}
+
+
+.form-control.dropdown-toggle:hover::placeholder { 
+color: #000000; }
+
+
+
+.drop label { 
+margin-bottom: .5vh;
+}
+.drop label:not(:first-child) {
+margin-top: 1.5vh;
+color: red;
+}
+
+.form { 
+color: red; 
+}
+
+.red { 
+margin-top: 0;
+}
+
+#toggle2, #toggle3, #toggle4 {
+  position: relative;
+  appearance: none;
+  cursor: pointer;
+  display: none;
+
+/*  left:-100%;
+  top:-100%;*/
+}
+
+#toggle2 + label, #toggle3 + label, #toggle4 + label {
+  position:absolute;
+  cursor:pointer;
+  color: #000000;
+  background: blue;
+  width: 5vw;
+  border-radius: 3px;
+  text-align:center;
+  font-size: 12px;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+  line-height: 1.5;
+/*  padding:10px;*/  
+/*  padding: 8px 10px;*/
+/*  line-height:20px;*/
+/*  font-size:12px;*/ 
+/*margin:20px 50px;*/
+/*  transition:all 500ms ease;*/
+}
+
+#toggle2 + label:after, #toggle3 + label:after, #toggle4 + label:after {
+  content:"Si" 
+}
+
+
+#toggle2:checked ~ .message {
+/*  top: 0;*/
+}
+
+#toggle2:checked ~ .container {
+  margin-top: 250px;
+}
+
+#toggle2:checked + label, #toggle3:checked + label, #toggle4:checked + label {
+  background:#dd6149;
+}
+
+#toggle2:checked + label:after, #toggle3:checked + label:after, #toggle4:checked + label:after  {
+  content:"No"
+}
+
+
+

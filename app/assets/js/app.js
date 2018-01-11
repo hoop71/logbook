@@ -13,10 +13,11 @@ var logbookweb = angular.module('logbookweb', [
     'logbookweb.profile',
     'logbookweb.entry',
     'logbookweb.detail',
+    'logbookweb.objectives',
     'logbookweb.error'
 
 
-    ]);
+    ])
 
 logbookweb.config(function($stateProvider, $urlRouterProvider) {
     

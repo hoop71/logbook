@@ -43,7 +43,7 @@ angular.module('logbookweb.table', ['ui.router'])
 	    $('html').addClass('perfect-scrollbar-off');
 	}
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
-	$scope.menuItems[1].class="active"
+	$scope.menuItems[2].class="active"
 	
 	$scope.$on('adminserv:directricesListas', function() {
 		$scope.complicaciones = adminserv.getSelectInfo('complicaciones');

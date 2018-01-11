@@ -1,0 +1,381 @@
+<div class="wrapper">
+    <div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
+        <div class="logo">
+            <a href="dashboard.html" class="simple-text">
+                LOGBOOK
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li ng-repeat="item in menuItems" class="{{item.class}}">
+                    <a ng-href="#!/{{item.linkTo}}">
+                        <i class="material-icons">{{item.icon}}</i>
+                        <p>{{item.name}}</p>
+                    </a>
+                </li>       
+                <li class="active-pro">
+                    <a ng-click="logout()">
+                        <i class="material-icons">error</i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        <nav class="navbar navbar-transparent navbar-absolute">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#!/bitacora"> DETALLES </a>
+                </div>
+            </div>
+        </nav>
+        <!-- <div class="circular-container">
+            <div class="circle circular-loader1">
+              <div class="circle circular-loader2">    </div>
+            </div>
+          </div> -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="alert alert-warning" ng-if="entrada.simulacion">
+                            <div class="container-fluid">
+                                <div class="alert-icon">
+                                    <i class="material-icons">warning</i>
+                                </div>
+                                Esta cirugía fue una SIMULACIÓN
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="blue">
+                                    <h3>{{entrada.nombrePaciente}} - {{entrada.identificacion}}</h3> 
+                                </div>
+                                <div class="card-content">
+                                    <div class="row" ng-show="modeEdit">
+                                        <div class="col-sm-12">
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Iniciales del paciente</label>
+                                                <input type="text" class="form-control" placeholder="iniciales del paciente" ng-model="entrada.nombrePaciente"/> 
+                                            </div>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Identificación</label>
+                                                <input type="text" class="form-control" placeholder="Identificacion" ng-model="entrada.identificacion"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 90px">
+                                        <div class="col-md-3 col-xs-4">
+                                            <div class="form-group">
+                                                <figure class="figure mx-auto align-middle">
+                                                    <img ng-src="{{adminserv.getIconById('tipo',entrada.tipoCir)}}" class="rounded mx-auto" alt="tipo">
+                                                    <figcaption class="text-center figure-caption">{{adminserv.getNameById('tipo', entrada.tipoCir, true)}}</figcaption>
+                                                </figure> 
+                                            </div>
+                                            <select ng-show="modeEdit" class="form-control dropdown-toggle"  ng-model="entrada.tipoCir">
+                                                <option id="tipo1" ng-value=1>Electiva</option>
+                                                <option id="tipo2" ng-value=2>Urgente</option>
+                                                <option id="tipo3" ng-value=3>Emergente</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 col-xs-4">
+                                            <div class="form-group">
+                                                <figure class="figure mx-auto align-middle">
+                                                    <img ng-src="{{adminserv.getIconById('rol',entrada.rol)}}" class="rounded mx-auto" alt="rol">
+                                                    <figcaption class="text-center figure-caption">{{adminserv.getNameById('rol', entrada.rol, true)}}</figcaption>
+                                                </figure> 
+                                            </div>
+                                            <select ng-show="modeEdit" class="form-control dropdown-toggle"  ng-model="entrada.rol">
+                                                <option id="rol1" ng-value=1>Cirujano</option>
+                                                <option id="rol2" ng-value=2>Primer ayudante</option>
+                                                <option id="rol3" ng-value=3>Segundo ayudante</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 col-xs-4" ng-if="entrada.opcionales.feeling">
+                                            <div class="form-group label-floating">
+                                                <figure class="figure mx-auto align-middle">
+                                                    <img ng-src="{{adminserv.getIconById('feeling',entrada.opcionales.feeling)}}" class="rounded mx-auto" alt="feeling">
+                                                    <figcaption class="text-center figure-caption">{{adminserv.getNameById('feeling', entrada.opcionales.feeling, true)}}</figcaption>
+                                                </figure> 
+                                            </div>
+                                            <select ng-show="modeEdit" class="form-control dropdown-toggle"  ng-model="entrada.opcionales.feeling">
+                                                <option id="feel1" ng-value=1>Bien</option>
+                                                <option id="feel2" ng-value=3>Neutral</option>
+                                                <option id="feel3" ng-value=5>Mal</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-md-center">
+                                        <div class="col-sm-12 col-md-10 text-left">        
+                                            <h3 class="title" style="border-bottom: 1px solid grey" ng-show="!modeEdit">{{adminserv.getNameById('lugar',entrada.lugar,true)}}</h3>
+                                            <select class="form-control dropdown-toggle" ng-model="entrada.lugar" ng-show="modeEdit" >
+                                                <option ng-repeat="lugar in lugares" ng-value="{{lugar.id}}">{{lugar.nombreLargo}}</option>
+                                            </select>
+                                            <p class="category">Lugar</p>
+                                            <h3 class="title" style="border-bottom: 1px solid grey" ng-show="!modeEdit">{{adminserv.getNameById('profesor',entrada.profesor,true)}}</h3>
+                                            <select class="form-control dropdown-toggle" ng-model="entrada.profesor" ng-show="modeEdit">
+                                                <option ng-repeat="profesor in profesores" ng-value="{{profesor.id}}">{{profesor.nombreLargo}}</option>
+                                            </select>
+                                            <p class="category">Profesor</p>
+                                            <h3 class="title" style="border-bottom: 1px solid grey" ng-show="!modeEdit">{{adminserv.getNameById('rotacion',entrada.rotacion,true)}}</h3>
+                                            <select class="form-control dropdown-toggle" ng-model="entrada.rotacion" ng-show="modeEdit" >
+                                                <option ng-repeat="rotacion in rotaciones" ng-value="{{rotacion.id}}">{{rotacion.nombreLargo}}</option>
+                                            </select>
+                                            <p class="category">Rotación</p>
+                                            <h3 class="title" style="border-bottom: 1px solid grey" ng-show="!modeEdit">{{adminserv.interpretarFecha(entrada.fecha)}}</h3>
+                                            <input type="date" ng-model="entrada.fecha" ng-show="modeEdit">
+                                            <p class="category">Fecha</p>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6">
+                                <div class="card card-stats">
+                                    <div class="card-header" data-background-color="blue">
+                                        <i class="material-icons">location_on</i>
+                                    </div>
+                                    <div class="card-content">
+                                        <p class="category">Lugar</p>
+                                        <h3 class="title">{{adminserv.getNameById('lugar',entrada.lugar,true)}}</h3>
+                                        <p class="category">lkjdf</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6">
+                                <div class="card card-stats">
+                                    <div class="card-header" data-background-color="blue">
+                                        <i class="material-icons">perm_identity</i>
+                                    </div>
+                                    <div class="card-content">
+                                        <p class="category">Profesor</p>
+                                        <h3 class="title">{{adminserv.getNameById('profesor',entrada.profesor,true)}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6">
+                                <div class="card card-stats">
+                                    <div class="card-header" data-background-color="blue">
+                                        <i class="material-icons">swap_horiz</i>
+                                    </div>
+                                    <div class="card-content">
+                                        <p class="category">Rotación</p>
+                                        <h3 class="title">{{adminserv.getNameById('rotacion',entrada.rotacion,true)}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6">
+                                <div class="card card-stats">
+                                    <div class="card-header" data-background-color="blue">
+                                        <i class="material-icons">date_range</i>
+                                    </div>
+                                    <div class="card-content">
+                                        <p class="category">Fecha</p>
+                                        <h3 class="title">{{adminserv.interpretarFecha(entrada.fecha)}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <button type="submit" class="btn btn-info pull-right" ng-click="startEdit()" ng-show="!modeEdit && canEdit"><i class="material-icons">mode_edit</i></button>
+                            <button type="submit" class="btn btn-info pull-right" ng-click="saveEdit()" ng-show="modeEdit"><i class="material-icons">save</i></button>
+                            <button type="submit" class="btn btn-info pull-right"><i class="material-icons">delete</i></button>
+                        </div>
+                    </div> 
+            
+                    <div class="col-md-5">
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6">
+                            <div class="card">
+                                <div class="card-header" data-background-color="blue">
+                                    <h5 class="title">Procedimientos</h5>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="category" ng-repeat="cirugia in entrada.cirugia">{{adminserv.getNameById('cirugia',cirugia.id,true)}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6">
+                            <div class="card">
+                                <div class="card-header" data-background-color="blue">
+                                    <h5 class="title">Diagnósticos</h5>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="category" ng-repeat="diagnostico in entrada.diagnostico">{{adminserv.getNameById('diagnostico',diagnostico,true)}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-lg-12 col-xl-6" ng-show="entrada.complicaciones.length > 0">
+                            <div class="card">
+                                <div class="card-header" data-background-color="red">
+                                    <h5 class="title">Complicaciones</h5>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category" ng-repeat="complicacion in entrada.complicaciones">{{adminserv.getNameById('complicacion',complicacion,true)}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-profile">
+                            <div class="card-header" data-background-color="blue">
+                                <h4 class="title">Detalles generales</h4>
+                            </div>
+                               
+                            <div class="card-content table-responsive">
+                                <table class="table">
+                                    <thead class="text-primary">
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text text-left">Año residencia</td>
+                                            <td ng-show="!modeEdit" class="text text-left">R{{entrada.anores}}</td>
+                                            <td ng-show="modeEdit" class="text text-left">
+                                                <select class="form-control dropdown-toggle"  ng-model="entrada.anores">
+                                                    <option id="anores1" ng-value=1>R1</option>
+                                                    <option id="anores2" ng-value=2>R2</option>
+                                                    <option id="anores3" ng-value=3>R3</option>
+                                                    <option id="anores4" ng-value=4>R4</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text text-left">Observaciones</td>
+                                            <td ng-show="!modeEdit" class="text text-left">{{entrada.opcionales.observaciones}}</td>
+                                            <td ng-show="modeEdit" class="text text-left"><input type="text" class="form-control" rows="4" placeholder="Observaciones" ng-model="entrada.opcionales.observaciones"/> </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                                <div class="row" ng-show="!modeEdit">
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.incisionCervicotomia">
+                                        <p>Realicé la Cervicotomía</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.incisionToracotomia">
+                                        <p>Realicé la Toracotomía</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.incisionLaparotomia">
+                                        <p>Realicé la Laparotomía</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.cierreCervicotomia">
+                                        <p>Cerré la Cervicotomía</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.cierreToracotomia">
+                                        <p>Cerré la Toracotomía</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.cierreLaparotomia">
+                                        <p>Cerré la Laparotomía</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.anastomosisVisceral">
+                                        <p>Realicé anastomosis visceral</p>
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6" ng-if="entrada.opcionales.anastomosisVascular">
+                                        <p>Realicé anastomosis vascular</p>
+                                    </div>
+                                </div>
+                                <div class="row" ng-show="modeEdit">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionCervicotomia" ng-checked="entrada.opcionales.incisionCervicotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé la Cervicotomía</td>
+                                                     <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreCervicotomia" ng-checked="entrada.opcionales.cierreCervicotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Cerré la Cervicotomía</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionToracotomia" ng-chekced="entrada.opcionales.incisionToracotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé la Toracotomía</td>
+                                                     <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreToracotomia" ng-checked="entrada.opcionales.cierreToracotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Cerré la Toracotomía</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionLaparotomia" ng-checked="entrada.opcionales.incisionLaparotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé la Laparotomía</td>
+                                                     <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreLaparotomia" ng-checked="entrada.opcionales.cierreLaparotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Cerré la Laparotomía</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.anastomosisVisceral" ng-checked="entrada.opcionales.anastomosisVisceral">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé Anastomosis Visceral</td>
+                                                     <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.anastomosisVascular" ng-checked="entrada.opcionales.anastomosisVascular">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé Anastomosis Vascular</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    
+                </nav>
+                <p class="copyright pull-right">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                     | Hecho con <i class="fa fa-heart heart"></i> por mhooper72 designs
+                </p>
+            </div>
+        </footer>
+    </div>
+</div>

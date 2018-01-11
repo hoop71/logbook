@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="app/assets/img/apple-icon.png" />
+    <link rel="icon" type="image/png" href="app/assets/img/favicon.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>LOGBOOK - Dashboard</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Bootstrap core CSS     -->
+    <link href="app/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <!--  Material Dashboard CSS    -->
+    <link href="app/assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet" />
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link href="app/assets/css/demo.css" rel="stylesheet" />
+    <!--     Fonts and icons     -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=lato:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar" data-color="blue" data-image="../app/assets/img/sidebar-1.jpg">
+      
+            <div class="logo">
+                <a href="#" class="simple-text">
+                    LOGBOOK
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="active">
+                        <a href="dashboard.html">
+                            <i class="material-icons">dashboard</i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./table.html">
+                            <i class="material-icons">content_paste</i>
+                            <p>Bitácora</p>
+                        </a>
+                    </li>  
+                    <li>
+                        <a href="entrada1.html">
+                            <i class="material-icons">note_add</i>
+                            <p>Nueva Entrada</p>
+                        </a>
+                    </li>                 
+                    <li>
+                        <a href="./user.html">
+                            <i class="material-icons">person</i>
+                            <p>Mi Perfil</p>
+                        </a>
+                    </li>
+                                    
+                    <li class="active-pro">
+                        <a href="#">
+                            <i class="material-icons">error</i>
+                            <p>Reportar un error</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <nav class="navbar navbar-transparent navbar-absolute">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">LOGBOOK Dashboard</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="material-icons">dashboard</i>
+                                    <p class="hidden-lg hidden-md">Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="material-icons">notifications</i>
+                                    <span class="notification">5</span>
+                                    <p class="hidden-lg hidden-md">Notifications</p>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#"><i class="material-icons text-warning">whatshot</i><span style="opacity: 0">__</span>5 días seguidos - estás en llamas!</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="material-icons text-success">new_releases</i></i><span style="opacity: 0">__</span>Hay nuevos objetivos a completar</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="material-icons text-info">location_on</i><span style="opacity: 0">__</span>Tarea completada en una nuevo lugar</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="material-icons text-danger">watch_later</i><span style="opacity: 0">__</span>Una meta termina pronto</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="material-icons text-muted">thumbs_up_down</i><span style="opacity: 0">__</span>Califica tu mentor</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="material-icons">person</i>
+                                    <p class="hidden-lg hidden-md">Profile</p>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <a href="#"><i class="material-icons">power_settings_new</i>Cerrar sesión</a>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form class="navbar-form navbar-right" role="search">
+                            <div class="form-group  is-empty">
+                                <input type="text" class="form-control" placeholder="Buscar">
+                                <span class="material-input"></span>
+                            </div>
+                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                                <i class="material-icons">search</i>
+                                <div class="ripple-container"></div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+
+
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="orange">
+                                    <i class="fa fa-heartbeat"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Cirugías Totales</p>
+                                    
+                                    <h3 class="title">15</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Hace DD/MM/YYYY
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">date_range</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Promedio Mensual</p>
+                                    <h3 class="title">15</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Cirugías al mes
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-12">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="blue">
+                                    <i class="material-icons">date_range</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Promedio Anual</p>
+                                    <h3 class="title">180</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">Cirugías per annum</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Cirujias -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="red">
+                                    <div class="ct-slice-pie" id="pie1"></div>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Tipo de cirugía</h4>
+                                    <p class="category"></p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <span class="text-success"><i class="material-icons">label</i></span> Electivas
+                                        <span style="opacity: 0">__</span>  
+                                        <span class="text-warning"><i class="material-icons">label</i></span> Urgentes
+                                        <span style="opacity: 0">__</span>  
+                                        <span class="text-danger"><i class="material-icons">label</i></span> Emergente 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="blue">
+                                    <div class="ct-slice-pie" id="pie1"></div>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Mi Rol</h4>
+                                    <p class="category">
+                                        
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <span class="text-success"><img src="app/assets/icons/scalpel.svg"></i></span> Cirujano 
+                                        <span style="opacity: 0">__</span>
+                                        <span class="text-success"><img src="app/assets/icons/scissors.svg"></i></span> 1<sup>o</sup> ayudante
+                                        <span style="opacity: 0">__</span>
+                                        <span class="text-success"><img src="app/assets/icons/band-aid.svg"></i></span> 2<sup>o</sup> ayudante  
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics -->
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="green">
+                                    <div class="ct-chart" id="dailySalesChart"></div>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Por año de residencia</h4>
+                                    <p class="category">
+                                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> cuenta de cirugías 
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> updated 4 minutes ago
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="orange">
+                                    <div class="ct-chart" id="emailsSubscriptionChart"></div>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">En este año</h4>
+                                    <p class="category">
+                                        <span class="text-success"><i class="material-icons">trending_up</i></span> tendencia hacia arriba
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons text-info">arrow_back</i>
+                                        <a href="#">
+                                         Año anterior</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="red">
+                                    <div class="ct-chart" id="completedTasksChart"></div>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">En este mes</h4>
+                                    <p class="category">
+                                        <span class="text-danger"><i class="material-icons">trending_down</i></span> tendencia hacia abajo
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons text-info">arrow_back</i>
+                                        <a href="#">
+                                         Mes anterior</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rotaciones / Lugar -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="purple">
+                                    <div class="ct-slice-pie" id="pie1"></div>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Mis Rotaciones</h4>
+                                    <p class="category">
+                                        <i class="material-icons">swap_horiz</i>
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> updated 4 minutes ago 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="green">
+                                    <div class="ct-slice-pie" id="pie1"></div>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Mis Lugares</h4>
+                                    <p class="category">
+                                        
+                                    </p>
+                                </div>
+                                <div class="card-footer icons">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> updated 4 minutes ago
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Frecunetes-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="blue">
+                                    <div class="ct-slice-pie" id="pie1"></div>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Cirugías frecuentes</h4>
+                                    <p class="category">
+                                        
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> updated 4 minutes ago 
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="orange">
+                                    <div class="ct-slice-pie" id="pie1"></div>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Diagnósticos frecuentes</h4>
+                                    <p class="category">
+                                        
+                                    </p>
+                                </div>
+                                <div class="card-footer icons">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> updated 4 minutes ago
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            <!-- footer -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav class="pull-left">
+                    
+                    </nav>
+                    <p class="copyright pull-right">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                         | Hecho con <i class="fa fa-heart heart"></i> por mhooper72 designs
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+
+</html>

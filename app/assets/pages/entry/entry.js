@@ -29,7 +29,7 @@ angular.module('logbookweb.entry', ['ui.router'])
 
 .controller('entryCtrl', ['$scope','$state', 'adminserv', 'MENU_ITEMS', 'firebase', '$firebaseObject', '$firebaseArray', 'SweetAlert', function($scope, $state, adminserv, MENU_ITEMS, firebase, $firebaseObject, $firebaseArray, SweetAlert) {
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
-	$scope.menuItems[2].class="active"
+	$scope.menuItems[3].class="active"
 
 	$scope.seleccionDiag = [];
 	$scope.diagnosticosElegidos = [];

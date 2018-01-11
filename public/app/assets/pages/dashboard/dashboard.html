@@ -1,0 +1,594 @@
+
+<div>
+    <div class="wrapper">
+        <div class="sidebar" data-color="blue" data-image="../assets/img/sidebar-1.jpg">
+      
+            <div class="logo">
+                <a href="#" class="simple-text">
+                    LOGBOOK
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li ng-repeat="item in menuItems" class="{{item.class}}">
+                        <a ng-href="#!/{{item.linkTo}}">
+                            <i class="material-icons">{{item.icon}}</i>
+                            <p>{{item.name}}</p>
+                        </a>
+                    </li>
+                    <li class="active-pro">
+                        <a ng-click="logout()">
+                            <i class="material-icons">error</i>
+                            <p>Logout</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <nav class="navbar navbar-transparent navbar-absolute col-lg-12">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand">LB - Dashboard</a>
+                            <ol class="breadcrumb">
+                                <li ng-class="stepClasses[0]"><a ng-click="changeToStep(1)">General</a></li>
+                                <li ng-class="stepClasses[1]"><a ng-click="changeToStep(2)">R1</a></li>
+                                <li ng-class="stepClasses[2]" ng-show="user.anores>=2"><a ng-click="changeToStep(3)">R2</a></li>
+                                <li ng-class="stepClasses[3]" ng-show="user.anores>=3"><a ng-click="changeToStep(4)">R3</a></li>
+                                <li ng-class="stepClasses[4]" ng-show="user.anores>=4"><a ng-click="changeToStep(5)">R4</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+
+            <div class="content" ng-show="selectedStep[0]">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="orange">
+                                    <i class="fa fa-heartbeat"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Cirugías Totales</p>
+                                    
+                                    <h3 class="title">{{dashData.general.totalQx}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Desde {{adminserv.interpretarFechaShort(anoresDates[0])}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">date_range</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Promedio por Año de residencia</p>
+                                    <h3 class="title">{{dashData.general.qxPerYear}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Cirugías al año
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="blue">
+                                    <i class="material-icons">date_range</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Promedio mensual</p>
+                                    <h3 class="title">{{dashData.general.qxPerMonth}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Cirugías por mes, durante toda la residencia
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="green">
+                                    <div class="ct-chart" id="dailySalesChart"></div>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Tipo de cirugía</h4>
+                                    <p class="category">
+                                        
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <span class="text-success"><i class="material-icons">label</i></span> Electivas
+                                        <span style="opacity: 0">__</span>  
+                                        <span class="text-warning"><i class="material-icons">label</i></span> Urgentes
+                                        <span style="opacity: 0">__</span>  
+                                        <span class="text-danger"><i class="material-icons">label</i></span> Emergente  
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="green">
+                                    <div class="myGraph">
+                                        <canvas id="bar" class="chart chart-bar" chart-data="dashData.general.barsByYearData" chart-labels="labels" chart-series="series" chart-colors="colours" chart-options="options">
+                                        </canvas>
+                                    </div>  
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Por año de residencia</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="green">
+                                    <div class="myGraph">
+                                        <canvas id="line" class="chart chart-line" chart-data="dashData.general.byDateYear.data" chart-labels="dashData.general.byDateYear.labels" chart-series="series" chart-options="options" chart-colors="colours">
+                                        </canvas>
+                                    </div>  
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Por año</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="green">
+                                    <div class="myGraph">
+                                        <canvas id="line" class="chart chart-line" chart-data="dashData.general.byDateMonths[graphYear].data" chart-labels="options2.labels.year" chart-options="options2.optionsLine" chart-colors="colours" chart-series="[graphYear]">
+                                        </canvas>
+                                    </div>  
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <a ng-click="changeYear('prev')">Anterior</a>
+                                    </div>
+                                    <div class="stats pull-right">
+                                        <a ng-click="changeYear('next')" >Siguiente</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-md-6">
+                             <div class="card">
+                                <div class="card-header card-chart" data-background-color="blue">
+                                    <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick">
+                                    </canvas>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Mi rol</h4>
+                                    <p class="category">
+                                        
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <span class="text-success"><img src="./assets/icons/scalpel.svg"></i></span> Cirujano 
+                                        <span style="opacity: 0">__</span>
+                                        <span class="text-success"><img src="./assets/icons/scissors.svg"></i></span> 1<sup>o</sup> ayudante
+                                        <span style="opacity: 0">__</span>
+                                        <span class="text-success"><img src="./assets/icons/band-aid.svg"></i></span> 2<sup>o</sup> ayudante  
+                                        
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>-->
+                    </div>
+
+
+                    <!-- Statistics -->
+                    <div class="row">
+                        
+                        <div class="col-md-4 col-xl-4 col-lg-3">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="myGraph">
+                                        <canvas id="doughnut" class="chart chart-doughnut" chart-data="dashData.general.byRole.data" chart-labels="dashData.general.byRole.labels" chart-options="options2.pie" chart-dataset-override="options2.pie.override" chart-colors= "colors">
+                                        </canvas>
+                                    </div> 
+                                    <h4 class="title">Por rol</h4>
+                                    <!-- <p class="category">
+                                        <span class="text-success"><i class="material-icons">trending_up</i></span> tendencia hacia arriba
+                                    </p> -->
+                                </div>
+                                <!-- <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons text-info">arrow_back</i>
+                                        <a href="#">
+                                         Año anterior</a>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="purple">
+                                    <div class="myGraph">
+                                        <canvas id="detalleRol" class="chart chart-horizontal-bar" chart-data="dashData.general.byRoleDetail[0].data" chart-labels="dashData.general.byRoleDetail[0].labels" chart-colors="colours" chart-options="optionsHor">
+                                        </canvas>
+                                    </div> 
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Como Cirujano</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="blue">
+                                    <div class="myGraph">
+                                        <canvas id="detalleRol" class="chart chart-horizontal-bar" chart-data="dashData.general.byRoleDetail[1].data" chart-labels="dashData.general.byRoleDetail[1].labels" chart-colors="colours" chart-options="optionsHor">
+                                        </canvas>
+                                    </div> 
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Como Primer Ayudante</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="orange">
+                                    <div class="myGraph">
+                                        <canvas id="detalleRol" class="chart chart-horizontal-bar" chart-data="dashData.general.byRoleDetail[2].data" chart-labels="dashData.general.byRoleDetail[2].labels" chart-colors="colours" chart-options="optionsHor">
+                                        </canvas>
+                                    </div> 
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Como Segundo Ayudante</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xl-4 col-lg-6">
+                            <div class="card">
+                                <!-- <div class="card-header" data-background-color="red">
+                                    <h4 class="title">Por tipo</h4>
+                                </div> -->
+                                <div class="card-content">
+                                    <div class="myGraph">
+                                        <canvas id="doughnutTipo" class="chart chart-doughnut" chart-data="dashData.general.byType.data" chart-labels="dashData.general.byType.labels" chart-options="options2.pie" chart-dataset-override="options2.pie.override">
+                                        </canvas>
+                                    </div>
+                                    <h4 class="title">Por tipo de cirugía</h4>
+                                    <!-- OJO A ESTE EJEMPLO DE COMO HACER LO DE TENDENCIAS -->
+                                    <!-- <p class="category">
+                                        <span class="text-danger"><i class="material-icons">trending_down</i></span> tendencia hacia abajo
+                                    </p> -->
+                                </div>
+                                <!-- <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons text-info">arrow_back</i>
+                                        <a href="#">
+                                         Mes anterior</a>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                        
+
+
+                    <!-- Rotaciones / Lugar -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="purple">
+                                    <div class="myGraph">
+                                        <canvas id="baseRotacion" class="chart chart-horizontal-bar" chart-data="dashData.general.byRotation.data" chart-labels="dashData.general.byRotation.labels" chart-colors="colours" chart-options="optionsHor">
+                                        </canvas>
+                                    </div> 
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Mis Rotaciones</h4>
+                                    <p class="category">
+                                        <i class="material-icons">swap_horiz</i>
+                                        
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> updated 4 minutes ago 
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="green">
+                                    <div class="myGraph">
+                                        <canvas id="baseLugar" class="chart chart-horizontal-bar" chart-data="dashData.general.byLocation.data" chart-labels="dashData.general.byLocation.labels" chart-colors="colours" chart-options="optionsHor">
+                                        </canvas>
+                                    </div> 
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Mis Lugares</h4>
+                                    <p class="category">
+                                        
+                                    </p>
+                                </div>
+                                <div class="card-footer icons">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> updated 4 minutes ago
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Frecunetes-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="blue">
+                                    <div class="myGraph">
+                                        <canvas id="baseQx" class="chart chart-horizontal-bar" chart-data="dashData.general.byProcedure.data" chart-labels="dashData.general.byProcedure.labels" chart-colors="colours" chart-options="optionsHor">
+                                        </canvas>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Cirugías frecuentes</h4>
+                                    <p class="category">
+                                        
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> updated 4 minutes ago 
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="orange">
+                                    <div class="myGraph">
+                                        <canvas id="baseDiag" class="chart chart-horizontal-bar" chart-data="dashData.general.byDiagnosis.data" chart-labels="dashData.general.byDiagnosis.labels" chart-colors="colours" chart-options="optionsHor">
+                                        </canvas>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Diagnósticos frecuentes</h4>
+                                    <p class="category">
+                                        
+                                    </p>
+                                </div>
+                                <div class="card-footer icons">
+                                    <div class="stats">
+                                        <i class="material-icons">access_time</i> updated 4 minutes ago
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content" ng-show="selectedStep[1]">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="orange">
+                                    <i class="fa fa-heartbeat"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Cirugías Totales</p>
+                                    
+                                    <h3 class="title">{{dashData.r1.totalQx}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Desde {{adminserv.interpretarFechaShort(anoresDates[1])}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">date_range</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Promedio de cirugías</p>
+                                    <h3 class="title">{{(dashData.r1.qxMonthAvg).toFixed(2)}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Cirugías al mes
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content" ng-show="selectedStep[2]">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="orange">
+                                    <i class="fa fa-heartbeat"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Cirugías Totales</p>
+                                    
+                                    <h3 class="title">{{dashData.r2.totalQx}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Desde {{adminserv.interpretarFechaShort(anoresDates[2])}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">date_range</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Promedio de cirugías</p>
+                                    <h3 class="title">{{(dashData.r2.qxMonthAvg).toFixed(2)}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Cirugías al mes
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content" ng-show="selectedStep[3]">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="orange">
+                                    <i class="fa fa-heartbeat"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Cirugías Totales</p>
+                                    
+                                    <h3 class="title">{{dashData.r3.totalQx}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Desde {{adminserv.interpretarFechaShort(anoresDates[3])}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">date_range</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Promedio de cirugías</p>
+                                    <h3 class="title">{{(dashData.r3.qxMonthAvg).toFixed(2)}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Cirugías al mes
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content" ng-show="selectedStep[4]">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="orange">
+                                    <i class="fa fa-heartbeat"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Cirugías Totales</p>
+                                    
+                                    <h3 class="title">{{dashData.r4.totalQx}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Desde {{adminserv.interpretarFechaShort(anoresDates[4])}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-4 col-sm-6">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="green">
+                                    <i class="material-icons">date_range</i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Promedio de cirugías</p>
+                                    <h3 class="title">{{(dashData.r4.qxMonthAvg).toFixed(2)}}</h3>                             
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Cirugías al mes
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- footer -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav class="pull-left">
+                    
+                    </nav>
+                    <p class="copyright pull-right">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>
+                         | Hecho con <i class="fa fa-heart heart"></i> por mhooper72 designs
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+<!--   Core JS Files   -->
+<script src="./assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script src="./assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="./assets/js/material.min.js" type="text/javascript"></script>
+<!--  Charts Plugin -->
+<script src="./assets/js/chartist.min.js"></script>
+<!--  Dynamic Elements plugin -->
+<script src="./assets/js/arrive.min.js"></script>
+<!--  PerfectScrollbar Library -->
+<script src="./assets/js/perfect-scrollbar.jquery.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="./assets/js/bootstrap-notify.js"></script>
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- Material Dashboard javascript methods -->
+<script src="./assets/js/material-dashboard.js?v=1.2.0"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="./assets/js/demo.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        // Javascript method's body can be found in app/assets/js/demos.js
+        demo.initDashboardPageCharts();
+
+    });
+</script>

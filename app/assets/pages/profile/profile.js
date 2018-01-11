@@ -44,7 +44,7 @@ angular.module('logbookweb.profile', ['ui.router'])
 	}
 	$scope.adminserv = adminserv;
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
-	$scope.menuItems[3].class="active";
+	$scope.menuItems[4].class="active";
 
 	$scope.modoEdit = false;
 
