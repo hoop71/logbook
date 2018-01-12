@@ -21,7 +21,7 @@ angular.module('logbookweb.detail', ['ui.router'])
 	};
 
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
-	$scope.menuItems[1].class="active"
+	$scope.menuItems[2].class="active"
 	$scope.modeEdit = false;
 	$scope.canEdit = false;
 

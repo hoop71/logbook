@@ -30,14 +30,154 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">OBJETIVOS</a>
                     <ol class="breadcrumb">
-                        <li ng-class="stepClasses[0]"><a ng-click="changeToStep(1)">Pendientes</a></li>
-                        <li ng-class="stepClasses[1]"><a ng-click="changeToStep(2)">Completados</a></li>
+                        <li ng-class="stepClasses[0]"><a ng-click="changeToStep(1)">Académicos</a></li>
+                        <li ng-class="stepClasses[1]"><a ng-click="changeToStep(2)">Personales</a></li>
                     </ol>
                 </div>
+                <button class="btn btn-info pull-right" ng-click="openModalNewObj();"><i class="material-icons">add</i>
+                </button>
             </div>
         </nav>
         <div class="content" ng-show="selectedStep[0]"> 
-            lkjsdflkj
+            <div class="row">
+                <div class="col-lg-4" ng-repeat="objetivo in user.objetivos" ng-if="objetivo.tipo == 'academic'">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="orange" ng-if="objetivo.status == 'pendiente'">
+                            <i class="fa fa-hourglass-half"></i>
+                        </div>
+                        <div class="card-header" data-background-color="blue" ng-if="objetivo.status == 'completado'">
+                            <i class="fa fa-trophy"></i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">{{objetivo.nombre}}</p>
+                            
+                            
+                            <h3 class="title">{{objetivo.entradas.length}}/{{objetivo.cantidad}}</h3>  
+                            <p class="category">{{adminserv.getNameById('cirugia',objetivo.procedimiento, true)}}</p>                           
+                        </div>
+                        <div class="progress progress-line-primary">
+                          <div class="progress-bar" role="progressbar" ng-style="getProgress(objetivo.entradas.length, objetivo.cantidad)" aria-valuemin="0" aria-valuemax="100">
+                              <span class="sr-only">60% complete</span>
+                          </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                Fecha Límite {{adminserv.interpretarFechaShort(objetivo.fechaLim)}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content" ng-show="selectedStep[1]">
+            <div class="row">
+                <div class="col-lg-4" ng-repeat="objetivo in user.objetivos" ng-if="objetivo.tipo == 'personal'">
+                    <div class="card card-stats">
+                        <div class="card-header" data-background-color="orange" ng-if="objetivo.status == 'pendiente'">
+                            <i class="fa fa-hourglass-half"></i>
+                        </div>
+                        <div class="card-header" data-background-color="blue" ng-if="objetivo.status == 'completado'">
+                            <i class="fa fa-trophy"></i>
+                        </div>
+                        <div class="card-content">
+                            <p class="category">{{objetivo.nombre}}</p>
+                            
+                            
+                            <h3 class="title">{{objetivo.entradas.length}}/{{objetivo.cantidad}}</h3>  
+                            <p class="category">{{adminserv.getNameById('cirugia',objetivo.procedimiento, true)}}</p>                           
+                        </div>
+                        <div class="progress progress-line-primary">
+                          <div class="progress-bar" role="progressbar" ng-style="getProgress(objetivo.entradas.length, objetivo.cantidad)" aria-valuemin="0" aria-valuemax="100">
+                              <span class="sr-only">60% complete</span>
+                          </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                Fecha Límite {{adminserv.interpretarFechaShort(objetivo.fechaLim)}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PARA CREAR OBJETIVO PERSONAL -->
+
+<div class="modal fade" id="modalNewObj" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Crea tu propio objetivo</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <input type="text" class="form-control" ng-model="filterQx" placeholder="buscar procedimiento" />
+                        </div>
+                        <div ng-repeat="cirugiaElegida in seleccion | filter:filterQx">
+                            <div class="alert alert-info">
+                                <div class="container-fluid">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection(cirugiaElegida)">
+                                        <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                                    </button>
+                                    {{adminserv.getNameById('cirugia',cirugiaElegida, true)}}
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead></thead>
+                            <tbody>
+                                <tr ng-repeat="cirugia in cirugias | filter: filterQx| limitTo: 10" ng-click="toggleSelection(cirugia.id)">
+                                    <td>{{cirugia.nombreLargo}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row form-control-hover card-footer2">
+                            <label class="control-label">Nombre del objetivo</label>
+                            <input type="text" class="form-control" ng-model="newObj.nombre"/>
+                        </div>
+                        <div class="row form-control-hover card-footer2">
+                            <label class="control-label">Nombre del objetivo</label>
+                            <input type="number" class="form-control" ng-model="newObj.cantidad"/>
+                        </div>
+                        <div class="row form-control-hover card-footer2">
+                            <label class="control-label">Descripción</label>
+                            <input type="text" class="form-control" ng-model="newObj.descripcion"/>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="optionsCheckboxes" ng-model="rol.cirujano">
+                                Cirujano
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="optionsCheckboxes" ng-model="rol.primerayudante">
+                                Primer ayudante
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="optionsCheckboxes" ng-model="rol.segundoayudante">
+                                Segundo ayudante
+                            </label>
+                        </div>
+                        <div class="row">
+                            <p>Intervalo de tiempo para este objetivo:</p>
+                            <div class="slider slider-info noUi-target noUi-ltr noUi-horizontal noUi-background" ya-no-ui-slider='sliderOptions'></div>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-info pull-right" ng-click="saveObjective();"><i class="material-icons">save</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

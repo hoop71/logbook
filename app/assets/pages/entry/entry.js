@@ -212,6 +212,9 @@ angular.module('logbookweb.entry', ['ui.router'])
 		$scope.cirugiaMod = cirugia;
 		$('#modalMininv').modal('show')
 	}
+	$scope.openModalProfesor = function(){
+		$('#modalProfesor').modal('show')
+	}
 	$scope.toggleCaracteristica = function(caracteristica, cirugia){
 		switch(caracteristica){
 			case "mininv":

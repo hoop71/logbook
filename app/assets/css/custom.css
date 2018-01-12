@@ -86,3 +86,23 @@
 ::placeholder { /* Most modern browsers support this now. */
    color:    #909;
 }
+
+.progress.progress-line-primary {
+    background: rgba(156, 39, 176, 0.2);
+}
+.progress {
+    height: 4px;
+    border-radius: 0;
+    box-shadow: none;
+    background: #DDDDDD;
+}
+.progress .progress-bar, .progress .progress-bar.progress-bar-default {
+    background-color: #9c27b0;
+}
+.progress .progress-bar {
+    box-shadow: none;
+}
+
+.noUi-tooltip {
+    margin-top: 10px;
+}
