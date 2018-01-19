@@ -27,7 +27,7 @@ angular.module('logbookweb.entry', ['ui.router'])
 
 
 
-.controller('entryCtrl', ['$scope','$state', 'adminserv', 'MENU_ITEMS', 'firebase', '$firebaseObject', '$firebaseArray', 'SweetAlert', function($scope, $state, adminserv, MENU_ITEMS, firebase, $firebaseObject, $firebaseArray, SweetAlert) {
+.controller('entryCtrl', ['$scope','$state', 'adminserv', 'MENU_ITEMS', 'firebase', '$firebaseObject', '$firebaseArray', 'SweetAlert', 'objectiveServ', function($scope, $state, adminserv, MENU_ITEMS, firebase, $firebaseObject, $firebaseArray, SweetAlert, objectiveServ) {
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
 	$scope.menuItems[3].class="active"
 
@@ -300,6 +300,8 @@ angular.module('logbookweb.entry', ['ui.router'])
 			var listEntradas = $firebaseArray(refEntradas);
 			listEntradas.$add($scope.entrada).then(function(result){
 				$scope.cargando = false;
+				objectiveServ.addEntrance(result, $scope.entrada, objUsuario.objetivos);
+				objUsuario.$save();
 				SweetAlert.swal({
 					type: 'success',
 					text: 'La entrada se agregó exitosamente!'
@@ -310,7 +312,7 @@ angular.module('logbookweb.entry', ['ui.router'])
 			}).catch(function(error){
 				$scope.cargando = false;
 				console.log(error)
-				Materialize.toast('Error. La entrada no se ha guardado.', 3000, 'rounded')
+				
 			})
 		}else{
 			$scope.cargando = false;
