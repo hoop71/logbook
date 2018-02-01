@@ -27,9 +27,9 @@ angular.module('logbookweb.entry', ['ui.router'])
 
 
 
-.controller('entryCtrl', ['$scope','$state', 'adminserv', 'MENU_ITEMS', 'firebase', '$firebaseObject', '$firebaseArray', 'SweetAlert', function($scope, $state, adminserv, MENU_ITEMS, firebase, $firebaseObject, $firebaseArray, SweetAlert) {
+.controller('entryCtrl', ['$scope','$state', 'adminserv', 'MENU_ITEMS', 'firebase', '$firebaseObject', '$firebaseArray', 'SweetAlert', 'objectiveServ', function($scope, $state, adminserv, MENU_ITEMS, firebase, $firebaseObject, $firebaseArray, SweetAlert, objectiveServ) {
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
-	$scope.menuItems[2].class="active"
+	$scope.menuItems[3].class="active"
 
 	$scope.seleccionDiag = [];
 	$scope.diagnosticosElegidos = [];
@@ -212,6 +212,9 @@ angular.module('logbookweb.entry', ['ui.router'])
 		$scope.cirugiaMod = cirugia;
 		$('#modalMininv').modal('show')
 	}
+	$scope.openModalProfesor = function(){
+		$('#modalProfesor').modal('show')
+	}
 	$scope.toggleCaracteristica = function(caracteristica, cirugia){
 		switch(caracteristica){
 			case "mininv":
@@ -297,9 +300,16 @@ angular.module('logbookweb.entry', ['ui.router'])
 			var listEntradas = $firebaseArray(refEntradas);
 			listEntradas.$add($scope.entrada).then(function(result){
 				$scope.cargando = false;
+				var esta = false;
+				if (objUsuario.objetivos) {
+					esta = objectiveServ.addEntrance(result, $scope.entrada, objUsuario.objetivos);
+				}
+				var successText = 'La entrada se agregó exitosamente!'
+				objUsuario.$save();
+				if (esta) {successText = 'La entrada se agregó exitosamente y se agregó al menos a un objetivo!'}
 				SweetAlert.swal({
 					type: 'success',
-					text: 'La entrada se agregó exitosamente!'
+					text: successText
 				}).then(function (response) {
 					$state.go('table')
 				})
@@ -307,7 +317,7 @@ angular.module('logbookweb.entry', ['ui.router'])
 			}).catch(function(error){
 				$scope.cargando = false;
 				console.log(error)
-				Materialize.toast('Error. La entrada no se ha guardado.', 3000, 'rounded')
+				
 			})
 		}else{
 			$scope.cargando = false;

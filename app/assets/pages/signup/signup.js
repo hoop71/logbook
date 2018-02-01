@@ -90,4 +90,8 @@ angular.module('logbookweb.signup', ['ui.router'])
 			})
 		}
 	};
+	$scope.openTAC = function(){
+		console.log("open")
+		$('#modalTAC').modal('show')
+	}
 }])

@@ -300,8 +300,10 @@ angular.module('logbookweb.entry', ['ui.router'])
 			var listEntradas = $firebaseArray(refEntradas);
 			listEntradas.$add($scope.entrada).then(function(result){
 				$scope.cargando = false;
-				var esta = objectiveServ.addEntrance(result, $scope.entrada, objUsuario.objetivos);
-				console.log(esta)
+				var esta = false;
+				if (objUsuario.objetivos) {
+					esta = objectiveServ.addEntrance(result, $scope.entrada, objUsuario.objetivos);
+				}
 				var successText = 'La entrada se agregó exitosamente!'
 				objUsuario.$save();
 				if (esta) {successText = 'La entrada se agregó exitosamente y se agregó al menos a un objetivo!'}

@@ -45,6 +45,23 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 	    return months <= 0 ? 0 : months+1;
 	}
 
+
+	function trimTo(maxSize, arrayLabels, arrayData){
+		var orderedLabels = [];
+		var rawData = arrayData.slice();
+		arrayData.sort(function(a, b){return b-a});
+		if (arrayData.length>maxSize) {
+			arrayData.splice(maxSize, arrayData.length - maxSize);
+		}
+		for (var i = 0; i < arrayData.length; i++) {
+		    var theInd = rawData.indexOf(arrayData[i]);
+		    orderedLabels[i] = arrayLabels[theInd];
+		    rawData.splice(theInd, 1);
+		    arrayLabels.splice(theInd, 1)
+		};
+		return [orderedLabels, arrayData];
+	}
+
 	return{
 		getDashboardData: function(user, entries){
 			// LIMPIO VARIABLES
@@ -96,7 +113,6 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 			dashboardData.general.totalQx = entries.length;
 			dashboardData.general.qxPerYear = (entries.length/user.anores).toFixed(2);
 			dashboardData.general.qxPerMonth = (entries.length/monthsOfStudy).toFixed(2);
-			console.log(entries.length)
 
 			for (var entry of entries) {
 				var entryDate = new Date(entry.fecha);
@@ -234,36 +250,28 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 			//*****************************
 			//Recorto Dx al top elegido
 			//*****************************
-			var dataDxRaw = dataDiagnostico.slice();
-			dataDiagnostico.sort(function(a, b){return b-a});
+			var dxTrim = trimTo(maxDx,labelsDiagnostico, dataDiagnostico);
+			labelsDx = dxTrim[0];
+			dataDiagnostico = dxTrim[1];
+			
 
-			if (dataDiagnostico.length>maxDx) {
-			    dataDiagnostico.splice(maxDx, dataDiagnostico.length - maxDx)
-			};
-
-			for (var i = 0; i < dataDiagnostico.length; i++) {
-			    var theInd = dataDxRaw.indexOf(dataDiagnostico[i]);
-			    labelsDx[i] = labelsDiagnostico[theInd];
-			    dataDxRaw.splice(theInd, 1);
-			    labelsDiagnostico.splice(theInd, 1)
-			};
 
 			//*****************************
 			//Recorto Qx al top elegido
 			//*****************************
-			var dataQxRaw = dataCirugia.slice();
-			dataCirugia.sort(function(a, b){return b-a});
-			if (dataCirugia.length>maxQx) {
-			    dataCirugia.splice(maxQx, dataCirugia.length - maxQx)
-			};
+			var qxTrim = trimTo(maxQx,labelsCirugia, dataCirugia);
+			labelsQx = qxTrim[0];
+			dataCirugia = qxTrim[1];
 
-			for (var i = 0; i < dataCirugia.length; i++) {
-			    var theInd = dataQxRaw.indexOf(dataCirugia[i]);
-			    labelsQx[i] = labelsCirugia[theInd];
-			    dataQxRaw.splice(theInd, 1);
-			    labelsCirugia.splice(theInd, 1)
-			};
-
+			//*****************************
+			//Recorto los datos por Rol
+			//*****************************
+			for (var i = 0; i <=2 ; i++) {
+				var trim = trimTo(5, detailRol[i].labels, detailRol[i].data[0]);
+				detailRol[i].labels = trim[0],
+				detailRol[i].data = [trim[1]];
+			}
+			
 
 			//*****************************
 			//Preparo datos a devolver

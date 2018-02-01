@@ -1,0 +1,31 @@
+logbookweb.service('objectiveServ', ['adminserv','$firebaseArray','$firebaseObject', function(adminserv, $firebaseArray, $firebaseObject){
+	return {
+		addEntrance: function(referencia, entrada, objetivos){
+			var agregue = false;
+			Object.keys(objetivos).forEach(function(key) {
+			//for (var objetivo of objetivos) {
+				var objetivo = objetivos[key];
+				if (entrada.anores>=objetivo.fechas.start && entrada.anores<=objetivo.fechas.end && objetivo.rol.indexOf(entrada.rol)>=0) {
+					objetivo.procedimientos.forEach(function(objProced){
+						var esta = false;
+						entrada.cirugia.forEach(function(entProced){
+							if (objProced === entProced.id) {
+								esta = true;
+							}
+						})
+						if (esta) {
+							// aqui tengo que revisar que cumpla con la condicion de la fecha y del rol
+							if (!objetivo.entradas) {
+								objetivo.entradas = [];
+							}
+							console.log("agregue")
+							agregue = true;
+							objetivo.entradas.push(referencia.key)
+						}
+					})
+				}
+			})
+			return agregue;
+		}
+	}
+}])

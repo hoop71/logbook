@@ -1,0 +1,81 @@
+<link href="./assets/css/material-kit.css" rel="stylesheet"/>
+<div class="signup-page">
+    <div class="wrapper">
+		<div class="header header-filter" style="background-image: url('assets/img/background-img.jpg'); background-size: cover; background-position: top center;">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3">
+						<div class="card card-signup" style="margin-top: 100px">
+							
+							<div class="header header-primary text-center" style="width: 30%">
+								<div class="social-line">
+									<img src="assets/icons/logbook_white.png">
+								</div>
+							</div>
+							<p class="text-divider">Bienvenido a Logbook. Antes de comenzar necesitamos unos cuantos datos más acerca de ti:</p>
+							<div class="content" style="width: 90%; margin: auto">
+								<p>{{adminserv.getNameById('universidad',universidad, true)}}</p>
+								<form>
+								    <div class="row">
+								        <div class="col-md-4">
+								            <div class="form-group label-floating">
+								                <label class="control-label">Nombres</label>
+								                <input type="text" class="form-control" ng-model="user.nombre">
+								            </div>
+								        </div>
+								        <div class="col-md-4">
+								            <div class="form-group label-floating">
+								                <label class="control-label">Apellidos</label>
+								                <input type="text" class="form-control" ng-model="user.apellidos">
+								            </div>
+								        </div>
+								    </div>
+								    <div class="row">
+								        <div class="col-md-4">
+								            <div class="form-group label-floating">
+								                <label class="control-label">Fecha de inicio de la residencia</label>
+								                <input type="date" class="form-control" ng-model="fechainicio" ng-change="changeDate()">
+								            </div>
+								        </div>
+								        
+								        <div class="col-md-4">
+								            <div class="form-group label-floating">
+								                <label class="control-label">Año de residencia</label>
+								                <select class="form-control dropdown-toggle" required ng-model="user.anores">
+								                    <option ng-value=1>R1</option>
+								                    <option ng-value=2>R2</option>
+								                    <option ng-value=3>R3</option>
+								                    <option ng-value=4>R4</option>
+								                </select>
+								            </div>
+								        </div>
+								        <div class="col-md-4">
+								            <div class="form-group label-floating">
+								                <label class="control-label">Universidad</label>
+								                <p>{{adminserv.getNameById('universidad',universidad, true)}}</p>
+								                <input type="text" class="form-control" ng-model="universidad" disabled>
+								            </div>
+								        </div>
+								    </div>
+								    <div class="row">
+								        <div class="col-md-12">
+								            <div class="form-group">
+								                <label>Acerca de mi</label>
+								                <div class="label-floating">
+								                    <textarea class="form-control" rows="4" ng-model="user.descripcion" placeholder="Escribe una corta descripción tuya..."></textarea>
+								                </div>
+								            </div>
+								        </div>
+								    </div>
+								    <button type="submit" class="btn btn-info pull-right" ng-click="guardar()">Guardar Cambios</button>
+								</form>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+
+</div>

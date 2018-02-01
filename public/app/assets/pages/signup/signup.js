@@ -48,7 +48,8 @@ angular.module('logbookweb.signup', ['ui.router'])
 				  		fotoperfil: $scope.user.fotoperfil,
 				  		nombre: $scope.user.nombre,
 				  		uid: $scope.user.uid,
-				  		universidad: parseInt($scope.user.universidad)
+				  		universidad: parseInt($scope.user.universidad),
+				  		status: "newUser"
 				  	}
 				  	var usersRef = firebase.database().ref('users').limitToLast(1);
 				  	var usersList = $firebaseArray(usersRef);
@@ -56,11 +57,15 @@ angular.module('logbookweb.signup', ['ui.router'])
 				  		usersList.$add(newUser).then(function(createResult){
 				  			adminserv.setUser(createResult.key);
 				  			adminserv.setEspecialidad(newUser.especialidad)
-				  			adminserv.setDatosCondicionales(newUser.especialidad);
+				  			adminserv.setDatosCondicionales(newUser.universidad, newUser.especialidad);
 				  			$scope.cargando = false;
-				  			$state.go('profile');
+				  			$state.go('welcome');
 				  		})
 				  	})
+
+
+
+
 				}).catch(function(error) {
 					$scope.cargando = false;
 				  	console.log(error);
@@ -85,4 +90,8 @@ angular.module('logbookweb.signup', ['ui.router'])
 			})
 		}
 	};
+	$scope.openTAC = function(){
+		console.log("open")
+		$('#modalTAC').modal('show')
+	}
 }])
