@@ -60,7 +60,11 @@ angular.module('logbookweb.profile', ['ui.router'])
 	var refUsuario = firebase.database().ref('users/'+userId);
 	var objUsuario = $firebaseObject(refUsuario);
 	objUsuario.$loaded().then(function(){
+		
 		$scope.user = objUsuario;
+		if ($scope.user.status == "newUser") {
+			$state.go('welcome');
+		}
 		$scope.fechainicio = new Date($scope.user.fechainicio);
 		$scope.universidad = adminserv.getNameById('universidad',$scope.user.universidad, true);
 		if (!$scope.user.anores) {

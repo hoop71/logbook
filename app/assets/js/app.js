@@ -15,7 +15,8 @@ var logbookweb = angular.module('logbookweb', [
     'logbookweb.entry',
     'logbookweb.detail',
     'logbookweb.objectives',
-    'logbookweb.error'
+    'logbookweb.error',
+    'logbookweb.welcome'
 
 
     ])
@@ -31,6 +32,7 @@ logbookweb.config(function($stateProvider, $urlRouterProvider) {
 logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope','Auth','$http','constCirugias','constEspecialidades', 'constUniversidades', 'constDirectrices', 'constDiagnosticos', 'constIconos', function($firebaseArray, $firebaseObject, $rootScope,Auth, $http, constCirugias, constEspecialidades, constUniversidades, constDirectrices, constDiagnosticos, constIconos) {
   $rootScope.constantsLoaded = false;
   var entradas = [];
+  var constantsDone = false;
   //var datosAnestesia = datosAnestesia;
   var entradaSeleccionada = "-KoE6_-sAZdMn5apKbQp"; //esto es para hacer pruebas en detail!!!
   //var entradaSeleccionada = null; //esto para cuando esté listo!!!
@@ -91,6 +93,7 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
       var refUnis = firebase.database().ref('constantes/general/unis');
       var listUnis = $firebaseArray(refUnis);
       listUnis.$loaded().then(function(){
+        console.log("cargadas universidades")
         universidades = listUnis;
         var refEsp = firebase.database().ref('constantes/general/especialidades');
         var listEsp = $firebaseArray(refEsp);
@@ -130,6 +133,7 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
                   };
                   $rootScope.constantsLoaded = true;
                   $rootScope.$broadcast('adminserv:directricesListas');
+                  constantsDone = true;
                 });
               })
             });
@@ -157,6 +161,9 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
     },
     getSeleccion: function(){
       return entradaSeleccionada;
+    },
+    constantsLoaded: function(){
+      return constantsDone;
     },
     getUser: function() {
         if(user==''){
@@ -222,7 +229,7 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
     },
     getNameById: function(constante, id, largo){
 
-      if (id && $rootScope.constantsLoaded) {
+      if (id>=0 && $rootScope.constantsLoaded) {
         id = parseInt(id)
         switch(constante){
             case 'lugar':
@@ -289,6 +296,7 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
                 };
                 break;
             case 'universidad':
+                console.log(id)
                 if (largo) {
                     return searchById(universidades, id).nombreLargo;
                 }else{

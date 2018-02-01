@@ -1,3 +1,6 @@
+html a{
+    cursor: pointer;
+}
 .circular-container{
 	width:10%;
 	margin: 0 auto;
@@ -106,3 +109,4 @@
 .noUi-tooltip {
     margin-top: 10px;
 }
+
