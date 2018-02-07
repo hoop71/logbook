@@ -37,6 +37,8 @@ angular.module('logbookweb.welcome', ['ui.router'])
 	$scope.adminserv = adminserv;
 
 	$scope.today = new Date();
+
+	$scope.avatarNumbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
 	$scope.$watch(adminserv.constantsLoaded, function (value, oldValue) {
 		if (value) {
 			console.log(value)
@@ -54,6 +56,7 @@ angular.module('logbookweb.welcome', ['ui.router'])
 				console.log("trying uni")
 				$scope.universidad = adminserv.getNameById('universidad',$scope.user.universidad, true);
 				$scope.user.anores = adminserv.getAnores($scope.fechainicio, $scope.today);
+				$scope.user.fotoperfil = './assets/img/avatars/052-man-1.svg'
 			})
 		}
 	})
@@ -77,5 +80,12 @@ angular.module('logbookweb.welcome', ['ui.router'])
 		});
 	}
 
+	$scope.selectAvatar = function(sex, ind){
+		if (sex === "man") {
+			$scope.user.fotoperfil = './assets/img/avatars/052-man-'+ind+'.svg'
+		}else{
+			$scope.user.fotoperfil = './assets/img/avatars/052-woman-'+ind+'.svg'
+		}
+	}
 	
 }])

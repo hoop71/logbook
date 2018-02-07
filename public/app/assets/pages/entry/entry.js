@@ -103,6 +103,7 @@ angular.module('logbookweb.entry', ['ui.router'])
 			$scope.entrada.lugar = objUsuario.ultimaEntrada.lugar;
 			$scope.entrada.rotacion = objUsuario.ultimaEntrada.rotacion;
 			$scope.entrada.profesor = objUsuario.ultimaEntrada.profesor;
+			$scope.entrada.fecha = new Date(objUsuario.ultimaEntrada.fecha);
 		}
 		if (objUsuario.cirugiasRecientes) {
 			objUsuario.cirugiasRecientes.forEach(function(entryRec){
@@ -263,7 +264,8 @@ angular.module('logbookweb.entry', ['ui.router'])
 		var recent = {
 			lugar: $scope.entrada.lugar,
 			rotacion: $scope.entrada.rotacion,
-			profesor: $scope.entrada.profesor
+			profesor: $scope.entrada.profesor,
+			fecha: $scope.entrada.fecha.toString()
 		}
 		objUsuario.ultimaEntrada = {};
 		objUsuario.ultimaEntrada = recent;

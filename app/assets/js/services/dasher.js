@@ -42,7 +42,7 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 	    months = (d2.getFullYear() - d1.getFullYear()) * 12;
 	    months -= d1.getMonth() + 1;
 	    months += d2.getMonth();
-	    return months <= 0 ? 0 : months+1;
+	    return months <= 0 ? 1 : months+1;
 	}
 
 
@@ -66,11 +66,23 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 		getDashboardData: function(user, entries){
 			// LIMPIO VARIABLES
 			entriesByYear = [[],[],[],[],[]];
-			entriesByRole = [0,0,0];
-			entriesByType = [0,0,0];
+			entriesByRole = [[0,0,0],[0,0,0],[0,0,0],[0,0,0], [0,0,0]];
+			entriesByType = [[0,0,0],[0,0,0],[0,0,0],[0,0,0], [0,0,0]];
 			monthAvgByYear = [];
 			dashboardData = {
 				general: {
+					byLocation: {},
+					byRotation: {},
+					byRole: {},
+					byRoleProgress: {},
+					byType: {},
+					byTypeProgress: {},
+					byDiagnosis:{},
+					byProcedure: {},
+					byDateYear: {},
+					byDateMonths: {} 
+				},
+				r1: {
 					byLocation: {},
 					byRotation: {},
 					byRole: {},
@@ -78,12 +90,38 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 					byDiagnosis:{},
 					byProcedure: {},
 					byDateYear: {},
-					byDateMonths: {} 
+					byDateMonths: {}
 				},
-				r1: {},
-				r2: {}, 
-				r3: {},
-				r4: {}, 
+				r2: {
+					byLocation: {},
+					byRotation: {},
+					byRole: {},
+					byType: {},
+					byDiagnosis:{},
+					byProcedure: {},
+					byDateYear: {},
+					byDateMonths: {}
+				}, 
+				r3: {
+					byLocation: {},
+					byRotation: {},
+					byRole: {},
+					byType: {},
+					byDiagnosis:{},
+					byProcedure: {},
+					byDateYear: {},
+					byDateMonths: {}
+				},
+				r4: {
+					byLocation: {},
+					byRotation: {},
+					byRole: {},
+					byType: {},
+					byDiagnosis:{},
+					byProcedure: {},
+					byDateYear: {},
+					byDateMonths: {}
+				}, 
 			};
 			today = new Date();
 
@@ -119,14 +157,17 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 				var entryYear = entryDate.getFullYear();
 				var entryMonth = entryDate.getMonth();
 				var entryDayNumber = entryDate.getDate();
-
+				
+				//console.log(entryDayNumber)
 				if (entryYear.toString() in byDate) { //ya hay datos de ese año
 					byDate[entryYear.toString()]++;
 					nestedByDate[entryYear.toString()][entryMonth][entryDayNumber]++;
+
 				}else{ //no hay datos de ese año
+
 					byDate[entryYear.toString()]=1;	
 					nestedByDate[entryYear.toString()] = [
-		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -139,6 +180,7 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
 					nestedByDate[entryYear.toString()][entryMonth][entryDayNumber] = 1;
+
 				}
 				totalProced += entry.cirugia.length
 			 	if (entry.anores>=0) {
@@ -146,16 +188,17 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 			 	}else{
 			 		//falta ver qué hacer con las entradas que no tienen anores por algun motivo.
 			 	}
-
 			 	//*****************************
 			 	//anido por rol
 			 	//*****************************
-			 	entriesByRole[entry.rol-1]++;
+			 	entriesByRole[0][entry.rol-1]++;
+			 	entriesByRole[entry.anores][entry.rol-1]++;
 
 			 	//*****************************
 			 	//anido por tipo
 			 	//*****************************
-			 	entriesByType[entry.tipoCir-1]++;
+			 	entriesByType[0][entry.tipoCir-1]++;
+			 	entriesByType[entry.anores][entry.tipoCir-1]++;
 
 			 	//*****************************
 			 	//anido por lugar
@@ -245,7 +288,7 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 				 	    detailRol[entry.rol-1].total++;
 				 	};
 			 	}	
-			}
+			} //Cierro for entry in entries
 
 			//*****************************
 			//Recorto Dx al top elegido
@@ -287,11 +330,23 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 		    	[entriesByYear[1].length, entriesByYear[2].length, entriesByYear[3].length, entriesByYear[4].length]
 		  	];
 
-		  	dashboardData.general.byRole.data=entriesByRole;
+		  	dashboardData.general.byRole.data=entriesByRole[0];
 		  	dashboardData.general.byRole.labels=["Cirujano", "1. ayudante", "2. ayudante"];
 
-		  	dashboardData.general.byType.data=entriesByType;
+		  	dashboardData.general.byRoleProgress.data = [
+		  		[entriesByRole[1][0],entriesByRole[2][0],entriesByRole[3][0], entriesByRole[4][0]],
+		  		[entriesByRole[1][1],entriesByRole[2][1],entriesByRole[3][1], entriesByRole[4][1]],
+		  		[entriesByRole[1][2],entriesByRole[2][2],entriesByRole[3][2], entriesByRole[4][2]]];
+		  	dashboardData.general.byRoleProgress.labels=["R1", "R2", "R3", "R4"];
+
+		  	dashboardData.general.byType.data=entriesByType[0];
 		  	dashboardData.general.byType.labels=["Electiva", "Urgente", "Emergente"];
+
+		  	dashboardData.general.byTypeProgress.data = [
+		  		[entriesByType[1][0], entriesByType[2][0], entriesByType[3][0], entriesByType[4][0]],
+		  		[entriesByType[1][1], entriesByType[2][1], entriesByType[3][1], entriesByType[4][1]],
+		  		[entriesByType[1][2], entriesByType[2][2], entriesByType[3][2], entriesByType[4][2]]]
+		  	dashboardData.general.byTypeProgress.labels=["R1", "R2", "R3", "R4"];
 
 		  	dashboardData.general.byDiagnosis.data=[dataDiagnostico];
 			dashboardData.general.byDiagnosis.labels=labelsDx;
@@ -304,14 +359,14 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 		
 			dashboardData.general.byDateYear.data = [Object.values(byDate)] 
 			dashboardData.general.byDateYear.labels = Object.keys(byDate);
-
+			
 			for (var property in nestedByDate) {
 			    if (nestedByDate.hasOwnProperty(property)) {
-			        console.log(property)
 			        var newData = []
 			        for (var i in nestedByDate[property]) {
 			        	var total = 0;
 			        	for (var j in nestedByDate[property][i]) {
+			        		
 			        		total += nestedByDate[property][i][j];
 			        	}
 			        	newData.push(total)
@@ -323,7 +378,6 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 			        dashboardData.general.byDateMonths[property] = newObject;
 			    }
 			}
-			console.log(dashboardData.general.byDateMonths)
 		  	dashboardData.r1.totalQx = entriesByYear[1].length;
 		  	dashboardData.r2.totalQx = entriesByYear[2].length;
 		  	dashboardData.r3.totalQx = entriesByYear[3].length;
@@ -340,6 +394,17 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 		  	dashboardData.r2.qxMonthAvg = monthAvgByYear[1];
 		  	dashboardData.r3.qxMonthAvg = monthAvgByYear[2];
 		  	dashboardData.r4.qxMonthAvg = monthAvgByYear[3];
+
+		  	dashboardData.r1.byRole.data = entriesByRole[1];
+		  	dashboardData.r2.byRole.data = entriesByRole[2]
+		  	dashboardData.r3.byRole.data = entriesByRole[3]
+		  	dashboardData.r4.byRole.data = entriesByRole[4]
+
+		  	dashboardData.r1.byType.data=entriesByType[1];
+		  	dashboardData.r2.byType.data=entriesByType[2];
+		  	dashboardData.r3.byType.data=entriesByType[3];
+		  	dashboardData.r4.byType.data=entriesByType[4];
+
 		  	return dashboardData
 		}
 	}

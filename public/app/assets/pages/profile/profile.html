@@ -46,78 +46,78 @@
                             <p class="category">Completa tu perfil</p>
                         </div>
                         <div class="card-content">
-                            <form>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Nombres</label>
-                                            <input type="text" class="form-control" ng-model="user.nombre">
+                            <div class="content" style="width: 90%; margin: auto">
+                                <p>{{adminserv.getNameById('universidad',universidad, true)}}</p>
+                                <form>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Nombres</label>
+                                                        <input type="text" class="form-control" ng-model="user.nombre">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Apellidos</label>
+                                                        <input type="text" class="form-control" ng-model="user.apellidos">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Fecha de inicio de la residencia</label>
+                                                        <input type="date" class="form-control" ng-model="fechainicio" ng-change="changeDate()">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Año de residencia</label>
+                                                        <select class="form-control dropdown-toggle" required ng-model="user.anores">
+                                                            <option ng-value=1>R1</option>
+                                                            <option ng-value=2>R2</option>
+                                                            <option ng-value=3>R3</option>
+                                                            <option ng-value=4>R4</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Universidad</label>
+                                                        <p>{{adminserv.getNameById('universidad',universidad, true)}}</p>
+                                                        <input type="text" class="form-control" ng-model="universidad" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 text-center" style="padding: 10px">
+                                            <img class="rounded-circle" ng-src="{{user.fotoperfil}}"/>
+                                            <button type="submit" class="btn btn-info btn-round" data-toggle="modal" data-target="#modalAvatar">Cambiar avatar</button>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Apellidos</label>
-                                            <input type="text" class="form-control" ng-model="user.apellidos">
-                                        </div>
+                                    <div class="row">
+                                        
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Email de contacto</label>
-                                            <input type="email" class="form-control" ng-model="user.contactEmail">
-                                        </div>
+                                    <div class="row">
+                                        
+                                        
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Fecha de inicio de la residencia</label>
-                                            <input type="date" class="form-control" ng-model="fechainicio">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Universidad</label>
-                                            <input type="text" class="form-control" ng-model="universidad">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Año de residencia</label>
-                                            <select class="form-control dropdown-toggle" required ng-model="user.anores">
-                                                <option ng-value=1>R1</option>
-                                                <option ng-value=2>R2</option>
-                                                <option ng-value=3>R3</option>
-                                                <option ng-value=4>R4</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Ciudad de residencia</label>
-                                            <input type="text" class="form-control" ng-model="user.ciudad">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">País de residencia</label>
-                                            <input type="text" class="form-control" ng-model="user.pais">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Acerca de mi</label>
-                                            <div class="label-floating">
-                                                <textarea class="form-control" rows="4" ng-model="user.descripcion"></textarea>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Acerca de mi</label>
+                                                <div class="label-floating">
+                                                    <textarea class="form-control" rows="4" ng-model="user.descripcion" placeholder="Escribe una corta descripción tuya..."></textarea>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <button type="submit" class="btn btn-info pull-right" ng-click="guardar()">Guardar Cambios</button>
-                            </form>
+                                    <button type="submit" class="btn btn-info pull-right" ng-click="guardar()">Guardar Cambios</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -250,5 +250,30 @@
             </div>
         </div>
         
+    </div>
+</div>
+
+<!-- Modal Avatar -->
+<div class="modal fade bd-example-modal-lg" id="modalAvatar" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Escoge tu avatar</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-md-6" style="padding: 20px" ng-repeat="avatarInd in avatarNumbers">
+                            <img class="rounded-circle" ng-src="{{'./assets/img/avatars/052-man-'+avatarInd+'.svg'}}" data-dismiss="modal" ng-click="selectAvatar('man', avatarInd)"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-6" style="padding: 20px" ng-repeat="avatarInd in avatarNumbers">
+                            <img class="rounded-circle" ng-src="{{'./assets/img/avatars/052-woman-'+avatarInd+'.svg'}}" data-dismiss="modal" ng-click="selectAvatar('woman', avatarInd)"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
