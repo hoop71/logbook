@@ -282,7 +282,7 @@ angular.module('logbookweb.entry', ['ui.router'])
 		$scope.entrada.cirugia = [];
 		var today = new Date();
 		$scope.entrada.fechaIngreso = today.toString();
-		if ($scope.entrada.profesor && $scope.cirugiasElegidas.length>0 && $scope.entrada.diagnostico.length>0 && $scope.entrada.lugar && $scope.entrada.identificacion && $scope.entrada.rol && $scope.entrada.rotacion && $scope.entrada.tipoCir) {
+		if ($scope.entrada.profesor && $scope.cirugiasElegidas.length>0 && $scope.entrada.diagnostico.length>0 && $scope.entrada.lugar && $scope.entrada.identificacion && $scope.entrada.rol && $scope.entrada.rotacion && $scope.entrada.tipoCir && $scope.entrada.fecha) {
 			agregarRecientes();
 			$scope.seleccionCiru.forEach(function(entry, index){
 				$scope.entrada.cirugia[index] = {

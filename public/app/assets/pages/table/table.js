@@ -42,6 +42,9 @@ angular.module('logbookweb.table', ['ui.router'])
 	} else {
 	    $('html').addClass('perfect-scrollbar-off');
 	}
+
+    $scope.loading = true;
+
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
 	$scope.menuItems[2].class="active"
 	
@@ -62,7 +65,7 @@ angular.module('logbookweb.table', ['ui.router'])
     var listEntradas = $firebaseArray(refEntradas);
     listEntradas.$loaded().then(function(){
     	$scope.entradas = listEntradas;
-    
+        $scope.loading = false;
     })
 
 

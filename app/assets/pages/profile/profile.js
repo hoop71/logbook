@@ -151,20 +151,40 @@ angular.module('logbookweb.profile', ['ui.router'])
     $scope.enviarMsj = function(){
 		if ($scope.mensaje && $scope.mensaje != "") {
 			var ya = new Date();
-			var refMensaje = firebase.database().ref('mensajes/');
-	    	refMensaje.push({
-	    		fecha: ya.toString(),
-	    		mensaje: $scope.mensaje,
-	    		autor: adminserv.getUser()
-	    	}).then(function(){
-	    		$scope.mensaje = "";
-	    		var errorMessage = errorHandler.getErrorMessage('mssg/success');
-			  	SweetAlert.swal({
-			  		type: errorMessage.type,
-			  		text: errorMessage.message
-			  	})
+			if ($scope.destino.logbook) {
+				var refMensaje = firebase.database().ref('mensajes/');
+		    	refMensaje.push({
+		    		fecha: ya.toString(),
+		    		mensaje: $scope.mensaje,
+		    		autor: adminserv.getUser(),
+		    		destino: "adminLogbook"
+		    	}).then(function(){
+		    		$scope.mensaje = "";
+		    		var errorMessage = errorHandler.getErrorMessage('mssg/success');
+				  	SweetAlert.swal({
+				  		type: errorMessage.type,
+				  		text: errorMessage.message
+				  	})
 
-	    	})
+		    	})
+		    }
+		    if ($scope.destino.logbook) {
+				var refMensaje = firebase.database().ref('mensajes/');
+		    	refMensaje.push({
+		    		fecha: ya.toString(),
+		    		mensaje: $scope.mensaje,
+		    		autor: adminserv.getUser(),
+		    		destino: "adminUni"
+		    	}).then(function(){
+		    		$scope.mensaje = "";
+		    		var errorMessage = errorHandler.getErrorMessage('mssg/success');
+				  	SweetAlert.swal({
+				  		type: errorMessage.type,
+				  		text: errorMessage.message
+				  	})
+
+		    	})
+		    }
 		}
     }
 

@@ -25,9 +25,9 @@
                 </ul>
             </div>
         </div>
-        <div class="loader" ng-show="loading">Loading...</div>
         
-        <div class="main-panel" ng-show="!loading">
+        
+        <div class="main-panel" >
             <nav class="navbar navbar-transparent navbar-absolute col-lg-12">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -51,8 +51,8 @@
                 </div>
             </nav>
 
-            
-            <div class="content" ng-show="selectedStep[0]">
+            <div class="loader" ng-show="loading">Loading...</div>
+            <div class="content" ng-show="selectedStep[0] && !loading">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-4 col-sm-6">

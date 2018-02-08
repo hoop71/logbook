@@ -41,6 +41,9 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 	} else {
 	    $('html').addClass('perfect-scrollbar-off');
 	}
+
+	$scope.loading = true;
+
 	$scope.adminserv = adminserv;
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
 	$scope.menuItems[0].class="active";
@@ -86,6 +89,7 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 	listEntries.$loaded().then(function(){
 		$scope.dashData = dataCruncher.getDashboardData($scope.user, listEntries);
 		$scope.data = $scope.dashData.general.barsByYearData;
+		$scope.loading = false;
 		console.log($scope.dashData)
 	})
 

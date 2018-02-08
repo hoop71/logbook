@@ -23,7 +23,8 @@
             </ul>
         </div>
     </div>
-    <div class="main-panel">
+    <div class="loader" ng-show="loading">Loading...</div>
+    <div class="main-panel" ng-show="!loading">
         <nav class="navbar navbar-transparent navbar-absolute">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -51,14 +52,12 @@
                                     <thead class="text-primary">
                                         <th ng-click="setOrder('cirugia')">Cirugías</th>
                                         <th ng-click="setOrder('nombrePaciente')">Identificación del paciente</th>
-                                        <th ng-click="setOrder('identificacion')">Iniciales del Paciente</th>
                                         <th ng-click="setOrder('fecha')">Fecha</th>
                                         <th ng-click="setOrder('complicaciones')">Complicaiones</th>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="(key, entrada) in entradas | filter: filtroEntradas | orderBy: orderFcn:true | limitTo: 50" ng-if="entradas.length>0" >
                                             <td ng-click="verEntrada(entrada.$id)">{{adminserv.getNameById('cirugia',entrada.cirugia[0].id, true)}}</td>
-                                            <td>{{entrada.nombrePaciente}}</td>
                                             <td>{{entrada.identificacion}}</td>
                                             <td>{{adminserv.interpretarFechaShort(entrada.fecha)}}</td>
                                             <td ng-if="entrada.complicaciones.length>4" class="text-danger"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
