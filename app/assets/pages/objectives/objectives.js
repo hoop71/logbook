@@ -92,6 +92,12 @@ angular.module('logbookweb.objectives', ['ui.router'])
 
 	})
 
+	var refObjetivos = firebase.database().ref('users/'+userId+'/objetivos');
+	var listObj = $firebaseArray(refObjetivos);
+	listObj.$loaded().then(function(){
+		$scope.objetivos = listObj;
+	})
+
 	$scope.toggleSelection = function(seleccion){
     	var idx = $scope.seleccion.indexOf(seleccion);
 
@@ -125,30 +131,47 @@ angular.module('logbookweb.objectives', ['ui.router'])
 		$('#modalNewObj').modal('show')
 	}
 	$scope.saveObjective = function(){
+		
 		$scope.newObj.fechas = {start: $scope.sliderOptions.start[0], end: $scope.sliderOptions.start[1]};
 		$scope.newObj.procedimientos = $scope.seleccion;
-		if ($scope.rol.cirujano) {
-			$scope.newObj.rol.push(1)
-		}
-		if ($scope.rol.primerayudante) {
-			$scope.newObj.rol.push(2)
-		}
-		if ($scope.rol.segundoayudante) {
-			$scope.newObj.rol.push(3)
-		}
-		console.log($scope.newObj)
-
-		var refObjetivos = firebase.database().ref('users/'+userId+'/objetivos');
-		var listObjetivos = $firebaseArray(refObjetivos);
-		listObjetivos.$add($scope.newObj).then(function(){
-			$('#modalNewObj').modal('hide')
-			SweetAlert.swal({
-				type: 'success',
-				text: 'El objetivo se agregó exitosamente!'
-			}).then(function (response) {
-				
+		if ($scope.newObj.nombre && $scope.newObj.procedimientos.length>0 && $scope.newObj.cantidad>0) {
+			if ($scope.rol.cirujano) {
+				$scope.newObj.rol.push(1)
+			}
+			if ($scope.rol.primerayudante) {
+				$scope.newObj.rol.push(2)
+			}
+			if ($scope.rol.segundoayudante) {
+				$scope.newObj.rol.push(3)
+			}
+			var refObjetivos = firebase.database().ref('users/'+userId+'/objetivos');
+			var listObjetivos = $firebaseArray(refObjetivos);
+			listObjetivos.$add($scope.newObj).then(function(){
+				$('#modalNewObj').modal('hide')
+				SweetAlert.swal({
+					type: 'success',
+					text: 'El objetivo se agregó exitosamente!'
+				}).then(function (response) {
+					$scope.newObj.nombre = "";
+					$scope.newObj.cantidad = null;
+					$scope.newObj.procedimientos = [];
+					
+				})
 			})
-		})
+		}else{
+			SweetAlert.swal({
+				type: 'warning',
+				text: "Te faltan datos esenciales para crear un objetivo.",
+				onOpen: function () {
+				    swal.showLoading()
+				}
+			})
+		}
+	}
+	$scope.verObjetivo = function(objetivoId){
+		console.log(objetivoId)
+		adminserv.setSeleccion(objetivoId);
+		$state.go('detailObj')
 	}
 
 }])

@@ -151,6 +151,17 @@
                             <i class="material-icons">mail_outline</i> <span>Mensaje al administrador</span>
                         </div>
                         <div class="card-content">
+                            <p>Enviar mensaje a:</p>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="optionsCheckboxes" ng-model="destino.logbook"> Equipo Logbook
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="optionsCheckboxes" ng-model="destino.uni"> La Universidad
+                                </label>
+                            </div>
                             <textarea class="form-control" placeholder="Escríbenos un mensaje con alguna inquietud o comentario" rows="5" ng-model="mensaje"></textarea>
                         </div>
                         <div class="card-footer">

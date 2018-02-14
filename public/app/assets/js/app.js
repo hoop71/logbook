@@ -228,8 +228,7 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
         }
     },
     getNameById: function(constante, id, largo){
-
-      if (id>=0 && $rootScope.constantsLoaded) {
+      if (!isNaN(id) && $rootScope.constantsLoaded) {
         id = parseInt(id)
         switch(constante){
             case 'lugar':
@@ -296,12 +295,15 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
                 };
                 break;
             case 'universidad':
-                console.log(id)
-                if (largo) {
-                    return searchById(universidades, id).nombreLargo;
+                if (isNaN(id)) {
+
                 }else{
-                    return searchById(universidades, id).nombreCorto;
-                };
+                  if (largo) {
+                      return searchById(universidades, id).nombreLargo;
+                  }else{
+                      return searchById(universidades, id).nombreCorto;
+                  };
+                }
                 break;
             case 'nodo0':
                 if (largo) {

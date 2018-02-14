@@ -23,8 +23,8 @@
             </ul>
         </div>
     </div>
-    <div class="loader" ng-show="loading">Loading...</div>
-    <div class="main-panel" ng-show="!loading">
+    
+    <div class="main-panel" >
         <nav class="navbar navbar-transparent navbar-absolute">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -39,7 +39,8 @@
             </div>
         </nav>
         <div class="content">
-            <div class="container-fluid">
+            <div class="loader" ng-show="loading">Loading...</div>
+            <div class="container-fluid" ng-show="!loading">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">

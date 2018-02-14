@@ -128,6 +128,10 @@ angular.module('logbookweb.table', ['ui.router'])
     	$state.go('detail')
     }
 
+    $scope.nuevaEntrada = function(){
+        $state.go('entry')
+    }
+
     $scope.setOrder = function(str){
         $scope.orderStr = str;
     }

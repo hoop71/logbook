@@ -34,8 +34,10 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"> Bitácora </a>
+                    <a class="navbar-brand breadcrumb"> Bitácora </a>
                 </div>
+                <button class="btn btn-info pull-right" ng-click="nuevaEntrada()"><i class="material-icons">add</i>
+                </button>
             </div>
         </nav>
         <div class="content">
@@ -58,13 +60,13 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="(key, entrada) in entradas | filter: filtroEntradas | orderBy: orderFcn:true | limitTo: 50" ng-if="entradas.length>0" >
-                                            <td ng-click="verEntrada(entrada.$id)">{{adminserv.getNameById('cirugia',entrada.cirugia[0].id, true)}}</td>
+                                            <td ng-click="verEntrada(entrada.$id)" style="cursor: pointer;">{{adminserv.getNameById('cirugia',entrada.cirugia[0].id, true)}}</td>
                                             <td>{{entrada.identificacion}}</td>
                                             <td>{{adminserv.interpretarFechaShort(entrada.fecha)}}</td>
-                                            <td ng-if="entrada.complicaciones.length>4" class="text-danger"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
-                                            <td ng-if="entrada.complicaciones.length<=4 && entrada.complicaciones.length>2" class="text-warning"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
-                                            <td ng-if="entrada.complicaciones.length<=2 && entrada.complicaciones.length>=1" class="text-info"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
-                                            <td ng-if="entrada.complicaciones.length==0 || !entrada.complicaciones" class="text-success"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
+                                            <td ng-if="entrada.complicaciones.length>4" class="text-danger"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i>({{entrada.complicaciones.length}})</td>
+                                            <td ng-if="entrada.complicaciones.length<=4 && entrada.complicaciones.length>2" class="text-warning"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i>({{entrada.complicaciones.length}})</td>
+                                            <td ng-if="entrada.complicaciones.length<=2 && entrada.complicaciones.length>=1" class="text-info"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i>({{entrada.complicaciones.length}})</td>
+                                            <td ng-if="entrada.complicaciones.length==0 || !entrada.complicaciones" class="text-success"><span ng-click="complicacion(entrada, key)">(0) Agregar</span></td>
                                         </tr>
                                     </tbody>
                                 </table>

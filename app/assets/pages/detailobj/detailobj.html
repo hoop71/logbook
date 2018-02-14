@@ -1,0 +1,125 @@
+<div class="wrapper">
+    <div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
+        <div class="logo">
+            <a href="dashboard.html" class="simple-text">
+                LOGBOOK
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li ng-repeat="item in menuItems" class="{{item.class}}">
+                    <a ng-href="#!/{{item.linkTo}}">
+                        <i class="material-icons">{{item.icon}}</i>
+                        <p>{{item.name}}</p>
+                    </a>
+                </li>       
+                <li class="active-pro">
+                    <a ng-click="logout()">
+                        <i class="material-icons">error</i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        <nav class="navbar navbar-transparent navbar-absolute">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand breadcrumb"> DETALLES DE OBJETIVO </a>
+                </div>
+            </div>
+        </nav>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card card-stats">
+                            <div class="card-header" data-background-color="orange" ng-if="objetivo.status == 'pendiente'">
+                                <i class="fa fa-hourglass-half"></i>
+                            </div>
+                            <div class="card-header" data-background-color="blue" ng-if="objetivo.status == 'completado'">
+                                <i class="fa fa-trophy"></i>
+                            </div>
+                            <div class="card-content">
+                            	<div class="row justify-content-md-center">
+                            	    <div class="col-sm-12 col-md-10 text-left">
+                            			<h3 class="title" style="border-bottom: 1px solid grey">{{objetivo.nombre}}</h3>
+                            			<p class="category">Nombre</p>
+                            			<h6 class="title" style="border-bottom: 1px solid grey" ng-if="objetivo.descripcion">{{objetivo.descripcion}}</h6>
+                            			<p class="category" ng-if="objetivo.descripcion">Descripción</p>
+                            			<h3 class="title" style="border-bottom: 1px solid grey">{{objetivo.status}}</h3>
+                            			<p class="category">Estatus</p>
+                            			<h3 class="title" style="border-bottom: 1px solid grey">{{objetivo.tipo}}</h3>
+                            			<p class="category">Tipo</p>
+                                	</div>
+                                </div>
+                                <h3 class="title" ng-show="objetivo.entradas">{{objetivo.entradas.length}}/{{objetivo.cantidad}}</h3>
+                                <h3 class="title" ng-show="!objetivo.entradas">0/{{objetivo.cantidad}}</h3>
+                              
+                                <p class="category" ng-repeat="procedimiento in objetivo.procedimientos">{{adminserv.getNameById('cirugia',procedimiento, true)}}</p>
+                                                           
+                            </div>
+                            <div class="progress progress-line-primary">
+                              <div class="progress-bar" role="progressbar" ng-style="getProgress(objetivo.entradas.length, objetivo.cantidad)" aria-valuemin="0" aria-valuemax="100">
+                                  <span class="sr-only">60% complete</span>
+                              </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="stats">
+                                    Entre R{{objetivo.fechas.start}} y R{{objetivo.fechas.end}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                    	<div class="card">
+                    	    <div class="card-header" data-background-color="green">
+                    	        <h4 class="title">Entradas</h4>
+                    	        <p class="category">Correspondientes a este objetivo</p>
+                    	    </div>
+                    	    <div class="card-content table-responsive">
+                    	        <table class="table" ng-show="entradas.length>0">
+                    	            <thead class="text-primary">
+                    	                <th ng-click="setOrder('cirugia')">Cirugías</th>
+                    	                <th ng-click="setOrder('nombrePaciente')">Identificación del paciente</th>
+                    	                <th ng-click="setOrder('fecha')">Fecha</th>
+                    	            </thead>
+                    	            <tbody>
+                    	                <tr ng-repeat="(key, entrada) in entradas"  >
+                    	                    <td ng-click="verEntrada(entrada.$id)" style="cursor: pointer;">{{adminserv.getNameById('cirugia',entrada.cirugia[0].id, true)}}</td>
+                    	                    <td>{{entrada.identificacion}}</td>
+                    	                    <td>{{adminserv.interpretarFechaShort(entrada.fecha)}}</td>
+                    	                </tr>
+                    	            </tbody>
+                    	        </table>
+                    	        <h3 class="title" ng-show="entradas.length<=0">No tienes ninguna entrada registrada para este objetivo :(</h3>
+                    	    </div>
+                    	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    
+                </nav>
+                <p class="copyright pull-right">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>
+                     | Hecho con <i class="fa fa-heart heart"></i> por mhooper72 designs
+                </p>
+            </div>
+        </footer>
+    </div>
+</div>
