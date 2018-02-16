@@ -172,3 +172,6 @@ html a{
     margin-top: 10px;
 }
 
+.myLabel {
+  display: inherit;
+}
