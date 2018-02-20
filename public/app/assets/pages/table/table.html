@@ -2,8 +2,8 @@
     <div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
   
         <div class="logo">
-            <a href="#" class="simple-text">
-                LOGBOOK
+            <a href="#" class="simple-text" style="font-family: 'fox-cat'; text-transform: capitalize; font-size: 26px;">
+                Logbook
             </a>
         </div>
         <div class="sidebar-wrapper">
@@ -27,15 +27,17 @@
     <div class="main-panel" >
         <nav class="navbar navbar-transparent navbar-absolute">
             <div class="container-fluid">
-                <div class="navbar-header">
+                <div class="navbar-header" >
                     <button type="button" class="navbar-toggle" data-toggle="collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"> Bitácora </a>
+                    <a class="navbar-brand breadcrumb" > BITÁCORA </a>
                 </div>
+                <button class="btn btn-info pull-right" ng-click="nuevaEntrada()"><i class="material-icons">add</i>
+                </button>
             </div>
         </nav>
         <div class="content">
@@ -45,8 +47,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header" data-background-color="green">
-                                <h4 class="title">Bitácora</h4>
-                                <p class="category">Informe de los procedimientos</p>
+                                <h4 class="title">Informe de los procedimientos</h4>
                             </div>
                             <div class="card-content table-responsive">
                                 <table class="table">
@@ -58,13 +59,13 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="(key, entrada) in entradas | filter: filtroEntradas | orderBy: orderFcn:true | limitTo: 50" ng-if="entradas.length>0" >
-                                            <td ng-click="verEntrada(entrada.$id)">{{adminserv.getNameById('cirugia',entrada.cirugia[0].id, true)}}</td>
+                                            <td ng-click="verEntrada(entrada.$id)" style="cursor: pointer;">{{adminserv.getNameById('cirugia',entrada.cirugia[0].id, true)}}</td>
                                             <td>{{entrada.identificacion}}</td>
                                             <td>{{adminserv.interpretarFechaShort(entrada.fecha)}}</td>
-                                            <td ng-if="entrada.complicaciones.length>4" class="text-danger"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
-                                            <td ng-if="entrada.complicaciones.length<=4 && entrada.complicaciones.length>2" class="text-warning"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
-                                            <td ng-if="entrada.complicaciones.length<=2 && entrada.complicaciones.length>=1" class="text-info"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
-                                            <td ng-if="entrada.complicaciones.length==0 || !entrada.complicaciones" class="text-success"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i></td>
+                                            <td ng-if="entrada.complicaciones.length>4" class="text-danger"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i>({{entrada.complicaciones.length}})</td>
+                                            <td ng-if="entrada.complicaciones.length<=4 && entrada.complicaciones.length>2" class="text-warning"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i>({{entrada.complicaciones.length}})</td>
+                                            <td ng-if="entrada.complicaciones.length<=2 && entrada.complicaciones.length>=1" class="text-info"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i>({{entrada.complicaciones.length}})</td>
+                                            <td ng-if="entrada.complicaciones.length==0 || !entrada.complicaciones" class="text-success"><span ng-click="complicacion(entrada, key)">(0) Agregar</span></td>
                                         </tr>
                                     </tbody>
                                 </table>

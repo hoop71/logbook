@@ -16,8 +16,8 @@ var logbookweb = angular.module('logbookweb', [
     'logbookweb.detail',
     'logbookweb.objectives',
     'logbookweb.error',
-    'logbookweb.welcome'
-
+    'logbookweb.welcome',
+    'logbookweb.detailObj'
 
     ])
 

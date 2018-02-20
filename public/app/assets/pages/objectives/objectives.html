@@ -28,19 +28,19 @@
         <nav class="navbar navbar-transparent navbar-absolute">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">OBJETIVOS</a>
+                    <a class="navbar-brand" >OBJETIVOS</a>
                     <ol class="breadcrumb">
                         <li ng-class="stepClasses[0]"><a ng-click="changeToStep(1)">Académicos</a></li>
                         <li ng-class="stepClasses[1]"><a ng-click="changeToStep(2)">Personales</a></li>
                     </ol>
                 </div>
-                <button class="btn btn-info pull-right" ng-click="openModalNewObj();"><i class="material-icons">add</i>
+                <button class="btn btn-info pull-right" ng-click="openModalNewObj();" ng-show="selectedStep[1]"><i class="material-icons">add</i>
                 </button>
             </div>
         </nav>
         <div class="content" ng-show="selectedStep[0]"> 
             <div class="row">
-                <div class="col-lg-4" ng-repeat="objetivo in user.objetivos" ng-if="objetivo.tipo == 'academic'">
+                <div class="col-lg-4" ng-repeat="objetivo in objetivos" ng-if="objetivo.tipo == 'academic'">
                     <div class="card card-stats">
                         <div class="card-header" data-background-color="orange" ng-if="objetivo.status == 'pendiente'">
                             <i class="fa fa-hourglass-half"></i>
@@ -53,7 +53,7 @@
                             
                             
                             <h3 class="title">{{objetivo.entradas.length}}/{{objetivo.cantidad}}</h3>  
-                            <p class="category">{{adminserv.getNameById('cirugia',objetivo.procedimiento, true)}}</p>                           
+                            <!-- <p class="category">{{adminserv.getNameById('cirugia',objetivo.procedimiento, true)}}</p> -->                           
                         </div>
                         <div class="progress progress-line-primary">
                           <div class="progress-bar" role="progressbar" ng-style="getProgress(objetivo.entradas.length, objetivo.cantidad)" aria-valuemin="0" aria-valuemax="100">
@@ -71,7 +71,7 @@
         </div>
         <div class="content" ng-show="selectedStep[1]">
             <div class="row">
-                <div class="col-lg-4" ng-repeat="objetivo in user.objetivos" ng-if="objetivo.tipo == 'personal'">
+                <div class="col-lg-4" ng-repeat="objetivo in objetivos" ng-if="objetivo.tipo == 'personal'">
                     <div class="card card-stats">
                         <div class="card-header" data-background-color="orange" ng-if="objetivo.status == 'pendiente'">
                             <i class="fa fa-hourglass-half"></i>
@@ -82,9 +82,9 @@
                         <div class="card-content">
                             <p class="category">{{objetivo.nombre}}</p>
                             <h3 class="title" ng-show="objetivo.entradas">{{objetivo.entradas.length}}/{{objetivo.cantidad}}</h3>
-                            <h3 class="title" ng-show="!objetivo.entradas">Todavía no tienes entradas registradas para este objetivo.</h3>
+                            <h3 class="title" ng-show="!objetivo.entradas">0/{{objetivo.cantidad}}</h3>
                           
-                            <p class="category" ng-repeat="procedimiento in objetivo.procedimientos">{{adminserv.getNameById('cirugia',procedimiento, true)}}</p>
+                            <!-- <p class="category" ng-repeat="procedimiento in objetivo.procedimientos">{{adminserv.getNameById('cirugia',procedimiento, true)}}</p> -->
                                                        
                         </div>
                         <div class="progress progress-line-primary">
@@ -96,7 +96,7 @@
                             <div class="stats">
                                 Entre R{{objetivo.fechas.start}} y R{{objetivo.fechas.end}}
                             </div>
-                            <a class="pull-right">ver detalles</a>
+                            <a class="pull-right" ng-click="verObjetivo(objetivo.$id)">ver detalles</a>
                         </div>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
                         </div>
                         <div class="row form-control-hover card-footer2">
                             <label class="control-label">Cantidad de entradas necesarias para completar el objetivo</label>
-                            <input type="number" class="form-control" ng-model="newObj.cantidad"/>
+                            <input type="number" class="form-control" ng-model="newObj.cantidad" min="0"/>
                         </div>
                         <div class="row form-control-hover card-footer2">
                             <label class="control-label">Descripción</label>

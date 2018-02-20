@@ -38,7 +38,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand">LB - Dashboard</a>
+                            <a class="navbar-brand">DASHBOARD</a>
                             <ol class="breadcrumb">
                                 <li ng-class="stepClasses[0]"><a ng-click="changeToStep(1)">General</a></li>
                                 <li ng-class="stepClasses[1]"><a ng-click="changeToStep(2)">R1</a></li>
@@ -55,8 +55,8 @@
             <div class="content" ng-show="selectedStep[0] && !loading">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="card card-stats">
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card card-stats myDashCard">
                                 <div class="card-header" data-background-color="orange">
                                     <i class="fa fa-heartbeat"></i>
                                 </div>
@@ -65,15 +65,15 @@
                                     
                                     <h3 class="title">{{dashData.general.totalQx}}</h3>                             
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer myDashCardFooter">
                                     <div class="stats">
                                         Desde {{adminserv.interpretarFechaShort(anoresDates[0])}}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                         <div class="col-lg-4 col-sm-6">
-                            <div class="card card-stats">
+                         <div class="col-lg-3 col-sm-6">
+                            <div class="card card-stats myDashCard">
                                 <div class="card-header" data-background-color="green">
                                     <i class="material-icons">date_range</i>
                                 </div>
@@ -81,7 +81,7 @@
                                     <p class="category">Promedio por Año de residencia</p>
                                     <h3 class="title">{{dashData.general.qxPerYear}}</h3>                             
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer myDashCardFooter">
                                     <div class="stats">
                                         Cirugías al año
                                     </div>
@@ -89,8 +89,8 @@
                             </div>
                         </div>
                         
-                        <div class="col-lg-4 col-sm-6">
-                            <div class="card card-stats">
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card card-stats myDashCard">
                                 <div class="card-header" data-background-color="blue">
                                     <i class="material-icons">date_range</i>
                                 </div>
@@ -98,9 +98,25 @@
                                     <p class="category">Promedio mensual</p>
                                     <h3 class="title">{{dashData.general.qxPerMonth}}</h3>                             
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer myDashCardFooter">
                                     <div class="stats">
-                                        Cirugías por mes, durante toda la residencia
+                                        Cirugías por mes
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card card-stats myDashCard">
+                                <div class="card-header" data-background-color="purple">
+                                    <i class="fa fa-trophy"></i>
+                                </div>
+                                <div class="card-content">
+                                    <p class="category">Objetivos completados</p>
+                                    <h3 class="title">0%</h3>                             
+                                </div>
+                                <div class="card-footer myDashCardFooter">
+                                    <div class="stats">
+                                        Contando todos los objetivos
                                     </div>
                                 </div>
                             </div>
@@ -174,6 +190,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-content" >
+                                    <div class="myGraph">
+                                        <canvas id="line" class="chart chart-line" chart-data="dashData.general.byRoleProgress.data" chart-labels="dashData.general.byRoleProgress.labels" chart-options="options2.optionsLineDarkGrids" chart-colors="colors" chart-series="['Cirujano', '1. ayudante', '2.ayudante']">
+                                        </canvas>
+                                    </div>  
+                                </div>
+                                <div class="card-footer">
+                                    Progresión por roles
+                                </div>
+                            </div>
+                        </div>
                         <!--<div class="col-md-6">
                              <div class="card">
                                 <div class="card-header card-chart" data-background-color="blue">
@@ -203,109 +232,105 @@
 
                     <!-- Statistics -->
                     <div class="row">
-                        
+                        <!-- columna de rol -->
+                        <div class="col-md-4 col-xl-4 col-lg-6"> 
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="myGraph">
+                                            <canvas id="doughnut" class="chart chart-doughnut" chart-data="dashData.general.byRole.data" chart-labels="dashData.general.byRole.labels" chart-options="options2.pie" chart-dataset-override="options2.pie.override" chart-colors= "colors">
+                                            </canvas>
+                                        </div> 
+                                        <h4 class="title">Por rol</h4>
+                                        <!-- <p class="category">
+                                            <span class="text-success"><i class="material-icons">trending_up</i></span> tendencia hacia arriba
+                                        </p> -->
+                                    </div>
+                                    <!-- <div class="card-footer">
+                                        <div class="stats">
+                                            <i class="material-icons text-info">arrow_back</i>
+                                            <a href="#">
+                                             Año anterior</a>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-chart" data-background-color="purple">
+                                        <div class="myGraph">
+                                            <canvas id="detalleRol" class="chart chart-horizontal-bar" chart-data="dashData.general.byRoleDetail[0].data" chart-labels="dashData.general.byRoleDetail[0].labels" chart-colors="colours" chart-options="optionsHor">
+                                            </canvas>
+                                        </div> 
+                                    </div>
+                                    <div class="card-content">
+                                        <h4 class="title">Como Cirujano</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-chart" data-background-color="blue">
+                                        <div class="myGraph">
+                                            <canvas id="detalleRol" class="chart chart-horizontal-bar" chart-data="dashData.general.byRoleDetail[1].data" chart-labels="dashData.general.byRoleDetail[1].labels" chart-colors="colours" chart-options="optionsHor">
+                                            </canvas>
+                                        </div> 
+                                    </div>
+                                    <div class="card-content">
+                                        <h4 class="title">Como Primer Ayudante</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header card-chart" data-background-color="orange">
+                                        <div class="myGraph">
+                                            <canvas id="detalleRol" class="chart chart-horizontal-bar" chart-data="dashData.general.byRoleDetail[2].data" chart-labels="dashData.general.byRoleDetail[2].labels" chart-colors="colours" chart-options="optionsHor">
+                                            </canvas>
+                                        </div> 
+                                    </div>
+                                    <div class="card-content">
+                                        <h4 class="title">Como Segundo Ayudante</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-content" >
+                                        <div class="myGraph">
+                                            <canvas id="line" class="chart chart-line" chart-data="dashData.general.byTypeProgress.data" chart-labels="dashData.general.byTypeProgress.labels" chart-options="options2.optionsLineDarkGrids" chart-colors="colors" chart-series="['Electiva', 'Urgente', 'Emergente']">
+                                            </canvas>
+                                        </div>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- columna de tipo -->
                         <div class="col-md-4 col-xl-4 col-lg-6">
-                            <div class="card">
-                                <div class="card-content">
-                                    <div class="myGraph">
-                                        <canvas id="doughnut" class="chart chart-doughnut" chart-data="dashData.general.byRole.data" chart-labels="dashData.general.byRole.labels" chart-options="options2.pie" chart-dataset-override="options2.pie.override" chart-colors= "colors">
-                                        </canvas>
-                                    </div> 
-                                    <h4 class="title">Por rol</h4>
-                                    <!-- <p class="category">
-                                        <span class="text-success"><i class="material-icons">trending_up</i></span> tendencia hacia arriba
-                                    </p> -->
-                                </div>
-                                <!-- <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons text-info">arrow_back</i>
-                                        <a href="#">
-                                         Año anterior</a>
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <!-- <div class="card-header" data-background-color="red">
+                                        <h4 class="title">Por tipo</h4>
+                                    </div> -->
+                                    <div class="card-content">
+                                        <div class="myGraph">
+                                            <canvas id="doughnutTipo" class="chart chart-doughnut" chart-data="dashData.general.byType.data" chart-labels="dashData.general.byType.labels" chart-options="options2.pie" chart-dataset-override="options2.pie.override" chart-colors= "colors">
+                                            </canvas>
+                                        </div>
+                                        <h4 class="title">Por tipo de cirugía</h4>
+                                        <!-- OJO A ESTE EJEMPLO DE COMO HACER LO DE TENDENCIAS -->
+                                        <!-- <p class="category">
+                                            <span class="text-danger"><i class="material-icons">trending_down</i></span> tendencia hacia abajo
+                                        </p> -->
                                     </div>
-                                </div> -->
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-content" >
-                                    <div class="myGraph">
-                                        <canvas id="line" class="chart chart-line" chart-data="dashData.general.byRoleProgress.data" chart-labels="dashData.general.byRoleProgress.labels" chart-options="options2.optionsLineDarkGrids" chart-colors="colors" chart-series="['Cirujano', '1. ayudante', '2.ayudante']">
-                                        </canvas>
-                                    </div>  
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-header card-chart" data-background-color="purple">
-                                    <div class="myGraph">
-                                        <canvas id="detalleRol" class="chart chart-horizontal-bar" chart-data="dashData.general.byRoleDetail[0].data" chart-labels="dashData.general.byRoleDetail[0].labels" chart-colors="colours" chart-options="optionsHor">
-                                        </canvas>
-                                    </div> 
-                                </div>
-                                <div class="card-content">
-                                    <h4 class="title">Como Cirujano</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-header card-chart" data-background-color="blue">
-                                    <div class="myGraph">
-                                        <canvas id="detalleRol" class="chart chart-horizontal-bar" chart-data="dashData.general.byRoleDetail[1].data" chart-labels="dashData.general.byRoleDetail[1].labels" chart-colors="colours" chart-options="optionsHor">
-                                        </canvas>
-                                    </div> 
-                                </div>
-                                <div class="card-content">
-                                    <h4 class="title">Como Primer Ayudante</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-header card-chart" data-background-color="orange">
-                                    <div class="myGraph">
-                                        <canvas id="detalleRol" class="chart chart-horizontal-bar" chart-data="dashData.general.byRoleDetail[2].data" chart-labels="dashData.general.byRoleDetail[2].labels" chart-colors="colours" chart-options="optionsHor">
-                                        </canvas>
-                                    </div> 
-                                </div>
-                                <div class="card-content">
-                                    <h4 class="title">Como Segundo Ayudante</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-xl-4 col-lg-6">
-                            <div class="card">
-                                <!-- <div class="card-header" data-background-color="red">
-                                    <h4 class="title">Por tipo</h4>
-                                </div> -->
-                                <div class="card-content">
-                                    <div class="myGraph">
-                                        <canvas id="doughnutTipo" class="chart chart-doughnut" chart-data="dashData.general.byType.data" chart-labels="dashData.general.byType.labels" chart-options="options2.pie" chart-dataset-override="options2.pie.override" chart-colors= "colors">
-                                        </canvas>
-                                    </div>
-                                    <h4 class="title">Por tipo de cirugía</h4>
-                                    <!-- OJO A ESTE EJEMPLO DE COMO HACER LO DE TENDENCIAS -->
-                                    <!-- <p class="category">
-                                        <span class="text-danger"><i class="material-icons">trending_down</i></span> tendencia hacia abajo
-                                    </p> -->
-                                </div>
-                                <!-- <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons text-info">arrow_back</i>
-                                        <a href="#">
-                                         Mes anterior</a>
-                                    </div>
-                                </div> -->
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-content" >
-                                    <div class="myGraph">
-                                        <canvas id="line" class="chart chart-line" chart-data="dashData.general.byTypeProgress.data" chart-labels="dashData.general.byTypeProgress.labels" chart-options="options2.optionsLineDarkGrids" chart-colors="colors" chart-series="['Electiva', 'Urgente', 'Emergente']">
-                                        </canvas>
-                                    </div>  
+                                    <!-- <div class="card-footer">
+                                        <div class="stats">
+                                            <i class="material-icons text-info">arrow_back</i>
+                                            <a href="#">
+                                             Mes anterior</a>
+                                        </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

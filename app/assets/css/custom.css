@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'fox-cat';
+  src: url('../../../assets2/fonts/fox-cat.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
 html a{
     cursor: pointer;
 }
@@ -174,4 +180,14 @@ html a{
 
 .myLabel {
   display: inherit;
+}
+
+.myDashCard {
+  min-height: 183px;
+}
+
+.myDashCardFooter {
+  bottom: 0px;
+  position: absolute;
+  width: 80%;
 }

@@ -38,7 +38,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand">LB - Dashboard</a>
+                            <a class="navbar-brand">DASHBOARD</a>
                             <ol class="breadcrumb">
                                 <li ng-class="stepClasses[0]"><a ng-click="changeToStep(1)">General</a></li>
                                 <li ng-class="stepClasses[1]"><a ng-click="changeToStep(2)">R1</a></li>
@@ -56,7 +56,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-3 col-sm-6">
-                            <div class="card card-stats">
+                            <div class="card card-stats myDashCard">
                                 <div class="card-header" data-background-color="orange">
                                     <i class="fa fa-heartbeat"></i>
                                 </div>
@@ -65,7 +65,7 @@
                                     
                                     <h3 class="title">{{dashData.general.totalQx}}</h3>                             
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer myDashCardFooter">
                                     <div class="stats">
                                         Desde {{adminserv.interpretarFechaShort(anoresDates[0])}}
                                     </div>
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                          <div class="col-lg-3 col-sm-6">
-                            <div class="card card-stats">
+                            <div class="card card-stats myDashCard">
                                 <div class="card-header" data-background-color="green">
                                     <i class="material-icons">date_range</i>
                                 </div>
@@ -81,7 +81,7 @@
                                     <p class="category">Promedio por Año de residencia</p>
                                     <h3 class="title">{{dashData.general.qxPerYear}}</h3>                             
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer myDashCardFooter">
                                     <div class="stats">
                                         Cirugías al año
                                     </div>
@@ -90,7 +90,7 @@
                         </div>
                         
                         <div class="col-lg-3 col-sm-6">
-                            <div class="card card-stats">
+                            <div class="card card-stats myDashCard">
                                 <div class="card-header" data-background-color="blue">
                                     <i class="material-icons">date_range</i>
                                 </div>
@@ -98,15 +98,15 @@
                                     <p class="category">Promedio mensual</p>
                                     <h3 class="title">{{dashData.general.qxPerMonth}}</h3>                             
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer myDashCardFooter">
                                     <div class="stats">
-                                        Cirugías por mes, durante toda la residencia
+                                        Cirugías por mes
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6">
-                            <div class="card card-stats">
+                            <div class="card card-stats myDashCard">
                                 <div class="card-header" data-background-color="purple">
                                     <i class="fa fa-trophy"></i>
                                 </div>
@@ -114,7 +114,7 @@
                                     <p class="category">Objetivos completados</p>
                                     <h3 class="title">0%</h3>                             
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer myDashCardFooter">
                                     <div class="stats">
                                         Contando todos los objetivos
                                     </div>
