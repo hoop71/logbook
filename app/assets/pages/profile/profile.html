@@ -1,7 +1,7 @@
 <div class="sidebar" data-color="blue" >
     <div class="logo">
-        <a href="dashboard.html" class="simple-text">
-            LOGBOOK
+        <a href="#" class="simple-text" style="font-family: 'fox-cat'; text-transform: capitalize; font-size: 26px;">
+            Logbook
         </a>
     </div>
     <div class="sidebar-wrapper">
@@ -228,31 +228,35 @@
                     <div class="card-header" data-background-color="green">Agregar {{currentContext}} a mis favoritos</div>
                     <div class="card-content">
                         <div class="row">
-                            <div ng-repeat="(key,elementoId) in seleccion">
-                                <div class="alert alert-info">
-                                    <div class="container-fluid">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection(elementoId, key)">
-                                            <span aria-hidden="true"><i class="material-icons">clear</i></span>
-                                        </button>
-                                        {{adminserv.getNameById(currentContext, elementoId, true)}}
+                            <div class="col-sm-6">
+                                <div ng-repeat="(key,elementoId) in seleccion">
+                                    <div class="alert alert-info">
+                                        <div class="container-fluid">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection(elementoId, key)">
+                                                <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                                            </button>
+                                            {{adminserv.getNameById(currentContext, elementoId, true)}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <input type="text" value="" placeholder="Buscar..." class="form-control" ng-model="filtro" />
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <input type="text" value="" placeholder="Buscar..." class="form-control" ng-model="filtro" />
+                                        </div>
+                                    </div>
                                 </div>
+                                <table class="table">
+                                    <tbody>
+                                        <tr ng-repeat="(key,elemento) in listaElementos | filter:filtro | limitTo: 10" ng-hide="seleccion.indexOf(elemento.id) > -1" ng-click="toggleSelection(elemento.id, key)">
+                                            <td>{{elemento.nombreLargo}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <table class="table">
-                            <tbody>
-                                <tr ng-repeat="(key,elemento) in listaElementos | filter:filtro | limitTo: 10" ng-hide="seleccion.indexOf(elemento.id) > -1" ng-click="toggleSelection(elemento.id, key)">
-                                    <td>{{elemento.nombreLargo}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

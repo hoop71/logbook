@@ -47,7 +47,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header" data-background-color="green">
-                                <h4 class="title">Informe de los procedimientos</h4>
+                                <h4 class="title">Informe de los procedimientos({{entradas.length}})</h4>
                             </div>
                             <div class="card-content table-responsive">
                                 <table class="table">
@@ -62,14 +62,23 @@
                                             <td ng-click="verEntrada(entrada.$id)" style="cursor: pointer;">{{adminserv.getNameById('cirugia',entrada.cirugia[0].id, true)}}</td>
                                             <td>{{entrada.identificacion}}</td>
                                             <td>{{adminserv.interpretarFechaShort(entrada.fecha)}}</td>
-                                            <td ng-if="entrada.complicaciones.length>4" class="text-danger"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i>({{entrada.complicaciones.length}})</td>
-                                            <td ng-if="entrada.complicaciones.length<=4 && entrada.complicaciones.length>2" class="text-warning"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i>({{entrada.complicaciones.length}})</td>
-                                            <td ng-if="entrada.complicaciones.length<=2 && entrada.complicaciones.length>=1" class="text-info"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i>({{entrada.complicaciones.length}})</td>
+                                            <td ng-if="muerte(entrada)" class="text-danger"><img src="./assets/icons/skull-and-bones.svg" style="width: 24px" class="rounded mx-auto" ng-click="complicacion(entrada, key)"/></td>
+                                            <td ng-if="entrada.complicaciones.length>4 && !muerte(entrada)" class="text-danger"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i>({{entrada.complicaciones.length}})</td>
+                                            <td ng-if="entrada.complicaciones.length<=4 && entrada.complicaciones.length>2 && !muerte(entrada)" class="text-warning"><i class="material-icons" ng-click="complicacion(entrada, key)">report_problem</i>({{entrada.complicaciones.length}})</td>
+                                            <td ng-if="entrada.complicaciones.length<=2 && entrada.complicaciones.length>=1 && !muerte(entrada)" class="text-info"><i class="material-icons" ng-click="complicacion(entrada, key)">report_problem</i>({{entrada.complicaciones.length}})</td>
                                             <td ng-if="entrada.complicaciones.length==0 || !entrada.complicaciones" class="text-success"><span ng-click="complicacion(entrada, key)">(0) Agregar</span></td>
                                         </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
+                            <ul class="pagination">
+                                <li class=" active page-item"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                              </ul>
                         </div>
                     </div>
                 </div>
