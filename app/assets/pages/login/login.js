@@ -25,7 +25,7 @@ angular.module('logbookweb.login', ['ui.router'])
 				// 	return true;
 				// }
 				firebase.auth().onAuthStateChanged(function(user) {
-					console.log(user)
+					
 					if (user) {
 						$state.go('table')
 					// User is signed in.

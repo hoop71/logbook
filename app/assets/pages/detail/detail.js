@@ -14,8 +14,8 @@ angular.module('logbookweb.detail', ['ui.router'])
 
 
 
-.controller('detailCtrl', ['adminserv','$scope','$state','$rootScope','$firebaseObject', 'MENU_ITEMS','errorHandler','SweetAlert', function(adminserv, $scope, $state, $rootScope, $firebaseObject, MENU_ITEMS, errorHandler, SweetAlert) {
-	console.log(adminserv.getSeleccion())
+.controller('detailCtrl', ['adminserv', 'objectiveServ','$scope','$state','$rootScope','$firebaseObject', 'MENU_ITEMS','errorHandler','SweetAlert', function(adminserv, objectiveServ, $scope, $state, $rootScope, $firebaseObject, MENU_ITEMS, errorHandler, SweetAlert) {
+	
 	if (!adminserv.getSeleccion()) {
 		$state.go('table');
 	};
@@ -95,13 +95,15 @@ angular.module('logbookweb.detail', ['ui.router'])
 		  confirmButtonText: 'Sí, bórrala!',
 		  cancelButtonText: 'No, no la borres'
 		}).then((result) => {
-		  if (result) {
-		    swal(
-		      'Deleted!',
-		      'Your file has been deleted.',
-		      'success'
-		    )
-		  }
+			if (result) {
+				$scope.entrada.$remove().then(function(ref) {
+					objectiveServ.eraseEntryUpdate($scope.entrada, objUsuario.objetivos);
+					objUsuario.$save();
+					$state.go('table');
+				}, function(error) {
+				
+				});
+			}
 		})
 	}
 	$scope.saveEdit = function(){

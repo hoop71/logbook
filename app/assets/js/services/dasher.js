@@ -159,7 +159,6 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 				var objArray = Object.keys(user.objetivos).map(function(key) {
 				  return user.objetivos[key];
 				});
-				console.log(objArray)
 				var completedObj = objArray.filter(function(value){
 					
 					return value.status === "completado";
@@ -187,25 +186,25 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 				//console.log(entryDayNumber)
 				if (entryYear.toString() in byDate) { //ya hay datos de ese año
 					byDate[entryYear.toString()]++;
-					nestedByDate[entryYear.toString()][entryMonth][entryDayNumber-1]++;
+					nestedByDate[entryYear.toString()][entryMonth][0][entryDayNumber-1]++;
 
 				}else{ //no hay datos de ese año
 
 					byDate[entryYear.toString()]=1;	
 					nestedByDate[entryYear.toString()] = [
-		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
-					nestedByDate[entryYear.toString()][entryMonth][entryDayNumber-1] = 1;
+		    		    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+		    		    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+		    		    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+		    		    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+		    		    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+		    		    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+		    		    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+		    		    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+		    		    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+		    		    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+		    		    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+		    		    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]];
+					nestedByDate[entryYear.toString()][entryMonth][0][entryDayNumber-1] = 1;
 
 				}
 				totalProced += entry.cirugia.length
@@ -391,9 +390,9 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 			        var newData = []
 			        for (var i in nestedByDate[property]) {
 			        	var total = 0;
-			        	for (var j in nestedByDate[property][i]) {
+			        	for (var j in nestedByDate[property][i][0]) {
 			        		
-			        		total += nestedByDate[property][i][j];
+			        		total += nestedByDate[property][i][0][j];
 			        	}
 			        	newData.push(total)
 			        }

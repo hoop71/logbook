@@ -181,7 +181,6 @@ angular.module('logbookweb.objectives', ['ui.router'])
 		}
 	}
 	$scope.verObjetivo = function(objetivoId){
-		console.log(objetivoId)
 		adminserv.setSeleccion(objetivoId);
 		$state.go('detailObj')
 	}

@@ -60,6 +60,21 @@ logbookweb.service('objectiveServ', ['adminserv','$firebaseArray','$firebaseObje
 			}else{
 				return "pendiente"
 			}
+		},
+		eraseEntryUpdate:function(entry, objetivos){
+			console.log(entry.$id)
+			console.log(objetivos)
+			Object.keys(objetivos).forEach(function(key) {
+				var objetivo = objetivos[key];
+				if (objetivo.entradas) {
+					var index = objetivo.entradas.indexOf(entry.$id);
+					if (index > -1) {
+				    	objetivo.entradas.splice(index, 1);
+				    	console.log("borre de objetivo")
+					}
+				}
+				
+			})
 		}
 	}
 }]) 

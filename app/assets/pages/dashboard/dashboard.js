@@ -92,7 +92,6 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 		$scope.dashData = dataCruncher.getDashboardData($scope.user, listEntries);
 		$scope.data = $scope.dashData.general.barsByYearData;
 		$scope.loading = false;
-		console.log($scope.dashData)
 	})
 
 	$scope.changeToStep = function(step){
@@ -133,6 +132,15 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 		
 		if ($scope.dashData.general.byDateMonths.hasOwnProperty(year.toString())) {
 			$scope.graphYear = year.toString()
+		}
+	}
+
+	$scope.changeMonth = function(tipo){
+		
+		if (tipo == "next" && $scope.graphMonth<11) {
+			$scope.graphMonth++;
+		}else if(tipo == "prev" && $scope.graphMonth>0){
+			$scope.graphMonth--;
 		}
 	}
 

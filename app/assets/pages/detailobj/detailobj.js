@@ -42,7 +42,6 @@ angular.module('logbookweb.detailObj', ['ui.router'])
 		var refsEnt = [];
 		var objsEntr = [];
 		if ($scope.objetivo.entradas) {
-			console.log("hay entradas")
 			for (var i = 0; i < $scope.objetivo.entradas.length; i++) {
 				refsEnt[i] = firebase.database().ref('entradas/'+userId+'/'+$scope.objetivo.entradas[i]);
 				objsEntr[i] = $firebaseObject(refsEnt[i]);
