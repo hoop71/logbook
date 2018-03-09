@@ -80,7 +80,9 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 					byDiagnosis:{},
 					byProcedure: {},
 					byDateYear: {},
-					byDateMonths: {} 
+					byDateMonths: {},
+					byDateDays: {},
+					byObjectives:{} 
 				},
 				r1: {
 					byLocation: {},
@@ -152,6 +154,30 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 			dashboardData.general.qxPerYear = (entries.length/user.anores).toFixed(2);
 			dashboardData.general.qxPerMonth = (entries.length/monthsOfStudy).toFixed(2);
 
+			if (user.objetivos) {
+
+				var objArray = Object.keys(user.objetivos).map(function(key) {
+				  return user.objetivos[key];
+				});
+				console.log(objArray)
+				var completedObj = objArray.filter(function(value){
+					
+					return value.status === "completado";
+				})
+				dashboardData.general.byObjectives = {
+					total: objArray.length,
+					completados: completedObj.length,
+					porcentaje: ((completedObj.length/objArray.length)*100).toFixed(0)
+				}
+			}else{
+				dashboardData.general.byObjectives = {
+					total: 0,
+					completados: 0,
+					porcentaje: 0
+				}
+			}
+			
+
 			for (var entry of entries) {
 				var entryDate = new Date(entry.fecha);
 				var entryYear = entryDate.getFullYear();
@@ -161,7 +187,7 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 				//console.log(entryDayNumber)
 				if (entryYear.toString() in byDate) { //ya hay datos de ese año
 					byDate[entryYear.toString()]++;
-					nestedByDate[entryYear.toString()][entryMonth][entryDayNumber]++;
+					nestedByDate[entryYear.toString()][entryMonth][entryDayNumber-1]++;
 
 				}else{ //no hay datos de ese año
 
@@ -179,7 +205,7 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 		    		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]];
-					nestedByDate[entryYear.toString()][entryMonth][entryDayNumber] = 1;
+					nestedByDate[entryYear.toString()][entryMonth][entryDayNumber-1] = 1;
 
 				}
 				totalProced += entry.cirugia.length
@@ -359,7 +385,7 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 		
 			dashboardData.general.byDateYear.data = [Object.values(byDate)] 
 			dashboardData.general.byDateYear.labels = Object.keys(byDate);
-			
+			dashboardData.general.byDateDays = nestedByDate;
 			for (var property in nestedByDate) {
 			    if (nestedByDate.hasOwnProperty(property)) {
 			        var newData = []

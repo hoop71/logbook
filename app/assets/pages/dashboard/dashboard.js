@@ -59,6 +59,8 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 	$scope.colors = ['#ab47bc', '#26c6da', '#ffa726', '#F1C40F']
 
 	$scope.graphYear = $scope.today.getFullYear().toString();
+	$scope.graphMonth = $scope.today.getMonth();
+	$scope.byMonthLabels = CHART_CONF.labels.month//.slice(0,$scope.today.getDate());
 
 	function monthDiff(d1, d2) {
 	    var months;
