@@ -63,7 +63,7 @@
                                 <div class="card-content">
                                     <p class="category">Cirugías Totales</p>
                                     
-                                    <h3 class="title">{{dashData.general.totalQx}}</h3>                             
+                                    <h1 class="title">{{dashData.general.totalQx}}</h1>                             
                                 </div>
                                 <div class="card-footer myDashCardFooter">
                                     <div class="stats">
@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Promedio por Año de residencia</p>
-                                    <h3 class="title">{{dashData.general.qxPerYear}}</h3>                             
+                                    <h1 class="title">{{dashData.general.qxPerYear}}</h1>                             
                                 </div>
                                 <div class="card-footer myDashCardFooter">
                                     <div class="stats">
@@ -96,7 +96,7 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Promedio mensual</p>
-                                    <h3 class="title">{{dashData.general.qxPerMonth}}</h3>                             
+                                    <h1 class="title">{{dashData.general.qxPerMonth}}</h1>                             
                                 </div>
                                 <div class="card-footer myDashCardFooter">
                                     <div class="stats">
@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="card-content">
                                     <p class="category">Objetivos completados</p>
-                                    <h3 class="title">{{dashData.general.byObjectives.porcentaje}}%</h3>                             
+                                    <h1 class="title">{{dashData.general.byObjectives.porcentaje}}%</h1>                             
                                 </div>
                                 <div class="card-footer myDashCardFooter">
                                     <div class="stats">
@@ -208,6 +208,85 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <!-- Frecunetes-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header card-chart" data-background-color="blue">
+                                        <div class="myGraph">
+                                            <canvas id="baseQx" class="chart chart-horizontal-bar" chart-data="dashData.general.byProcedure.data" chart-labels="dashData.general.byProcedure.labels" chart-colors="colours" chart-options="optionsHor">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                    <div class="card-content">
+                                        <h4 class="title">Cirugías frecuentes</h4>
+                                        <p class="category">
+                                            
+                                        </p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="stats">
+                                            <i class="material-icons">access_time</i> updated 4 minutes ago 
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header card-chart" data-background-color="orange">
+                                        <div class="myGraph">
+                                            <canvas id="baseDiag" class="chart chart-horizontal-bar" chart-data="dashData.general.byDiagnosis.data" chart-labels="dashData.general.byDiagnosis.labels" chart-colors="colours" chart-options="optionsHor">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                    <div class="card-content">
+                                        <h4 class="title">Diagnósticos frecuentes</h4>
+                                        <p class="category">
+                                            
+                                        </p>
+                                    </div>
+                                    <div class="card-footer icons">
+                                        <div class="stats">
+                                            <i class="material-icons">access_time</i> updated 4 minutes ago
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="purple">
+                                    <div class="myGraph">
+                                        <canvas id="detalleRol" class="chart chart-horizontal-bar" chart-data="dashData.general.byRoleDetail[0].data" chart-labels="dashData.general.byRoleDetail[0].labels" chart-colors="colours" chart-options="optionsHor">
+                                        </canvas>
+                                    </div> 
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Como Cirujano</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-chart" data-background-color="blue">
+                                    <div class="myGraph">
+                                        <canvas id="detalleRol" class="chart chart-horizontal-bar" chart-data="dashData.general.byRoleDetail[1].data" chart-labels="dashData.general.byRoleDetail[1].labels" chart-colors="colours" chart-options="optionsHor">
+                                        </canvas>
+                                    </div> 
+                                </div>
+                                <div class="card-content">
+                                    <h4 class="title">Como Primer Ayudante</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-content" >
@@ -218,6 +297,19 @@
                                 </div>
                                 <div class="card-footer">
                                     Progresión por roles
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-content" >
+                                    <div class="myGraph">
+                                        <canvas id="line" class="chart chart-line" chart-data="dashData.general.byTypeProgress.data" chart-labels="dashData.general.byTypeProgress.labels" chart-options="options2.optionsLineDarkGrids" chart-colors="colors" chart-series="['Electiva', 'Urgente', 'Emergente']">
+                                        </canvas>
+                                    </div>  
+                                </div>
+                                <div class="card-footer">
+                                    Progresión por tipo
                                 </div>
                             </div>
                         </div>
@@ -273,33 +365,8 @@
                                     </div> -->
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header card-chart" data-background-color="purple">
-                                        <div class="myGraph">
-                                            <canvas id="detalleRol" class="chart chart-horizontal-bar" chart-data="dashData.general.byRoleDetail[0].data" chart-labels="dashData.general.byRoleDetail[0].labels" chart-colors="colours" chart-options="optionsHor">
-                                            </canvas>
-                                        </div> 
-                                    </div>
-                                    <div class="card-content">
-                                        <h4 class="title">Como Cirujano</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header card-chart" data-background-color="blue">
-                                        <div class="myGraph">
-                                            <canvas id="detalleRol" class="chart chart-horizontal-bar" chart-data="dashData.general.byRoleDetail[1].data" chart-labels="dashData.general.byRoleDetail[1].labels" chart-colors="colours" chart-options="optionsHor">
-                                            </canvas>
-                                        </div> 
-                                    </div>
-                                    <div class="card-content">
-                                        <h4 class="title">Como Primer Ayudante</h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
+                            
+                            <!-- <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-header card-chart" data-background-color="orange">
                                         <div class="myGraph">
@@ -312,17 +379,8 @@
                                     </div>
                                 </div>
                             </div>
+                             -->
                             
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-content" >
-                                        <div class="myGraph">
-                                            <canvas id="line" class="chart chart-line" chart-data="dashData.general.byTypeProgress.data" chart-labels="dashData.general.byTypeProgress.labels" chart-options="options2.optionsLineDarkGrids" chart-colors="colors" chart-series="['Electiva', 'Urgente', 'Emergente']">
-                                            </canvas>
-                                        </div>  
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <!-- columna de tipo -->
                         <div class="col-md-4 col-xl-4 col-lg-6">
@@ -408,53 +466,7 @@
                     </div>
 
 
-                    <!-- Frecunetes-->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header card-chart" data-background-color="blue">
-                                    <div class="myGraph">
-                                        <canvas id="baseQx" class="chart chart-horizontal-bar" chart-data="dashData.general.byProcedure.data" chart-labels="dashData.general.byProcedure.labels" chart-colors="colours" chart-options="optionsHor">
-                                        </canvas>
-                                    </div>
-                                </div>
-                                <div class="card-content">
-                                    <h4 class="title">Cirugías frecuentes</h4>
-                                    <p class="category">
-                                        
-                                    </p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> updated 4 minutes ago 
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header card-chart" data-background-color="orange">
-                                    <div class="myGraph">
-                                        <canvas id="baseDiag" class="chart chart-horizontal-bar" chart-data="dashData.general.byDiagnosis.data" chart-labels="dashData.general.byDiagnosis.labels" chart-colors="colours" chart-options="optionsHor">
-                                        </canvas>
-                                    </div>
-                                </div>
-                                <div class="card-content">
-                                    <h4 class="title">Diagnósticos frecuentes</h4>
-                                    <p class="category">
-                                        
-                                    </p>
-                                </div>
-                                <div class="card-footer icons">
-                                    <div class="stats">
-                                        <i class="material-icons">access_time</i> updated 4 minutes ago
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <div class="content" ng-show="selectedStep[1]">
