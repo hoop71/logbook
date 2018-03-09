@@ -57,4 +57,25 @@ angular.module('logbookweb.detailObj', ['ui.router'])
 		var progressStr = progress.toString() + "%";
 		return {width: progressStr}
 	}
+
+	$scope.startDelete = function(){
+		swal({
+			title: 'estás seguro?',
+			text: "al borrar esta entrada se perderá toda la información y no se podrá recuperar",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Sí, bórrala!',
+			cancelButtonText: 'No, no la borres'
+		}).then((result) => {
+			if (result) {
+				$scope.objetivo.$remove().then(function(ref) {
+					$state.go('objectives');
+				}, function(error) {
+				
+				});
+			}
+		})
+	}
 }])

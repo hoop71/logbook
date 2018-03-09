@@ -40,40 +40,45 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="card card-stats">
-                            <div class="card-header" data-background-color="orange" ng-if="objetivo.status == 'pendiente'">
-                                <i class="fa fa-hourglass-half"></i>
-                            </div>
-                            <div class="card-header" data-background-color="blue" ng-if="objetivo.status == 'completado'">
-                                <i class="fa fa-trophy"></i>
-                            </div>
-                            <div class="card-content">
-                            	<div class="row justify-content-md-center">
-                            	    <div class="col-sm-12 col-md-10 text-left">
-                            			<h3 class="title" style="border-bottom: 1px solid grey">{{objetivo.nombre}}</h3>
-                            			<p class="" style="border-bottom: 1px solid grey" ng-if="objetivo.descripcion">{{objetivo.descripcion}}</p>
-                            			<h3 class="title" style="border-bottom: 1px solid grey">{{objetivo.status}}</h3>
-                            			<p class="category">Estatus</p>
-                            			<h3 class="title" style="border-bottom: 1px solid grey">{{objetivo.tipo}}</h3>
-                            			<p class="category">Tipo</p>
-                                	</div>
+                        <div class="row">
+                            <div class="card card-stats">
+                                <div class="card-header" data-background-color="orange" ng-if="objetivo.status == 'pendiente'">
+                                    <i class="fa fa-hourglass-half"></i>
                                 </div>
-                                <h3 class="title" ng-show="objetivo.entradas">{{objetivo.entradas.length}}/{{objetivo.cantidad}}</h3>
-                                <h3 class="title" ng-show="!objetivo.entradas">0/{{objetivo.cantidad}}</h3>
-                              
-                                <p class="category" ng-repeat="procedimiento in objetivo.procedimientos">{{adminserv.getNameById('cirugia',procedimiento, true)}}</p>
-                                                           
-                            </div>
-                            <div class="progress progress-line-primary">
-                              <div class="progress-bar" role="progressbar" ng-style="getProgress(objetivo.entradas.length, objetivo.cantidad)" aria-valuemin="0" aria-valuemax="100">
-                                  <span class="sr-only">60% complete</span>
-                              </div>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    Entre R{{objetivo.fechas.start}} y R{{objetivo.fechas.end}}
+                                <div class="card-header" data-background-color="blue" ng-if="objetivo.status == 'completado'">
+                                    <i class="fa fa-trophy"></i>
+                                </div>
+                                <div class="card-content">
+                                	<div class="row justify-content-md-center">
+                                	    <div class="col-sm-12 col-md-10 text-left">
+                                			<h3 class="title" style="border-bottom: 1px solid grey">{{objetivo.nombre}}</h3>
+                                			<p class="" style="border-bottom: 1px solid grey" ng-if="objetivo.descripcion">{{objetivo.descripcion}}</p>
+                                			<h3 class="title" style="border-bottom: 1px solid grey">{{objetivo.status}}</h3>
+                                			<p class="category">Estatus</p>
+                                			<h3 class="title" style="border-bottom: 1px solid grey">{{objetivo.tipo}}</h3>
+                                			<p class="category">Tipo</p>
+                                    	</div>
+                                    </div>
+                                    <h3 class="title" ng-show="objetivo.entradas">{{objetivo.entradas.length}}/{{objetivo.cantidad}}</h3>
+                                    <h3 class="title" ng-show="!objetivo.entradas">0/{{objetivo.cantidad}}</h3>
+                                  
+                                    <p class="category" ng-repeat="procedimiento in objetivo.procedimientos">{{adminserv.getNameById('cirugia',procedimiento, true)}}</p>
+                                                               
+                                </div>
+                                <div class="progress progress-line-primary">
+                                  <div class="progress-bar" role="progressbar" ng-style="getProgress(objetivo.entradas.length, objetivo.cantidad)" aria-valuemin="0" aria-valuemax="100">
+                                      <span class="sr-only">60% complete</span>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stats">
+                                        Entre R{{objetivo.fechas.start}} y R{{objetivo.fechas.end}}
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="btn btn-info pull-right" ng-click="startDelete()"><i class="material-icons">delete</i></button>
                         </div>
                     </div>
                     <div class="col-lg-8">

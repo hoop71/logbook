@@ -29,7 +29,7 @@ angular.module('logbookweb.table', ['ui.router'])
 
 .controller('tableCtrl', ['$scope','$rootScope','$state','MENU_ITEMS','adminserv','$firebaseArray', function($scope, $rootScope, $state, MENU_ITEMS, adminserv, $firebaseArray) {
 	$scope.orderStr = 'fecha'
-	var PAGE_LIMIT = 10;
+	$scope.PAGE_LIMIT = 10;
 	$.material.init();
 	$scope.adminserv = adminserv;
 	var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
@@ -51,7 +51,7 @@ angular.module('logbookweb.table', ['ui.router'])
 	$scope.$on('adminserv:directricesListas', function() {
         console.log("otra vez")
 		$scope.complicaciones = adminserv.getSelectInfo('complicaciones');
-            var refEntradas = firebase.database().ref('entradas/'+adminserv.getUser()).limitToFirst(PAGE_LIMIT).orderByChild("especialidad").equalTo(parseInt('1'));
+            var refEntradas = firebase.database().ref('entradas/'+adminserv.getUser()).orderByChild("especialidad").equalTo(parseInt('1'));
             
             var listEntradas = $firebaseArray(refEntradas);
             listEntradas.$loaded().then(function(){
@@ -61,7 +61,7 @@ angular.module('logbookweb.table', ['ui.router'])
 	})
 
     if ($rootScope.constantsLoaded) {
-            var refEntradas = firebase.database().ref('entradas/'+adminserv.getUser()).limitToFirst(PAGE_LIMIT).orderByChild("especialidad").equalTo(parseInt('1'));
+            var refEntradas = firebase.database().ref('entradas/'+adminserv.getUser()).orderByChild("especialidad").equalTo(parseInt('1'));
 
             var listEntradas = $firebaseArray(refEntradas);
             listEntradas.$loaded().then(function(){
@@ -156,6 +156,10 @@ angular.module('logbookweb.table', ['ui.router'])
             return false;
         }
 
+    }
+
+    $scope.cargarMas = function(){
+        $scope.PAGE_LIMIT += 10;
     }
 
     $scope.logout = function(){

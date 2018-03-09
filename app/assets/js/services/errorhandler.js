@@ -61,6 +61,11 @@ logbookweb.service('errorHandler', [function(){
 						message: "Hubo un error, por favor intentalo más tarde..."
 					}
 					break;
+				case('DELETE/ask-confirmation'):
+					return{
+						type:"warning",
+						message: "Estás seguro que deseas borrar esta entrada? Toda la información sobre esta se perderá"
+					}
 				case('form/tac-not-agree'):
 					return{
 						type: 'warning',

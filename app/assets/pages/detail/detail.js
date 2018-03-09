@@ -15,16 +15,16 @@ angular.module('logbookweb.detail', ['ui.router'])
 
 
 .controller('detailCtrl', ['adminserv','$scope','$state','$rootScope','$firebaseObject', 'MENU_ITEMS','errorHandler','SweetAlert', function(adminserv, $scope, $state, $rootScope, $firebaseObject, MENU_ITEMS, errorHandler, SweetAlert) {
-	
+	console.log(adminserv.getSeleccion())
 	if (!adminserv.getSeleccion()) {
-		$state.go('profile');
+		$state.go('table');
 	};
 
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
 	$scope.menuItems[2].class="active"
 	$scope.modeEdit = false;
 	$scope.canEdit = false;
-
+	$scope.entrada ={};
 	$scope.adminserv = adminserv;
 
 	var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
@@ -78,6 +78,31 @@ angular.module('logbookweb.detail', ['ui.router'])
 
 	$scope.startEdit = function(){
 		$scope.modeEdit = true;
+	}
+	$scope.startDelete = function(){
+		// var errorMessage = errorHandler.getErrorMessage('DELETE/ask-confirmation');
+		// SweetAlert.swal({
+		// 	type: errorMessage.type,
+		// 	text: errorMessage.message
+		// })
+		swal({
+		  title: 'estás seguro?',
+		  text: "al borrar esta entrada se perderá toda la información y no se podrá recuperar",
+		  type: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Sí, bórrala!',
+		  cancelButtonText: 'No, no la borres'
+		}).then((result) => {
+		  if (result) {
+		    swal(
+		      'Deleted!',
+		      'Your file has been deleted.',
+		      'success'
+		    )
+		  }
+		})
 	}
 	$scope.saveEdit = function(){
 		$scope.entrada.fecha = $scope.entrada.fecha.toString();
