@@ -126,6 +126,9 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 		var year = parseInt($scope.graphYear)
 		if (tipo == "next") {
 			year++;
+			if (parseInt($scope.graphYear)>=$scope.today.getFullYear()) {
+				$scope.graphMonth = $scope.today.getMonth()
+			}
 		}else{
 			year--;
 		}
@@ -137,8 +140,17 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 
 	$scope.changeMonth = function(tipo){
 		
-		if (tipo == "next" && $scope.graphMonth<11) {
-			$scope.graphMonth++;
+		if (tipo == "next") {
+			if (parseInt($scope.graphYear)<$scope.today.getFullYear()) { //estoy en años anteriores, simplemente se revisa que no pase de 12
+				if ($scope.graphMonth<11) {
+					$scope.graphMonth++;
+				}
+			}else{
+				if ($scope.graphMonth<$scope.today.getMonth()) {
+					$scope.graphMonth++;
+				}
+			}
+			
 		}else if(tipo == "prev" && $scope.graphMonth>0){
 			$scope.graphMonth--;
 		}

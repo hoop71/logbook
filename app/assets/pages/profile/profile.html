@@ -139,7 +139,7 @@
                             <p class="card-content">
                                 {{user.descripcion}}
                             </p>
-                            <p class=" text-gray">Comenzó la residencia: {{adminserv.interpretarFecha(user.fechainicio)}}</p>
+                            <p class=" text-gray">Comenzó la residencia: <br/> {{adminserv.interpretarFecha(user.fechainicio)}}</p>
                             <p>{{adminserv.getNameById('universidad', user.universidad,true)}}</p>
                             <p>{{user.ciudad}}, {{user.pais}}</p>
                             <a class="btn btn-info btn-round" ng-click="editar()">Editar</a>
