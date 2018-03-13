@@ -34,8 +34,8 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
   var entradas = [];
   var constantsDone = false;
   //var datosAnestesia = datosAnestesia;
-  var entradaSeleccionada = "-KoE6_-sAZdMn5apKbQp"; //esto es para hacer pruebas en detail!!!
-  //var entradaSeleccionada = null; //esto para cuando esté listo!!!
+  //var entradaSeleccionada = "-KoE6_-sAZdMn5apKbQp"; //esto es para hacer pruebas en detail!!!
+  var entradaSeleccionada = null; //esto para cuando esté listo!!!
   var user = '';
   var dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
   var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -81,9 +81,11 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
               break;
           };
       }  
+      return{}
   }
   var crearModelo = function(universidad, especialidad){
     console.log("creando modelo")
+    console.log(especialidad)
     var refDir = firebase.database().ref('constantes/directrices');
     var listDir = $firebaseArray(refDir.orderByChild('id').equalTo(universidad));
     listDir.$loaded().then(function(){
@@ -354,12 +356,19 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
         
     },
     searchById: function(array, id){
+      if (array.length>0 && id>0) {
         for(var entry of array){
             if (entry.id == parseInt(id)) {
                 return entry;
                 break;
             };
-        }  
+        } 
+      }else{
+        return {
+          nombreLargo: "",
+          nombreCorto: ""
+        }
+      }
     },
     interpretarFecha: function(fechaStr){
         var laFecha = new Date(fechaStr)
@@ -380,8 +389,12 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
     getAnores: function(initDate, targetDate){
       var dateInit = new Date(initDate);
       var dateTarget = new Date(targetDate)
-      return Math.ceil((dateTarget - dateInit)/31536000000);
-    }
+      var anores = Math.ceil((dateTarget - dateInit)/31536000000);
+      if (anores>4) {
+        return 4
+      }else{
+        return anores
+      }    }
   };
 }]);
 

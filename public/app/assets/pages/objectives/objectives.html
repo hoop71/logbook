@@ -2,8 +2,8 @@
     <div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
   
         <div class="logo">
-            <a href="#" class="simple-text">
-                LOGBOOK
+            <a href="#" class="simple-text" style="font-family: 'fox-cat'; text-transform: capitalize; font-size: 26px;">
+                Logbook
             </a>
         </div>
         <div class="sidebar-wrapper">
@@ -172,6 +172,14 @@
                         <div class="row">
                             <p>Intervalo de tiempo para este objetivo:</p>
                             <div class="slider slider-info noUi-target noUi-ltr noUi-horizontal noUi-background" ya-no-ui-slider='sliderOptions'></div>
+                        </div>
+                        <div class="row">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="optionsCheckboxes" ng-model="retroactivo">
+                                    Retroactivo
+                                </label>
+                            </div>
                         </div>
                         <div class="row">
                             <button class="btn btn-info pull-right" ng-click="saveObjective();"><i class="material-icons">save</i>

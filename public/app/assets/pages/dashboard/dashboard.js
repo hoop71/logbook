@@ -59,8 +59,11 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 	$scope.colors = ['#ab47bc', '#26c6da', '#ffa726', '#F1C40F']
 
 	$scope.graphYear = $scope.today.getFullYear().toString();
+	$scope.graphMonth = $scope.today.getMonth();
+	$scope.byMonthLabels = CHART_CONF.labels.month//.slice(0,$scope.today.getDate());
 
 	function monthDiff(d1, d2) {
+
 	    var months;
 	    months = (d2.getFullYear() - d1.getFullYear()) * 12;
 	    months -= d1.getMonth() + 1;
@@ -81,6 +84,7 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 		var d3 = new Date(d1.getFullYear()+2, d1.getMonth(), d1.getDate())
 		var d4 = new Date(d1.getFullYear()+3, d1.getMonth(), d1.getDate())
 		$scope.anoresDates = [d1,d1,d2,d3,d4];
+		console.log($scope.anoresDates)
 		$scope.monthsAnores = monthDiff($scope.anoresDates[$scope.currentAnores-1],$scope.today)
 	})
 
@@ -90,7 +94,6 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 		$scope.dashData = dataCruncher.getDashboardData($scope.user, listEntries);
 		$scope.data = $scope.dashData.general.barsByYearData;
 		$scope.loading = false;
-		console.log($scope.dashData)
 	})
 
 	$scope.changeToStep = function(step){
@@ -125,12 +128,33 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 		var year = parseInt($scope.graphYear)
 		if (tipo == "next") {
 			year++;
+			if (parseInt($scope.graphYear)>=$scope.today.getFullYear()) {
+				$scope.graphMonth = $scope.today.getMonth()
+			}
 		}else{
 			year--;
 		}
 		
 		if ($scope.dashData.general.byDateMonths.hasOwnProperty(year.toString())) {
 			$scope.graphYear = year.toString()
+		}
+	}
+
+	$scope.changeMonth = function(tipo){
+		
+		if (tipo == "next") {
+			if (parseInt($scope.graphYear)<$scope.today.getFullYear()) { //estoy en años anteriores, simplemente se revisa que no pase de 12
+				if ($scope.graphMonth<11) {
+					$scope.graphMonth++;
+				}
+			}else{
+				if ($scope.graphMonth<$scope.today.getMonth()) {
+					$scope.graphMonth++;
+				}
+			}
+			
+		}else if(tipo == "prev" && $scope.graphMonth>0){
+			$scope.graphMonth--;
 		}
 	}
 

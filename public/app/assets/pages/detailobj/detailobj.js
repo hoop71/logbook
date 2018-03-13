@@ -42,7 +42,6 @@ angular.module('logbookweb.detailObj', ['ui.router'])
 		var refsEnt = [];
 		var objsEntr = [];
 		if ($scope.objetivo.entradas) {
-			console.log("hay entradas")
 			for (var i = 0; i < $scope.objetivo.entradas.length; i++) {
 				refsEnt[i] = firebase.database().ref('entradas/'+userId+'/'+$scope.objetivo.entradas[i]);
 				objsEntr[i] = $firebaseObject(refsEnt[i]);
@@ -56,5 +55,26 @@ angular.module('logbookweb.detailObj', ['ui.router'])
 		var progress = Math.round((currentAmt/total)*100)
 		var progressStr = progress.toString() + "%";
 		return {width: progressStr}
+	}
+
+	$scope.startDelete = function(){
+		swal({
+			title: 'estás seguro?',
+			text: "al borrar esta entrada se perderá toda la información y no se podrá recuperar",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Sí, bórrala!',
+			cancelButtonText: 'No, no la borres'
+		}).then((result) => {
+			if (result) {
+				$scope.objetivo.$remove().then(function(ref) {
+					$state.go('objectives');
+				}, function(error) {
+				
+				});
+			}
+		})
 	}
 }])

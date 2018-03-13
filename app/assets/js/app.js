@@ -85,6 +85,7 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
   }
   var crearModelo = function(universidad, especialidad){
     console.log("creando modelo")
+    console.log(especialidad)
     var refDir = firebase.database().ref('constantes/directrices');
     var listDir = $firebaseArray(refDir.orderByChild('id').equalTo(universidad));
     listDir.$loaded().then(function(){
@@ -388,8 +389,12 @@ logbookweb.service('adminserv',['$firebaseArray','$firebaseObject','$rootScope',
     getAnores: function(initDate, targetDate){
       var dateInit = new Date(initDate);
       var dateTarget = new Date(targetDate)
-      return Math.ceil((dateTarget - dateInit)/31536000000);
-    }
+      var anores = Math.ceil((dateTarget - dateInit)/31536000000);
+      if (anores>4) {
+        return 4
+      }else{
+        return anores
+      }    }
   };
 }]);
 

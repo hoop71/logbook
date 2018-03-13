@@ -28,8 +28,8 @@ angular.module('logbookweb.objectives', ['ui.router'])
 
 
 
-.controller('objectivesCtrl', ['$scope','$state','adminserv', 'MENU_ITEMS','CHART_CONF', 'Auth', 'firebase', '$firebaseObject', '$firebaseArray','constDirectrices','SweetAlert', function($scope, $state, adminserv, MENU_ITEMS, CHART_CONF, Auth, firebase, $firebaseObject, $firebaseArray, constDirectrices, SweetAlert) {
-	console.log("obectives")
+.controller('objectivesCtrl', ['$scope','$state','adminserv', 'objectiveServ', 'MENU_ITEMS','CHART_CONF', 'Auth', 'firebase', '$firebaseObject', '$firebaseArray','constDirectrices','SweetAlert', function($scope, $state, adminserv, objectiveServ, MENU_ITEMS, CHART_CONF, Auth, firebase, $firebaseObject, $firebaseArray, constDirectrices, SweetAlert) {
+	
 	$.material.init();
 	var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
@@ -45,8 +45,8 @@ angular.module('logbookweb.objectives', ['ui.router'])
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
 	$scope.menuItems[1].class="active";
 
-	$scope.selectedStep = [true, false, false, false, false];
-	$scope.stepClasses = ["active", "", "", "", ""];
+	$scope.selectedStep = [false, true, false, false, false];
+	$scope.stepClasses = ["", "active", "", "", ""];
 
 	$scope.cirugias = adminserv.getSelectInfo('cirugias');
 	$scope.seleccion = [];
@@ -91,6 +91,7 @@ angular.module('logbookweb.objectives', ['ui.router'])
 		$scope.fechainicioRes = new Date(objUsuario.fechainicio);
 
 	})
+	
 
 	var refObjetivos = firebase.database().ref('users/'+userId+'/objetivos');
 	var listObj = $firebaseArray(refObjetivos);
@@ -144,20 +145,31 @@ angular.module('logbookweb.objectives', ['ui.router'])
 			if ($scope.rol.segundoayudante) {
 				$scope.newObj.rol.push(3)
 			}
-			var refObjetivos = firebase.database().ref('users/'+userId+'/objetivos');
-			var listObjetivos = $firebaseArray(refObjetivos);
-			listObjetivos.$add($scope.newObj).then(function(){
-				$('#modalNewObj').modal('hide')
-				SweetAlert.swal({
-					type: 'success',
-					text: 'El objetivo se agregó exitosamente!'
-				}).then(function (response) {
-					$scope.newObj.nombre = "";
-					$scope.newObj.cantidad = null;
-					$scope.newObj.procedimientos = [];
-					
-				})
+
+			//objectiveServ.addEntrance(result, $scope.entrada, objUsuario.objetivos);
+			var refEntradas = firebase.database().ref('entradas/'+userId);
+
+			var listEntradas = $firebaseArray(refEntradas);
+			listEntradas.$loaded().then(function(){
+			 	objectiveServ.checkRetroactivity(listEntradas, $scope.newObj);
+			 	$scope.newObj.status = objectiveServ.checkStatus($scope.newObj);
+			 	var refObjetivos = firebase.database().ref('users/'+userId+'/objetivos');
+			 	var listObjetivos = $firebaseArray(refObjetivos);
+			 	listObjetivos.$add($scope.newObj).then(function(){
+			 		$('#modalNewObj').modal('hide')
+			 		SweetAlert.swal({
+			 			type: 'success',
+			 			text: 'El objetivo se agregó exitosamente!'
+			 		}).then(function (response) {
+			 			$scope.newObj.nombre = "";
+			 			$scope.newObj.cantidad = null;
+			 			$scope.newObj.procedimientos = [];
+			 			
+			 		})
+			 	})
 			})
+
+			
 		}else{
 			SweetAlert.swal({
 				type: 'warning',
@@ -169,9 +181,10 @@ angular.module('logbookweb.objectives', ['ui.router'])
 		}
 	}
 	$scope.verObjetivo = function(objetivoId){
-		console.log(objetivoId)
 		adminserv.setSeleccion(objetivoId);
 		$state.go('detailObj')
 	}
+
+	
 
 }])

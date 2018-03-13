@@ -31,6 +31,8 @@ angular.module('logbookweb.entry', ['ui.router'])
 	$scope.menuItems = JSON.parse(JSON.stringify(MENU_ITEMS));
 	$scope.menuItems[3].class="active"
 
+	$scope.today = new Date();
+
 	$scope.seleccionDiag = [];
 	$scope.diagnosticosElegidos = [];
 	$scope.seleccionCiru = [];
@@ -57,6 +59,8 @@ angular.module('logbookweb.entry', ['ui.router'])
 	}) 
 	
 	$scope.tabShow = ["active", ""];
+
+	$scope.datePills = ["","",""];
 
 	var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
@@ -104,6 +108,9 @@ angular.module('logbookweb.entry', ['ui.router'])
 			$scope.entrada.rotacion = objUsuario.ultimaEntrada.rotacion;
 			$scope.entrada.profesor = objUsuario.ultimaEntrada.profesor;
 			$scope.entrada.fecha = new Date(objUsuario.ultimaEntrada.fecha);
+			if ($scope.entrada.fecha == $scope.today) {
+				$scope.datePills = ["","","active"];
+			}
 		}
 		if (objUsuario.cirugiasRecientes) {
 			objUsuario.cirugiasRecientes.forEach(function(entryRec){
@@ -305,6 +312,10 @@ angular.module('logbookweb.entry', ['ui.router'])
 				var esta = false;
 				if (objUsuario.objetivos) {
 					esta = objectiveServ.addEntrance(result, $scope.entrada, objUsuario.objetivos);
+					Object.keys(objUsuario.objetivos).forEach(function(objetivoKey){
+						objUsuario.objetivos[objetivoKey].status = objectiveServ.checkStatus(objUsuario.objetivos[objetivoKey]);
+						console.log(objUsuario.objetivos[objetivoKey].status)
+					})
 				}
 				var successText = 'La entrada se agregó exitosamente!'
 				objUsuario.$save();
@@ -350,6 +361,28 @@ angular.module('logbookweb.entry', ['ui.router'])
 	}
 	$scope.toggleSim = function(){
 		$scope.entrada.simulacion = !$scope.entrada.simulacion;
+	}
+	$scope.preDate = function(type){
+		$scope.datePills = ["","",""];
+		$scope.entrada.fecha = new Date();
+		switch(type){
+			case 'antier':
+				$scope.datePills = ["active","",""];
+				$scope.entrada.fecha.setDate($scope.entrada.fecha.getDate()-2);
+				break;
+			case 'ayer':
+				$scope.datePills = ["","active",""];
+				$scope.entrada.fecha.setDate($scope.entrada.fecha.getDate()-1);
+				break;
+			case 'hoy':
+				$scope.datePills = ["","","active"];
+				break;
+		}
+	}
+
+	$scope.changeDate = function(){
+		$scope.entrada.anores = adminserv.getAnores(fechainicio, $scope.entrada.fecha);
+		
 	}
 
 	$scope.logout = function(){

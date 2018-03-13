@@ -63,6 +63,7 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 	$scope.byMonthLabels = CHART_CONF.labels.month//.slice(0,$scope.today.getDate());
 
 	function monthDiff(d1, d2) {
+
 	    var months;
 	    months = (d2.getFullYear() - d1.getFullYear()) * 12;
 	    months -= d1.getMonth() + 1;
@@ -83,6 +84,7 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 		var d3 = new Date(d1.getFullYear()+2, d1.getMonth(), d1.getDate())
 		var d4 = new Date(d1.getFullYear()+3, d1.getMonth(), d1.getDate())
 		$scope.anoresDates = [d1,d1,d2,d3,d4];
+		console.log($scope.anoresDates)
 		$scope.monthsAnores = monthDiff($scope.anoresDates[$scope.currentAnores-1],$scope.today)
 	})
 

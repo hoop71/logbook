@@ -38,6 +38,8 @@ angular.module('logbookweb.welcome', ['ui.router'])
 
 	$scope.today = new Date();
 
+	var startingQx = [1319,1993,2184,2194,2203,2289,2315,2344,2367,2329,2346,2306,2308,2324,2337,2328,2377,2531,2643,2621,2625,2611,2624,4702,2067]
+	var startingDx = [3734, 3737, 858, 4007, 4008, 7437, 874,7438, 12372, 4012, 12371, 3944, 4125, 4124, 4056, 3967, 3970, 3958, 7042, 4185]
 	$scope.avatarNumbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
 	$scope.$watch(adminserv.constantsLoaded, function (value, oldValue) {
 		if (value) {
@@ -67,7 +69,9 @@ angular.module('logbookweb.welcome', ['ui.router'])
 
 	$scope.guardar = function(){
 		$scope.user.fechainicio = $scope.fechainicio.toString();
-		$scope.user.status = "active"
+		$scope.user.status = "active";
+		$scope.user.favQx = startingQx;
+		$scope.user.favDx = startingDx;
 		$scope.user.$save().then(function(ref) {
 			SweetAlert.swal({
 				type: 'success',

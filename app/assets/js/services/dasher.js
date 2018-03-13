@@ -208,10 +208,12 @@ logbookweb.service('dataCruncher', ['adminserv', function(adminserv){
 
 				}
 				totalProced += entry.cirugia.length
-			 	if (entry.anores>=0) {
+			 	if (entry.anores>=0 && entry.anores<=4) {
 			 		entriesByYear[entry.anores].push(entry)
 			 	}else{
 			 		//falta ver qué hacer con las entradas que no tienen anores por algun motivo.
+			 		entry.anores = 4;
+			 		entriesByYear[4].push(entry)
 			 	}
 			 	//*****************************
 			 	//anido por rol

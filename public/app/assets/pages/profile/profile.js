@@ -196,6 +196,10 @@ angular.module('logbookweb.profile', ['ui.router'])
     	}
     }
 
+    $scope.changeDate = function(){
+    	$scope.user.anores = adminserv.getAnores($scope.fechainicio, $scope.today);
+    }
+
     $scope.logout = function(){
 		adminserv.logoutUser();
 		$state.go('login');

@@ -27,9 +27,9 @@ angular.module('logbookweb.table', ['ui.router'])
 
 
 
-.controller('tableCtrl', ['$scope','$state','MENU_ITEMS','adminserv','$firebaseArray', function($scope, $state, MENU_ITEMS, adminserv, $firebaseArray) {
+.controller('tableCtrl', ['$scope','$rootScope','$state','MENU_ITEMS','adminserv','$firebaseArray', function($scope, $rootScope, $state, MENU_ITEMS, adminserv, $firebaseArray) {
 	$scope.orderStr = 'fecha'
-	
+	$scope.PAGE_LIMIT = 10;
 	$.material.init();
 	$scope.adminserv = adminserv;
 	var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
@@ -49,24 +49,33 @@ angular.module('logbookweb.table', ['ui.router'])
 	$scope.menuItems[2].class="active"
 	
 	$scope.$on('adminserv:directricesListas', function() {
+        console.log("otra vez")
 		$scope.complicaciones = adminserv.getSelectInfo('complicaciones');
             var refEntradas = firebase.database().ref('entradas/'+adminserv.getUser()).orderByChild("especialidad").equalTo(parseInt('1'));
             
             var listEntradas = $firebaseArray(refEntradas);
             listEntradas.$loaded().then(function(){
                 $scope.entradas = listEntradas;
-            
+                $scope.loading = false;
             })
 	})
 
+    if ($rootScope.constantsLoaded) {
+            var refEntradas = firebase.database().ref('entradas/'+adminserv.getUser()).orderByChild("especialidad").equalTo(parseInt('1'));
 
-	var refEntradas = firebase.database().ref('entradas/'+adminserv.getUser()).orderByChild("especialidad").equalTo(parseInt('1'));
+            var listEntradas = $firebaseArray(refEntradas);
+            listEntradas.$loaded().then(function(){
+             $scope.entradas = listEntradas;
+                $scope.loading = false;
+            })
+    }
+	//var refEntradas = firebase.database().ref('entradas/'+adminserv.getUser()).orderByChild("especialidad").equalTo(parseInt('1'));
 
-    var listEntradas = $firebaseArray(refEntradas);
-    listEntradas.$loaded().then(function(){
-    	$scope.entradas = listEntradas;
-        $scope.loading = false;
-    })
+    // var listEntradas = $firebaseArray(refEntradas);
+    // listEntradas.$loaded().then(function(){
+    // 	$scope.entradas = listEntradas;
+    //     $scope.loading = false;
+    // })
 
 
     var selectedEntrada = null;
@@ -134,6 +143,23 @@ angular.module('logbookweb.table', ['ui.router'])
 
     $scope.setOrder = function(str){
         $scope.orderStr = str;
+    }
+
+    function isDead(element, index, array){
+        return element === 10;
+    }
+
+    $scope.muerte = function(entry){
+        if (entry.complicaciones) {
+            return entry.complicaciones.some(isDead);
+        }else{
+            return false;
+        }
+
+    }
+
+    $scope.cargarMas = function(){
+        $scope.PAGE_LIMIT += 10;
     }
 
     $scope.logout = function(){
