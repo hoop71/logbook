@@ -44,7 +44,7 @@
                                 <!-- <li ng-class="stepClasses[1]"><a ng-click="changeToStep(2)">R1</a></li>
                                 <li ng-class="stepClasses[2]" ng-show="user.anores>=2"><a ng-click="changeToStep(3)">R2</a></li>
                                 <li ng-class="stepClasses[3]" ng-show="user.anores>=3"><a ng-click="changeToStep(4)">R3</a></li>
-                                <li ng-class="stepClasses[4]" ng-show="user.anores>=4"><a ng-click="changeToStep(5)">R4</a></li> -->
+                                <li ng-class="stepClasses[4]" ng-show="user.anores>=3"><a ng-click="changeToStep(5)">R4</a></li> -->
                             </ol>
                         </div>
                     </div>
@@ -159,57 +159,59 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header card-chart" data-background-color="green">
-                                    <div class="myGraph">
-                                        <canvas id="line" class="chart chart-line" chart-data="dashData.general.byDateYear.data" chart-labels="dashData.general.byDateYear.labels" chart-series="series" chart-options="options" chart-colors="colours">
-                                        </canvas>
-                                    </div>  
-                                </div>
-                                <div class="card-content">
-                                    <h4 class="title">Por año</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header card-chart" data-background-color="green">
-                                    <div class="myGraph">
-                                        <canvas id="line" class="chart chart-line" chart-data="dashData.general.byDateMonths[graphYear].data" chart-labels="options2.labels.year" chart-options="options2.optionsLine" chart-colors="colours" chart-series="[graphYear]">
-                                        </canvas>
-                                    </div>  
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <a ng-click="changeYear('prev')">Anterior</a>
+                        <div class="hidden-md hidden-sm hidden-xs">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header card-chart" data-background-color="green">
+                                        <div class="myGraph">
+                                            <canvas id="line" class="chart chart-line" chart-data="dashData.general.byDateYear.data" chart-labels="dashData.general.byDateYear.labels" chart-series="series" chart-options="options" chart-colors="colours">
+                                            </canvas>
+                                        </div>  
                                     </div>
-                                    <div class="stats pull-right">
-                                        <a ng-click="changeYear('next')" >Siguiente</a>
+                                    <div class="card-content">
+                                        <h4 class="title">Por año</h4>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header card-chart" data-background-color="green">
-                                    <div class="myGraph">
-                                        <canvas id="line" class="chart chart-line" chart-data="dashData.general.byDateDays[graphYear][graphMonth]" chart-labels="byMonthLabels" chart-options="options2.optionsLine" chart-colors="colours" chart-series="[options2.labels.year[graphMonth]]">
-                                        </canvas>
-                                    </div>  
-                                </div>
-                                <div class="card-footer">
-                                    <div class="stats">
-                                        <a ng-click="changeMonth('prev')">Anterior</a>
+                            <div class="col-md-6 ">
+                                <div class="card">
+                                    <div class="card-header card-chart" data-background-color="green">
+                                        <div class="myGraph">
+                                            <canvas id="line" class="chart chart-line" chart-data="dashData.general.byDateMonths[graphYear].data" chart-labels="options2.labels.year" chart-options="options2.optionsLine" chart-colors="colours" chart-series="[graphYear]">
+                                            </canvas>
+                                        </div>  
                                     </div>
-                                    <div class="stats pull-right">
-                                        <a ng-click="changeMonth('next')" >Siguiente</a>
+                                    <div class="card-footer">
+                                        <div class="stats">
+                                            <a ng-click="changeYear('prev')">Anterior</a>
+                                        </div>
+                                        <div class="stats pull-right">
+                                            <a ng-click="changeYear('next')" >Siguiente</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header card-chart" data-background-color="green">
+                                        <div class="myGraph">
+                                            <canvas id="line" class="chart chart-line" chart-data="dashData.general.byDateDays[graphYear][graphMonth]" chart-labels="byMonthLabels" chart-options="options2.optionsLine" chart-colors="colours" chart-series="[options2.labels.year[graphMonth]]">
+                                            </canvas>
+                                        </div>  
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="stats">
+                                            <a ng-click="changeMonth('prev')">Anterior</a>
+                                        </div>
+                                        <div class="stats pull-right">
+                                            <a ng-click="changeMonth('next')" >Siguiente</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="hidden-md hidden-sm hidden-xs row ">
                         <!-- Frecunetes-->
                         <div class="row">
                             <div class="col-md-6">
@@ -258,7 +260,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="hidden-md hidden-sm hidden-xs row">
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-header card-chart" data-background-color="purple">
@@ -286,7 +288,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="hidden-md hidden-sm hidden-xs row">
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-content" >
@@ -341,9 +343,9 @@
 
 
                     <!-- Statistics -->
-                    <div class="row">
+                    <div class=" hidden-md hidden-sm hidden-xs row">
                         <!-- columna de rol -->
-                        <div class="col-md-4 col-xl-4 col-lg-6"> 
+                        <div class="col-md-6 col-xl-6 col-lg-6"> 
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-content">
@@ -383,7 +385,7 @@
                             
                         </div>
                         <!-- columna de tipo -->
-                        <div class="col-md-4 col-xl-4 col-lg-6">
+                        <div class="col-md-6 col-xl-6 col-lg-6">
                             <div class="col-md-12">
                                 <div class="card">
                                     <!-- <div class="card-header" data-background-color="red">
@@ -417,7 +419,7 @@
 
 
                     <!-- Rotaciones / Lugar -->
-                    <div class="row">
+                    <div class=" hidden-md hidden-sm hidden-xs row">
                         <div class="col-md-6">
                             <div class="card">
                                 <div class="card-header card-chart" data-background-color="purple">
@@ -464,9 +466,6 @@
                             </div>
                         </div>
                     </div>
-
-
-                    
                 </div>
             </div>
             <div class="content" ng-show="selectedStep[1]">
@@ -506,7 +505,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="hidden-md hidden-sm hidden-xs row">
                         <div class="col-md-4 col-xl-4 col-lg-3">
                             <div class="card">
                                 <div class="card-content">

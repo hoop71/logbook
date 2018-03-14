@@ -60,7 +60,7 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 
 	$scope.graphYear = $scope.today.getFullYear().toString();
 	$scope.graphMonth = $scope.today.getMonth();
-	$scope.byMonthLabels = CHART_CONF.labels.month//.slice(0,$scope.today.getDate());
+	$scope.byMonthLabels = CHART_CONF.labels.month.slice(0,$scope.today.getDate());
 
 	function monthDiff(d1, d2) {
 
@@ -84,7 +84,6 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 		var d3 = new Date(d1.getFullYear()+2, d1.getMonth(), d1.getDate())
 		var d4 = new Date(d1.getFullYear()+3, d1.getMonth(), d1.getDate())
 		$scope.anoresDates = [d1,d1,d2,d3,d4];
-		console.log($scope.anoresDates)
 		$scope.monthsAnores = monthDiff($scope.anoresDates[$scope.currentAnores-1],$scope.today)
 	})
 
@@ -92,6 +91,10 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 	var listEntries = $firebaseArray(refEntries);
 	listEntries.$loaded().then(function(){
 		$scope.dashData = dataCruncher.getDashboardData($scope.user, listEntries);
+		console.log($scope.dashData.general.byDateDays["2018"])
+		if ($scope.dashData.general.byDateDays[$scope.today.getFullYear().toString()]) {
+			$scope.dashData.general.byDateDays[$scope.today.getFullYear().toString()][$scope.graphMonth][0] = $scope.dashData.general.byDateDays[$scope.today.getFullYear().toString()][$scope.graphMonth][0].slice(0,$scope.today.getDate())
+		}
 		$scope.data = $scope.dashData.general.barsByYearData;
 		$scope.loading = false;
 	})
@@ -136,8 +139,14 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 		}
 		
 		if ($scope.dashData.general.byDateMonths.hasOwnProperty(year.toString())) {
-			$scope.graphYear = year.toString()
+			$scope.graphYear = year.toString();
+			if ($scope.graphYear == $scope.today.getFullYear().toString() && $scope.graphMonth == $scope.today.getMonth().toString()) {
+				$scope.byMonthLabels = CHART_CONF.labels.month.slice(0,$scope.today.getDate())
+			}else{
+				$scope.byMonthLabels = CHART_CONF.labels.month
+			}
 		}
+		
 	}
 
 	$scope.changeMonth = function(tipo){
@@ -155,6 +164,11 @@ angular.module('logbookweb.dashboard', ['ui.router'])
 			
 		}else if(tipo == "prev" && $scope.graphMonth>0){
 			$scope.graphMonth--;
+		}
+		if ($scope.graphYear == $scope.today.getFullYear().toString() && $scope.graphMonth == $scope.today.getMonth().toString()) {
+			$scope.byMonthLabels = CHART_CONF.labels.month.slice(0,$scope.today.getDate())
+		}else{
+			$scope.byMonthLabels = CHART_CONF.labels.month
 		}
 	}
 
