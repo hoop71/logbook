@@ -30,7 +30,7 @@ angular.module('logbookweb.profile', ['ui.router'])
 
 
 
-.controller('profileCtrl', ['$scope','$state','MENU_ITEMS', 'adminserv','$firebaseObject','firebase','SweetAlert','errorHandler', function($scope, $state, MENU_ITEMS, adminserv, $firebaseObject, firebase, SweetAlert, errorHandler) {
+.controller('profileCtrl', ['$scope','$interval','$state','MENU_ITEMS', 'adminserv','$firebaseObject','firebase','SweetAlert','errorHandler', function($scope, $interval, $state, MENU_ITEMS, adminserv, $firebaseObject, firebase, SweetAlert, errorHandler) {
 	$.material.init();
 	var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
@@ -55,6 +55,14 @@ angular.module('logbookweb.profile', ['ui.router'])
 	$scope.currentContext = null;
 
 	$scope.avatarNumbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
+
+	var endDate = null;
+	$scope.countdown = {
+		days: 0,
+		hours: 0,
+		minutes: 0,
+		seconds: 0
+	}
 	
 
 	var userId = adminserv.getUser();
@@ -68,14 +76,41 @@ angular.module('logbookweb.profile', ['ui.router'])
 			$state.go('welcome');
 		}
 		$scope.fechainicio = new Date($scope.user.fechainicio);
+	
+		endDate = $scope.fechainicio.setYear($scope.fechainicio.getFullYear() + 4);
+		
 		$scope.universidad = adminserv.getNameById('universidad',$scope.user.universidad, true);
 		if (!$scope.user.anores) {
 			$scope.user.anores = adminserv.getAnores($scope.fechainicio, $scope.today);
 		}
+		$scope.iniciarTimer();
+		
 	})
 
 	$scope.editar = function(){
 		$scope.modoEdit = true;
+	}
+	$scope.iniciarTimer = function(){
+		$interval(function() {
+			// Get todays date and time
+			var now = new Date().getTime();
+
+			// Find the distance between now an the count down date
+			var distance = endDate - now;
+
+			// Time calculations for days, hours, minutes and seconds
+			$scope.countdown.days = Math.floor(distance / (1000 * 60 * 60 * 24));
+			$scope.countdown.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			$scope.countdown.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+			$scope.countdown.seconds = Math.floor((distance % (1000 * 60)) / 1000);
+			console.log($scope.countdown)
+			// If the count down is finished, write some text 
+			if (distance < 0) {
+				clearInterval(x);
+				document.getElementById("demo").innerHTML = "EXPIRED";
+			}
+		},1000)
+
 	}
 
 	$scope.guardar = function(){

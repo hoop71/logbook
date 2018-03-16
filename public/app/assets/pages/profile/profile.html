@@ -122,7 +122,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" ng-show="!modoEdit">
                     <div class="card card-profile" >
                         <div style="position: relative;">
                             <div class="card-avatar" >
@@ -144,6 +144,43 @@
                             <p>{{user.ciudad}}, {{user.pais}}</p>
                             <a class="btn btn-info btn-round" ng-click="editar()">Editar</a>
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header card-chart" data-background-color="purple">
+                            <div class="row">
+                                <div class="col-sm-3 text-center" >
+                                    <h2 style="border-right-width: 1px; border-right-color: rgba(255,255,255,0.4); border-right-style: solid">{{countdown.days}}</h2>
+                                    <p>Días</p>
+                                </div>
+                                <div class="col-sm-3 text-center">
+                                    <h2 style="border-right-width: 1px; border-right-color: rgba(255,255,255,0.4); border-right-style: solid">{{countdown.hours}}</h2>
+                                    <p>Horas</p>
+                                </div>
+                                <div class="col-sm-3 text-center">
+                                    <h2 style="border-right-width: 1px; border-right-color: rgba(255,255,255,0.4); border-right-style: solid">{{countdown.minutes}}</h2>
+                                    <p>Minutos</p>
+                                </div>
+                                <div class="col-sm-3 text-center">
+                                    <h2>{{countdown.seconds}}</h2>
+                                    <p>Segundos</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="title">Conteo regresivo para terminar tu residencia!</h4>
+                        </div>
+                        <!-- <div class="card-footer">
+                            
+                            <div class="stats">
+                                <a ng-click="changeMonth('prev')">Anterior</a>
+                            </div>
+                            <div class="stats pull-right">
+                                <a ng-click="changeMonth('next')" >Siguiente</a>
+                            </div>
+                            
+                        </div> -->
                     </div>
                 </div>
                 <div class="col-md-4">
