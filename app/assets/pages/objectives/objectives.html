@@ -70,7 +70,21 @@
             </div>
         </div>
         <div class="content" ng-show="selectedStep[1]">
-            <div class="row">
+            <div class="row" ng-show="objetivos.length<=0">
+                <div class="col-md-12">
+                    <div class="card" ng-show="objetivos.length<=0">
+                        <div class="card-header" data-background-color="green">
+                            <h4 class="title">¡Bienvenido!</h4>
+                        </div>
+                        <div class="card-content table-responsive">
+                            <h3>Parece que no tienes objetivos creados</h3>
+                            <button class="btn btn-info" ng-click="openModalNewObj();">Crea un objetivo!
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-show="objetivos.length > 0">
                 <div class="col-lg-4" ng-repeat="objetivo in objetivos" ng-if="objetivo.tipo == 'personal'">
                     <div class="card card-stats">
                         <div class="card-header" data-background-color="orange" ng-if="objetivo.status == 'pendiente'">
@@ -115,7 +129,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" style="padding-left: 40px; padding-right: 40px;">
                         <div class="row">
                             <input type="text" class="form-control" ng-model="filterQx" placeholder="buscar procedimiento" />
                         </div>
@@ -138,7 +152,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" style="padding-left: 40px; padding-right: 40px;">
                         <div class="row form-control-hover card-footer2">
                             <label class="control-label">Nombre del objetivo</label>
                             <input type="text" class="form-control" ng-model="newObj.nombre"/>

@@ -99,11 +99,17 @@ angular.module('logbookweb.profile', ['ui.router'])
 			var distance = endDate - now;
 
 			// Time calculations for days, hours, minutes and seconds
-			$scope.countdown.days = Math.floor(distance / (1000 * 60 * 60 * 24));
+
+			$scope.countdown.years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
+			$scope.countdown.days = Math.floor((distance % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
 			$scope.countdown.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 			$scope.countdown.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 			$scope.countdown.seconds = Math.floor((distance % (1000 * 60)) / 1000);
-			console.log($scope.countdown)
+
+			// $scope.countdown.days = Math.floor(distance / (1000 * 60 * 60 * 24));
+			// $scope.countdown.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			// $scope.countdown.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+			// $scope.countdown.seconds = Math.floor((distance % (1000 * 60)) / 1000);
 			// If the count down is finished, write some text 
 			if (distance < 0) {
 				clearInterval(x);
@@ -154,13 +160,14 @@ angular.module('logbookweb.profile', ['ui.router'])
 
     	// Is currently selected
     	if (idx > -1) {
-    	  $scope.seleccion.splice(idx, 1);
+    	  $scope.seleccion.splice(idx, 1); //no está funcionando el auto save cuando se agrega un elemento después de haberlo quitado en el mismo momento.
     	}
 
     	// Is newly selected
     	else {
     	  	$scope.seleccion.push(element);
     	}
+    	$scope.user.$save()
     	$scope.filtro = "";
     }
     $scope.saveFav = function(type){

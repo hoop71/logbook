@@ -45,7 +45,17 @@
             <div class="container-fluid" ng-show="!loading">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
+                        <div class="card" ng-show="entradas.length<=0">
+                            <div class="card-header" data-background-color="green">
+                                <h4 class="title">¡Bienvenido!</h4>
+                            </div>
+                            <div class="card-content table-responsive">
+                                <h3>Parece que no tienes entradas todavía</h3>
+                                <button class="btn btn-info" ng-click="nuevaEntrada()">Hacer una entrada!
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card" ng-show="entradas.length>0">
                             <div class="card-header" data-background-color="green">
                                 <h4 class="title">Informe de los procedimientos ({{entradas.length}})</h4>
                             </div>
