@@ -122,7 +122,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4" ng-show="!modoEdit">
+                <div class="col-lg-4 col-sm-4" ng-show="!modoEdit">
                     <div class="card card-profile" >
                         <div style="position: relative;">
                             <div class="card-avatar" >
@@ -146,23 +146,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6 col-sm-8">
                     <div class="card">
                         <div class="card-header card-chart" data-background-color="purple">
                             <div class="row">
-                                <div class="col-sm-3 text-center" >
-                                    <h2 style="border-right-width: 1px; border-right-color: rgba(255,255,255,0.4); border-right-style: solid">{{countdown.days}}</h2>
+                                <div class="col-sm-6 text-center" >
+                                    <h2 style="border-right-width: 1px; border-right-color: rgba(255,255,255,0.4); border-right-style: solid">{{countdown.years}}</h2>
+                                    <p>Años</p>
+                                </div>
+                                <div class="col-sm-6 text-center" >
+                                    <h2>{{countdown.days}}</h2>
                                     <p>Días</p>
                                 </div>
-                                <div class="col-sm-3 text-center">
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 text-center">
                                     <h2 style="border-right-width: 1px; border-right-color: rgba(255,255,255,0.4); border-right-style: solid">{{countdown.hours}}</h2>
                                     <p>Horas</p>
                                 </div>
-                                <div class="col-sm-3 text-center">
+                                <div class="col-sm-4 text-center">
                                     <h2 style="border-right-width: 1px; border-right-color: rgba(255,255,255,0.4); border-right-style: solid">{{countdown.minutes}}</h2>
                                     <p>Minutos</p>
                                 </div>
-                                <div class="col-sm-3 text-center">
+                                <div class="col-sm-4 text-center">
                                     <h2>{{countdown.seconds}}</h2>
                                     <p>Segundos</p>
                                 </div>
@@ -183,7 +190,7 @@
                         </div> -->
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-4 col-sm-8">
                     <div class="card ">
                         <div class="card-header" data-background-color="orange">
                             <i class="material-icons">mail_outline</i> <span>Mensaje al administrador</span>

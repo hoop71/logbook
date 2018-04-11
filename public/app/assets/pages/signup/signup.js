@@ -57,7 +57,9 @@ angular.module('logbookweb.signup', ['ui.router'])
 				  		usersList.$add(newUser).then(function(createResult){
 				  			adminserv.setUser(createResult.key);
 				  			adminserv.setEspecialidad(newUser.especialidad)
+				  			adminserv.setUniversidad(newUser.universidad)
 				  			adminserv.setDatosCondicionales(newUser.universidad, newUser.especialidad);
+
 				  			$scope.cargando = false;
 				  			$state.go('welcome');
 				  		})

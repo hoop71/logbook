@@ -7,5 +7,9 @@ logbookweb.constant("constUniversidades",[
 	{
 		id: 2,
 		nombreLargo: "Universidad Pontificia Bolivariana"
+	},
+	{
+		id: 4,
+		nombreLargo: "Universidad de Antioquia"
 	}
 ])
