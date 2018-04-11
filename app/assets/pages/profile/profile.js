@@ -184,7 +184,7 @@ angular.module('logbookweb.profile', ['ui.router'])
     			type: 'success',
     			text: 'Tu perfil se ha actualizado de manera exitosa!'
     		}).then(function (response) {
-    			
+    			$('#modalFav').modal('toggle')
     		})
     	}, function(error) {
     	  console.log("Error:", error);

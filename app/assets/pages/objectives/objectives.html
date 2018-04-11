@@ -1,117 +1,116 @@
-<div class="wrapper">
-    <div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
-  
-        <div class="logo">
-            <a href="#" class="simple-text" style="font-family: 'fox-cat'; text-transform: capitalize; font-size: 26px;">
-                Logbook
-            </a>
+
+<div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
+
+    <div class="logo">
+        <a href="#" class="simple-text" style="font-family: 'fox-cat'; text-transform: capitalize; font-size: 26px;">
+            Logbook
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li ng-repeat="item in menuItems" class="{{item.class}}">
+                <a ng-href="#!/{{item.linkTo}}">
+                    <i class="material-icons">{{item.icon}}</i>
+                    <p>{{item.name}}</p>
+                </a>
+            </li>
+                            
+            <li class="active-pro">
+                <a ng-click="logout()">
+                    <i class="material-icons">error</i>
+                    <p>Logout</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="main-panel">
+    <nav class="navbar navbar-transparent navbar-absolute">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" >OBJETIVOS</a>
+                <ol class="breadcrumb">
+                    <li ng-class="stepClasses[0]"><a ng-click="changeToStep(1)">Académicos</a></li>
+                    <li ng-class="stepClasses[1]"><a ng-click="changeToStep(2)">Personales</a></li>
+                </ol>
+            </div>
+            <button class="btn btn-info pull-right" ng-click="openModalNewObj();" ng-show="selectedStep[1]"><i class="material-icons">add</i>
+            </button>
         </div>
-        <div class="sidebar-wrapper">
-            <ul class="nav">
-                <li ng-repeat="item in menuItems" class="{{item.class}}">
-                    <a ng-href="#!/{{item.linkTo}}">
-                        <i class="material-icons">{{item.icon}}</i>
-                        <p>{{item.name}}</p>
-                    </a>
-                </li>
-                                
-                <li class="active-pro">
-                    <a ng-click="logout()">
-                        <i class="material-icons">error</i>
-                        <p>Logout</p>
-                    </a>
-                </li>
-            </ul>
+    </nav>
+    <div class="content" ng-show="selectedStep[0]"> 
+        <div class="row">
+            <div class="col-lg-4" ng-repeat="objetivo in objetivos" ng-if="objetivo.tipo == 'academic'">
+                <div class="card card-stats">
+                    <div class="card-header" data-background-color="orange" ng-if="objetivo.status == 'pendiente'">
+                        <i class="fa fa-hourglass-half"></i>
+                    </div>
+                    <div class="card-header" data-background-color="blue" ng-if="objetivo.status == 'completado'">
+                        <i class="fa fa-trophy"></i>
+                    </div>
+                    <div class="card-content">
+                        <p class="category">{{objetivo.nombre}}</p>
+                        
+                        
+                        <h3 class="title">{{objetivo.entradas.length}}/{{objetivo.cantidad}}</h3>  
+                        <!-- <p class="category">{{adminserv.getNameById('cirugia',objetivo.procedimiento, true)}}</p> -->                           
+                    </div>
+                    <div class="progress progress-line-primary">
+                      <div class="progress-bar" role="progressbar" ng-style="getProgress(objetivo.entradas.length, objetivo.cantidad)" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only">60% complete</span>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            Entre R{{objetivo.fechas.start}} y R{{objetivo.fechas.end}}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="main-panel">
-        <nav class="navbar navbar-transparent navbar-absolute">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" >OBJETIVOS</a>
-                    <ol class="breadcrumb">
-                        <li ng-class="stepClasses[0]"><a ng-click="changeToStep(1)">Académicos</a></li>
-                        <li ng-class="stepClasses[1]"><a ng-click="changeToStep(2)">Personales</a></li>
-                    </ol>
-                </div>
-                <button class="btn btn-info pull-right" ng-click="openModalNewObj();" ng-show="selectedStep[1]"><i class="material-icons">add</i>
-                </button>
-            </div>
-        </nav>
-        <div class="content" ng-show="selectedStep[0]"> 
-            <div class="row">
-                <div class="col-lg-4" ng-repeat="objetivo in objetivos" ng-if="objetivo.tipo == 'academic'">
-                    <div class="card card-stats">
-                        <div class="card-header" data-background-color="orange" ng-if="objetivo.status == 'pendiente'">
-                            <i class="fa fa-hourglass-half"></i>
-                        </div>
-                        <div class="card-header" data-background-color="blue" ng-if="objetivo.status == 'completado'">
-                            <i class="fa fa-trophy"></i>
-                        </div>
-                        <div class="card-content">
-                            <p class="category">{{objetivo.nombre}}</p>
-                            
-                            
-                            <h3 class="title">{{objetivo.entradas.length}}/{{objetivo.cantidad}}</h3>  
-                            <!-- <p class="category">{{adminserv.getNameById('cirugia',objetivo.procedimiento, true)}}</p> -->                           
-                        </div>
-                        <div class="progress progress-line-primary">
-                          <div class="progress-bar" role="progressbar" ng-style="getProgress(objetivo.entradas.length, objetivo.cantidad)" aria-valuemin="0" aria-valuemax="100">
-                              <span class="sr-only">60% complete</span>
-                          </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="stats">
-                                Entre R{{objetivo.fechas.start}} y R{{objetivo.fechas.end}}
-                            </div>
-                        </div>
+    <div class="content" ng-show="selectedStep[1]">
+        <div class="row" ng-show="objetivos.length<=0">
+            <div class="col-md-12">
+                <div class="card" ng-show="objetivos.length<=0">
+                    <div class="card-header" data-background-color="green">
+                        <h4 class="title">¡Bienvenido!</h4>
+                    </div>
+                    <div class="card-content table-responsive">
+                        <h3>Parece que no tienes objetivos creados</h3>
+                        <button class="btn btn-info" ng-click="openModalNewObj();">Crea un objetivo!
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="content" ng-show="selectedStep[1]">
-            <div class="row" ng-show="objetivos.length<=0">
-                <div class="col-md-12">
-                    <div class="card" ng-show="objetivos.length<=0">
-                        <div class="card-header" data-background-color="green">
-                            <h4 class="title">¡Bienvenido!</h4>
-                        </div>
-                        <div class="card-content table-responsive">
-                            <h3>Parece que no tienes objetivos creados</h3>
-                            <button class="btn btn-info" ng-click="openModalNewObj();">Crea un objetivo!
-                            </button>
-                        </div>
+        <div class="row" ng-show="objetivos.length > 0">
+            <div class="col-lg-4 col-sm-6" ng-repeat="objetivo in objetivos" ng-if="objetivo.tipo == 'personal'">
+                <div class="card card-stats">
+                    <div class="card-header" data-background-color="orange" ng-if="objetivo.status == 'pendiente'">
+                        <i class="fa fa-hourglass-half"></i>
                     </div>
-                </div>
-            </div>
-            <div class="row" ng-show="objetivos.length > 0">
-                <div class="col-lg-4" ng-repeat="objetivo in objetivos" ng-if="objetivo.tipo == 'personal'">
-                    <div class="card card-stats">
-                        <div class="card-header" data-background-color="orange" ng-if="objetivo.status == 'pendiente'">
-                            <i class="fa fa-hourglass-half"></i>
+                    <div class="card-header" data-background-color="blue" ng-if="objetivo.status == 'completado'">
+                        <i class="fa fa-trophy"></i>
+                    </div>
+                    <div class="card-content">
+                        <p class="category">{{objetivo.nombre}}</p>
+                        <h3 class="title" ng-show="objetivo.entradas">{{objetivo.entradas.length}}/{{objetivo.cantidad}}</h3>
+                        <h3 class="title" ng-show="!objetivo.entradas">0/{{objetivo.cantidad}}</h3>
+                      
+                        <!-- <p class="category" ng-repeat="procedimiento in objetivo.procedimientos">{{adminserv.getNameById('cirugia',procedimiento, true)}}</p> -->
+                                                   
+                    </div>
+                    <div class="progress progress-line-primary">
+                      <div class="progress-bar" role="progressbar" ng-style="getProgress(objetivo.entradas.length, objetivo.cantidad)" aria-valuemin="0" aria-valuemax="100">
+                          <span class="sr-only">60% complete</span>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            Entre R{{objetivo.fechas.start}} y R{{objetivo.fechas.end}}
                         </div>
-                        <div class="card-header" data-background-color="blue" ng-if="objetivo.status == 'completado'">
-                            <i class="fa fa-trophy"></i>
-                        </div>
-                        <div class="card-content">
-                            <p class="category">{{objetivo.nombre}}</p>
-                            <h3 class="title" ng-show="objetivo.entradas">{{objetivo.entradas.length}}/{{objetivo.cantidad}}</h3>
-                            <h3 class="title" ng-show="!objetivo.entradas">0/{{objetivo.cantidad}}</h3>
-                          
-                            <!-- <p class="category" ng-repeat="procedimiento in objetivo.procedimientos">{{adminserv.getNameById('cirugia',procedimiento, true)}}</p> -->
-                                                       
-                        </div>
-                        <div class="progress progress-line-primary">
-                          <div class="progress-bar" role="progressbar" ng-style="getProgress(objetivo.entradas.length, objetivo.cantidad)" aria-valuemin="0" aria-valuemax="100">
-                              <span class="sr-only">60% complete</span>
-                          </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="stats">
-                                Entre R{{objetivo.fechas.start}} y R{{objetivo.fechas.end}}
-                            </div>
-                            <a class="pull-right" ng-click="verObjetivo(objetivo.$id)">ver detalles</a>
-                        </div>
+                        <a class="pull-right" ng-click="verObjetivo(objetivo.$id)">ver detalles</a>
                     </div>
                 </div>
             </div>

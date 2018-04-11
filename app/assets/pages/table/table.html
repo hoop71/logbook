@@ -1,112 +1,111 @@
-<div class="wrapper">
-    <div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
-  
-        <div class="logo">
-            <a href="#" class="simple-text" style="font-family: 'fox-cat'; text-transform: capitalize; font-size: 26px;">
-                Logbook
-            </a>
-        </div>
-        <div class="sidebar-wrapper">
-            <ul class="nav">
-                <li ng-repeat="item in menuItems" class="{{item.class}}">
-                    <a ng-href="#!/{{item.linkTo}}">
-                        <i class="material-icons">{{item.icon}}</i>
-                        <p>{{item.name}}</p>
-                    </a>
-                </li>       
-                <li class="active-pro">
-                    <a ng-click="logout()">
-                        <i class="material-icons">error</i>
-                        <p>Logout</p>
-                    </a>
-                </li>
-            </ul>
-        </div>
+
+<div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
+
+    <div class="logo">
+        <a href="#" class="simple-text" style="font-family: 'fox-cat'; text-transform: capitalize; font-size: 26px;">
+            Logbook
+        </a>
     </div>
-    
-    <div class="main-panel" >
-        <nav class="navbar navbar-transparent navbar-absolute">
-            <div class="container-fluid">
-                <div class="navbar-header" >
-                    <button type="button" class="navbar-toggle" data-toggle="collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand breadcrumb" > BITÁCORA </a>
-                </div>
-                <button class="btn btn-info pull-right" ng-click="nuevaEntrada()"><i class="material-icons">add</i>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li ng-repeat="item in menuItems" class="{{item.class}}">
+                <a ng-href="#!/{{item.linkTo}}">
+                    <i class="material-icons">{{item.icon}}</i>
+                    <p>{{item.name}}</p>
+                </a>
+            </li>       
+            <li class="active-pro">
+                <a ng-click="logout()">
+                    <i class="material-icons">error</i>
+                    <p>Logout</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-panel" >
+    <nav class="navbar navbar-transparent navbar-absolute">
+        <div class="container-fluid">
+            <div class="navbar-header" >
+                <button type="button" class="navbar-toggle" data-toggle="collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
+                <a class="navbar-brand breadcrumb" > BITÁCORA </a>
             </div>
-        </nav>
-        <div class="content">
-            <div class="loader" ng-show="loading">Loading...</div>
-            <div class="container-fluid" ng-show="!loading">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card" ng-show="entradas.length<=0">
-                            <div class="card-header" data-background-color="green">
-                                <h4 class="title">¡Bienvenido!</h4>
-                            </div>
-                            <div class="card-content table-responsive">
-                                <h3>Parece que no tienes entradas todavía</h3>
-                                <button class="btn btn-info" ng-click="nuevaEntrada()">Hacer una entrada!
-                                </button>
-                            </div>
+            <button class="btn btn-info pull-right" ng-click="nuevaEntrada()"><i class="material-icons">add</i>
+            </button>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="loader" ng-show="loading">Loading...</div>
+        <div class="container-fluid" ng-show="!loading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card" ng-show="entradas.length<=0">
+                        <div class="card-header" data-background-color="green">
+                            <h4 class="title">¡Bienvenido!</h4>
                         </div>
-                        <div class="card" ng-show="entradas.length>0">
-                            <div class="card-header" data-background-color="green">
-                                <h4 class="title">Informe de los procedimientos ({{entradas.length}})</h4>
-                            </div>
-                            <div class="card-content table-responsive">
-                                <table class="table">
-                                    <thead class="text-primary">
-                                        <th ng-click="setOrder('cirugia')">Cirugías</th>
-                                        <th ng-click="setOrder('nombrePaciente')">Identificación del paciente</th>
-                                        <th ng-click="setOrder('fecha')">Fecha</th>
-                                        <th ng-click="setOrder('complicaciones')">Complicaiones</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="(key, entrada) in entradas | filter: filtroEntradas | orderBy: orderFcn:true | limitTo: PAGE_LIMIT" ng-if="entradas.length>0" >
-                                            <td ng-click="verEntrada(entrada.$id)" style="cursor: pointer;">{{adminserv.getNameById('cirugia',entrada.cirugia[0].id, true)}}</td>
-                                            <td>{{entrada.identificacion}}</td>
-                                            <td>{{adminserv.interpretarFechaShort(entrada.fecha)}}</td>
-                                            <td ng-if="muerte(entrada)" class="text-danger"><img src="./assets/icons/skull-and-bones.svg" style="width: 24px" class="rounded mx-auto" ng-click="complicacion(entrada, key)"/></td>
-                                            <td ng-if="entrada.complicaciones.length>4 && !muerte(entrada)" class="text-danger"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i>({{entrada.complicaciones.length}})</td>
-                                            <td ng-if="entrada.complicaciones.length<=4 && entrada.complicaciones.length>2 && !muerte(entrada)" class="text-warning"><i class="material-icons" ng-click="complicacion(entrada, key)">report_problem</i>({{entrada.complicaciones.length}})</td>
-                                            <td ng-if="entrada.complicaciones.length<=2 && entrada.complicaciones.length>=1 && !muerte(entrada)" class="text-info"><i class="material-icons" ng-click="complicacion(entrada, key)">report_problem</i>({{entrada.complicaciones.length}})</td>
-                                            <td ng-if="entrada.complicaciones.length==0 || !entrada.complicaciones" class="text-success"><span ng-click="complicacion(entrada, key)">(0) Agregar</span></td>
-                                        </tr>
-                                        
-                                    </tbody>
-                                </table>
-                                <ul class="pagination">
-                                    <li class=" active page-item"><a class="page-link" ng-click="cargarMas()">Cargar más</a></li>
-                                </ul>
-                            </div>
-                            
+                        <div class="card-content table-responsive">
+                            <h3>Parece que no tienes entradas todavía</h3>
+                            <button class="btn btn-info" ng-click="nuevaEntrada()">Hacer una entrada!
+                            </button>
                         </div>
+                    </div>
+                    <div class="card" ng-show="entradas.length>0">
+                        <div class="card-header" data-background-color="green">
+                            <h4 class="title">Informe de los procedimientos ({{entradas.length}})</h4>
+                        </div>
+                        <div class="card-content table-responsive">
+                            <table class="table">
+                                <thead class="text-primary">
+                                    <th ng-click="setOrder('cirugia')">Cirugías</th>
+                                    <th ng-click="setOrder('nombrePaciente')">Identificación del paciente</th>
+                                    <th ng-click="setOrder('fecha')">Fecha</th>
+                                    <th ng-click="setOrder('complicaciones')">Complicaiones</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="(key, entrada) in entradas | filter: filtroEntradas | orderBy: orderFcn:true | limitTo: PAGE_LIMIT" ng-if="entradas.length>0" >
+                                        <td ng-click="verEntrada(entrada.$id)" style="cursor: pointer;">{{adminserv.getNameById('cirugia',entrada.cirugia[0].id, true)}}</td>
+                                        <td>{{entrada.identificacion}}</td>
+                                        <td>{{adminserv.interpretarFechaShort(entrada.fecha)}}</td>
+                                        <td ng-if="muerte(entrada)" class="text-danger"><img src="./assets/icons/skull-and-bones.svg" style="width: 24px" class="rounded mx-auto" ng-click="complicacion(entrada, key)"/></td>
+                                        <td ng-if="entrada.complicaciones.length>4 && !muerte(entrada)" class="text-danger"><i class="material-icons" ng-click="complicacion(entrada, key)"">report_problem</i>({{entrada.complicaciones.length}})</td>
+                                        <td ng-if="entrada.complicaciones.length<=4 && entrada.complicaciones.length>2 && !muerte(entrada)" class="text-warning"><i class="material-icons" ng-click="complicacion(entrada, key)">report_problem</i>({{entrada.complicaciones.length}})</td>
+                                        <td ng-if="entrada.complicaciones.length<=2 && entrada.complicaciones.length>=1 && !muerte(entrada)" class="text-info"><i class="material-icons" ng-click="complicacion(entrada, key)">report_problem</i>({{entrada.complicaciones.length}})</td>
+                                        <td ng-if="entrada.complicaciones.length==0 || !entrada.complicaciones" class="text-success"><span ng-click="complicacion(entrada, key)">(0) Agregar</span></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                            <ul class="pagination">
+                                <li class=" active page-item"><a class="page-link" ng-click="cargarMas()">Cargar más</a></li>
+                            </ul>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
-        <!-- footer -->
-        <footer class="footer">
-            <div class="container-fluid">
-                <nav class="pull-left">
-                   
-                </nav>
-                <p class="copyright pull-right">
-                    &copy;
-                    <script>
-                        document.write(new Date().getFullYear())
-                    </script>
-                     | Hecho con <i class="fa fa-heart heart"></i> por mhooper72 designs
-                </p>
-            </div>
-        </footer>
     </div>
+    <!-- footer -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <nav class="pull-left">
+               
+            </nav>
+            <p class="copyright pull-right">
+                &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>
+                 | Hecho con <i class="fa fa-heart heart"></i> por mhooper72 designs
+            </p>
+        </div>
+    </footer>
 </div>
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalCompli">

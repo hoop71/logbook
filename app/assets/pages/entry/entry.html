@@ -1,644 +1,643 @@
-<div class="wrapper">
-    <div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
-  
-        <div class="logo">
-            <a href="#" class="simple-text" style="font-family: 'fox-cat'; text-transform: capitalize; font-size: 26px;">
-                Logbook
-            </a>
-        </div>
-        <div class="sidebar-wrapper">
-            <ul class="nav">
-                <li ng-repeat="item in menuItems" class="{{item.class}}">
-                    <a ng-href="#!/{{item.linkTo}}">
-                        <i class="material-icons">{{item.icon}}</i>
-                        <p>{{item.name}}</p>
-                    </a>
-                </li>
-                                
-                <li class="active-pro">
-                    <a ng-click="logout()">
-                        <i class="material-icons">error</i>
-                        <p>Logout</p>
-                    </a>
-                </li>
-            </ul>
-        </div>
+
+<div class="sidebar" data-color="blue" data-image="app/assets/img/sidebar-1.jpg">
+
+    <div class="logo">
+        <a href="#" class="simple-text" style="font-family: 'fox-cat'; text-transform: capitalize; font-size: 26px;">
+            Logbook
+        </a>
     </div>
-    <div class="main-panel">
-        <nav class="navbar navbar-transparent navbar-absolute">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" >NUEVA ENTRADA</a>
-                    <ol class="breadcrumb">
-                        <li ng-class="stepClasses[0]"><a ng-click="changeToStep(1)">ID</a></li>
-                        <li ng-class="stepClasses[1]"><a ng-click="changeToStep(2)">DX</a></li>
-                        <li ng-class="stepClasses[2]"><a ng-click="changeToStep(3)">QX</a></li>
-                        <li ng-class="stepClasses[3]"><a ng-click="changeToStep(4)">OP</a></li>
-                    </ol>
-                </div>
-                <button type="submit" class="btn btn-info pull-right" ng-click="preview();" ng-show="selectedStep[2] || selectedStep[3]"><i class="material-icons">save</i>
-                </button>
-            </div>
-        </nav>
-
-        <!--PASO 1-->
-
-        <div class="content" ng-show="selectedStep[0]"> 
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-header card-header-inline" data-background-color="blue">
-                                <i class="material-icons">location_on</i><p>Datos generales</p>
-                            </div>
-                            <div class="card-content">
-                                <div class="row form-control-hover card-footer2">
-                                    
-                                    <label class="control-label">Identificación del paciente</label>
-                                    <input type="text" class="form-control" ng-model="entrada.identificacion"/>
-                                    
-                                    <label class="control-label">Lugar</label>
-                                    <select class="form-control dropdown-toggle" id="" required ng-model="entrada.lugar">
-                                        <option ng-repeat="lugar in lugares" ng-value="{{lugar.id}}">{{lugar.nombreLargo}}</option>
-                                    </select>
-                                    <label class="control-label">Rotación</label>
-                                    <select class="form-control dropdown-toggle" id="" required ng-model="entrada.rotacion">
-                                        <option ng-repeat="rotacion in rotaciones" ng-value="{{rotacion.id}}">{{rotacion.nombreLargo}}</option>
-                                    </select>
-                                    <label class="control-label" ng-click="openModalProfesor()">Profesor</label>
-                                    <select class="form-control dropdown-toggle" id="" required ng-model="entrada.profesor">
-                                        <option ng-repeat="profesor in profesores | orderBy:'-nombreLargo':true" id="prof{{profesor.id}}" ng-value="{{profesor.id}}">{{profesor.nombreLargo}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header card-header-inline" data-background-color="blue">
-                                <i class="material-icons">location_on</i><p>Fecha y año</p>
-                            </div>
-                            <div class="card-content">
-                                <div class="row">
-                                    <div class="form-control-hover card-footer2">
-                                        <label class="control-label">Fecha</label>
-                                        <ul class="pagination">
-                                            <li ng-class="datePills[0]" class="page-item"><a class="page-link" ng-click="preDate('antier')">Antier</a></li>
-                                            <li ng-class="datePills[1]" class=" page-item"><a class="page-link" ng-click="preDate('ayer')">Ayer</a></li>
-                                            <li ng-class="datePills[2]" class=" page-item"><a class="page-link" ng-click="preDate('hoy')">Hoy</a></li>
-                                        </ul>
-                                        <div class="form-group card-footer2">
-                                            <input type="date" class="form-control" ng-model="entrada.fecha" ng-change="changeDate()"/>
-                                        </div> 
-                                    </div>
-                                    <div class="form-control-hover card-footer2">
-                                        <label class="control-label">Año de residencia</label>
-                                        <select class="form-control dropdown-toggle" required ng-model="entrada.anores">
-                                            <option id="anores1" ng-value=1>1</option>
-                                            <option id="anores2" ng-value=2>2</option>
-                                            <option id="anores3" ng-value=3>3</option>
-                                            <option id="anores4" ng-value=4>4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="card"> 
-                            <div class="card-header2 card-header-inline" data-background-color="blue">
-                                <p><i class="material-icons">note</i><span style="opacity: 0">__</span>Info del paciente</p>
-                            </div>
-                            <div class="card-content">
-                                <div class="form-group card-footer2 label-floating">
-                                    <label class="control-label">Identificación</label>
-                                    <input type="text" class="form-control" ng-model="entrada.identificacion"/>
-                                </div> 
-                                <div class="form-group card-footer2 label-floating">
-                                    <label class="control-label">Iniciales</label>
-                                    <input type="text" class="form-control" ng-model="entrada.nombrePaciente"/>
-                                </div> 
-                            </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li ng-repeat="item in menuItems" class="{{item.class}}">
+                <a ng-href="#!/{{item.linkTo}}">
+                    <i class="material-icons">{{item.icon}}</i>
+                    <p>{{item.name}}</p>
+                </a>
+            </li>
                             
-                        </div> -->
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card"> 
-                            <div class="card-header2 card-header-inline" data-background-color="green">
-                                <div class="btn-sim pull-right">
-                                    <input class="btn-sim" type="checkbox" name="sim1" id="sim1" ng-click="toggleSim()"/>
-                                    <label class="btn btn-sm" for="sim1" id="statsim">Simulación</label>
-                                </div>
-                                <p>La Cirugía Fue</p>
-                            </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('tipoCir',1)">
-                                <label class="custom-control custom-radio myLabel">                
-                                    <input id="radio1" name="radio" type="radio" class="custom-control-input">
-                                    <figure class="figure mx-auto align-middle">
-                                        <img src="./assets/icons/elective.svg" class="rounded mx-auto" alt="Ele">
-                                        <figcaption class="text-center figure-caption">Electiva</figcaption>
-                                    </figure>                                        
-                                </label>          
-                            </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('tipoCir',2)">
-                                <label class="custom-control custom-radio myLabel">                
-                                    <input id="radio2" name="radio" type="radio" class="custom-control-input">
-                                    <figure class="mx-auto">
-                                        <img src="./assets/icons/urgent.svg" class="rounded mx-auto" alt="Urg">
-                                        <figcaption class="text-center figure-caption">Urgente</figcaption> 
-                                    </figure>                                        
-                                </label>
-                            </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('tipoCir',3)">
-                                <label class="custom-control custom-radio myLabel">                
-                                    <input id="radio3" name="radio" type="radio" class="custom-control-input">
-                                    <figure class="figure mx-auto">
-                                        <img src="./assets/icons/emergente.svg" class="rounded mx-auto" alt="Emerg">
-                                        <figcaption class="text-center figure-caption">Emergente</figcaption>
-                                    </figure>
-                                </label>
-                            </div>
+            <li class="active-pro">
+                <a ng-click="logout()">
+                    <i class="material-icons">error</i>
+                    <p>Logout</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="main-panel">
+    <nav class="navbar navbar-transparent navbar-absolute">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" >NUEVA ENTRADA</a>
+                <ol class="breadcrumb">
+                    <li ng-class="stepClasses[0]"><a ng-click="changeToStep(1)">ID</a></li>
+                    <li ng-class="stepClasses[1]"><a ng-click="changeToStep(2)">DX</a></li>
+                    <li ng-class="stepClasses[2]"><a ng-click="changeToStep(3)">QX</a></li>
+                    <li ng-class="stepClasses[3]"><a ng-click="changeToStep(4)">OP</a></li>
+                </ol>
+            </div>
+            <button type="submit" class="btn btn-info pull-right" ng-click="preview();" ng-show="selectedStep[2] || selectedStep[3]"><i class="material-icons">save</i>
+            </button>
+        </div>
+    </nav>
+
+    <!--PASO 1-->
+
+    <div class="content" ng-show="selectedStep[0]"> 
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-header card-header-inline" data-background-color="blue">
+                            <i class="material-icons">location_on</i><p>Datos generales</p>
                         </div>
-                        <div class="card"> 
-                            <div class="card-header2 card-header-inline" data-background-color="green">
-                                <p>Tu Rol Fue</p>
-                            </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('rol',1)">
-                                <label class="custom-control custom-radio myLabel">                
-                                    <input id="radio4" name="radio2" type="radio" class="custom-control-input">
-                                    <figure class="figure mx-auto align-middle">
-                                        <img src="./assets/icons/scalpel.svg" class="rounded mx-auto" alt="Ele">
-                                        <figcaption class="text-center figure-caption">Cirujano</figcaption>
-                                    </figure>
-                                    <span class="custom-control-indicator"></span>                
-                                </label>      
-                            </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('rol',2)">
-                                <label class="custom-control custom-radio myLabel">                
-                                    <input id="radio5" name="radio2" type="radio" class="custom-control-input">
-                                    <figure class="mx-auto">
-                                        <img src="./assets/icons/scissors.svg" class="rounded align-middle mx-auto" alt="Urg">
-                                        <figcaption class="text-center figure-caption">1<sup>o</sup> Ayudante</figcaption>
-                                    </figure>
-                                    <span class="custom-control-indicator"></span>
-                                </label>
-                            </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('rol',3)">
-                                <label class="custom-control custom-radio myLabel">                
-                                    <input id="radio6" name="radio2" type="radio" class="custom-control-input">
-                                    <figure class="figure mx-auto">
-                                        <img src="./assets/icons/band-aid.svg" class="rounded mx-auto" alt="Emerg">
-                                        <figcaption class="text-center figure-caption">2<sup>o</sup> Ayudante</figcaption>
-                                    </figure>
-                                    <span class="custom-control-indicator"></span>              
-                                </label>
-                            </div>
-                        </div>
-                        <div class="pull-right">
-                            <a ng-click="changeToStep(2)" class="btn btn-primary">siguiente paso</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="row">
-                    <div class="col-sm-3">
-                        <div class="card card-stats">
-                            <div class="card-header2 card-header-inline" data-background-color="blue">
-                                <i class="material-icons">location_on</i><p>Lugar:</p>
-                            </div>
-                        
-                            <div class="form-control-hover card-footer2">
+                        <div class="card-content">
+                            <div class="row form-control-hover card-footer2">
+                                
+                                <label class="control-label">Identificación del paciente</label>
+                                <input type="text" class="form-control" ng-model="entrada.identificacion"/>
+                                
+                                <label class="control-label">Lugar</label>
                                 <select class="form-control dropdown-toggle" id="" required ng-model="entrada.lugar">
                                     <option ng-repeat="lugar in lugares" ng-value="{{lugar.id}}">{{lugar.nombreLargo}}</option>
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card card-stats">
-                            <div class="card-header2 card-header-inline" data-background-color="red">
-                                <i class="material-icons">swap_horiz</i><p>Rotación:</p>
-                            </div>
-                        
-                            <div class="form-control-hover card-footer2">
+                                <label class="control-label">Rotación</label>
                                 <select class="form-control dropdown-toggle" id="" required ng-model="entrada.rotacion">
                                     <option ng-repeat="rotacion in rotaciones" ng-value="{{rotacion.id}}">{{rotacion.nombreLargo}}</option>
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="card card-stats">
-                            <div class="card-header2 card-header-inline" data-background-color="orange">
-                                <i class="material-icons">perm_identity</i><p>Profesor:</p>
-                            </div>
-                        
-                            <div class="form-control-hover card-footer2">
+                                <label class="control-label" ng-click="openModalProfesor()">Profesor</label>
                                 <select class="form-control dropdown-toggle" id="" required ng-model="entrada.profesor">
                                     <option ng-repeat="profesor in profesores | orderBy:'-nombreLargo':true" id="prof{{profesor.id}}" ng-value="{{profesor.id}}">{{profesor.nombreLargo}}</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                </div> -->
-                <!-- <div class="row">
-                    <div class="col-sm-3">
-                        <div class="card card-stats">
-                            <div class="card-header2 card-header-inline" data-background-color="green">
-                                <i class="material-icons">date_range</i><p>Fecha:</p>
+                    <div class="card">
+                        <div class="card-header card-header-inline" data-background-color="blue">
+                            <i class="material-icons">event</i><p>Fecha y año</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="form-control-hover card-footer2">
+                                    <label class="control-label">Fecha</label>
+                                    <ul class="pagination">
+                                        <li ng-class="datePills[0]" class="page-item"><a class="page-link" ng-click="preDate('antier')">Antier</a></li>
+                                        <li ng-class="datePills[1]" class=" page-item"><a class="page-link" ng-click="preDate('ayer')">Ayer</a></li>
+                                        <li ng-class="datePills[2]" class=" page-item"><a class="page-link" ng-click="preDate('hoy')">Hoy</a></li>
+                                    </ul>
+                                    <div class="form-group card-footer2">
+                                        <input type="date" class="form-control" ng-model="entrada.fecha" ng-change="changeDate()"/>
+                                    </div> 
+                                </div>
+                                <div class="form-control-hover card-footer2">
+                                    <label class="control-label">Año de residencia</label>
+                                    <select class="form-control dropdown-toggle" required ng-model="entrada.anores">
+                                        <option id="anores1" ng-value=1>1</option>
+                                        <option id="anores2" ng-value=2>2</option>
+                                        <option id="anores3" ng-value=3>3</option>
+                                        <option id="anores4" ng-value=4>4</option>
+                                    </select>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+                    <!-- <div class="card"> 
+                        <div class="card-header2 card-header-inline" data-background-color="blue">
+                            <p><i class="material-icons">note</i><span style="opacity: 0">__</span>Info del paciente</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="form-group card-footer2 label-floating">
+                                <label class="control-label">Identificación</label>
+                                <input type="text" class="form-control" ng-model="entrada.identificacion"/>
+                            </div> 
+                            <div class="form-group card-footer2 label-floating">
+                                <label class="control-label">Iniciales</label>
+                                <input type="text" class="form-control" ng-model="entrada.nombrePaciente"/>
+                            </div> 
+                        </div>
                         
-                            <div class="form-control-hover card-footer2">
-                                <div class="form-group card-footer2">
-                                    <input type="date" class="form-control" ng-model="entrada.fecha"/>
-                                </div> 
+                    </div> -->
+                </div>
+                <div class="col-sm-6">
+                    <div class="card"> 
+                        <div class="card-header2 card-header-inline" data-background-color="green">
+                            <div class="btn-sim pull-right">
+                                <input class="btn-sim" type="checkbox" name="sim1" id="sim1" ng-click="toggleSim()"/>
+                                <label class="btn btn-sm" style="color:#185567" for="sim1" id="statsim">Simulación</label>
                             </div>
+                            <p>La Cirugía Fue</p>
+                        </div>
+                        <div class="card-content col-xs-4" ng-click="setConditional('tipoCir',1)">
+                            <label class="custom-control custom-radio myLabel">                
+                                <input id="radio1" name="radio" type="radio" class="custom-control-input">
+                                <figure class="figure mx-auto align-middle">
+                                    <img src="./assets/icons/elective.svg" class="rounded mx-auto" alt="Ele">
+                                    <figcaption class="text-center figure-caption">Electiva</figcaption>
+                                </figure>                                        
+                            </label>          
+                        </div>
+                        <div class="card-content col-xs-4" ng-click="setConditional('tipoCir',2)">
+                            <label class="custom-control custom-radio myLabel">                
+                                <input id="radio2" name="radio" type="radio" class="custom-control-input">
+                                <figure class="mx-auto">
+                                    <img src="./assets/icons/urgent.svg" class="rounded mx-auto" alt="Urg">
+                                    <figcaption class="text-center figure-caption">Urgente</figcaption> 
+                                </figure>                                        
+                            </label>
+                        </div>
+                        <div class="card-content col-xs-4" ng-click="setConditional('tipoCir',3)">
+                            <label class="custom-control custom-radio myLabel">                
+                                <input id="radio3" name="radio" type="radio" class="custom-control-input">
+                                <figure class="figure mx-auto">
+                                    <img src="./assets/icons/emergente.svg" class="rounded mx-auto" alt="Emerg">
+                                    <figcaption class="text-center figure-caption">Emergente</figcaption>
+                                </figure>
+                            </label>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="card card-stats">
-                            <div class="card-header2 card-header-inline" data-background-color="orange">
-                                <i class="material-icons">timeline</i><p>Año de residencia:</p>
-                            </div>
-                            <div class="form-control-hover card-footer2">
-                                <select class="form-control dropdown-toggle" required ng-model="entrada.anores">
-                                    <option id="anores1" ng-value=1>1</option>
-                                    <option id="anores2" ng-value=2>2</option>
-                                    <option id="anores3" ng-value=3>3</option>
-                                    <option id="anores4" ng-value=4>4</option>
-                                </select>
-                            </div>
+                    <div class="card"> 
+                        <div class="card-header2 card-header-inline" data-background-color="green">
+                            <p>Tu Rol Fue</p>
+                        </div>
+                        <div class="card-content col-xs-4" ng-click="setConditional('rol',1)">
+                            <label class="custom-control custom-radio myLabel">                
+                                <input id="radio4" name="radio2" type="radio" class="custom-control-input">
+                                <figure class="figure mx-auto align-middle">
+                                    <img src="./assets/icons/scalpel.svg" class="rounded mx-auto" alt="Ele">
+                                    <figcaption class="text-center figure-caption">Cirujano</figcaption>
+                                </figure>
+                                <span class="custom-control-indicator"></span>                
+                            </label>      
+                        </div>
+                        <div class="card-content col-xs-4" ng-click="setConditional('rol',2)">
+                            <label class="custom-control custom-radio myLabel">                
+                                <input id="radio5" name="radio2" type="radio" class="custom-control-input">
+                                <figure class="mx-auto">
+                                    <img src="./assets/icons/scissors.svg" class="rounded align-middle mx-auto" alt="Urg">
+                                    <figcaption class="text-center figure-caption">1<sup>o</sup> Ayudante</figcaption>
+                                </figure>
+                                <span class="custom-control-indicator"></span>
+                            </label>
+                        </div>
+                        <div class="card-content col-xs-4" ng-click="setConditional('rol',3)">
+                            <label class="custom-control custom-radio myLabel">                
+                                <input id="radio6" name="radio2" type="radio" class="custom-control-input">
+                                <figure class="figure mx-auto">
+                                    <img src="./assets/icons/band-aid.svg" class="rounded mx-auto" alt="Emerg">
+                                    <figcaption class="text-center figure-caption">2<sup>o</sup> Ayudante</figcaption>
+                                </figure>
+                                <span class="custom-control-indicator"></span>              
+                            </label>
                         </div>
                     </div>
-                </div> -->
+                    <div class="pull-right">
+                        <a ng-click="changeToStep(2)" class="btn btn-primary">siguiente paso</a>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-sm-3">
+                    <div class="card card-stats">
+                        <div class="card-header2 card-header-inline" data-background-color="blue">
+                            <i class="material-icons">location_on</i><p>Lugar:</p>
+                        </div>
                     
-            </div>     
-            
-        </div>
-        
-        <!--PASO 2-->
-
-        <div class="content" ng-show="selectedStep[1]"> 
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card card-nav-tabs"> 
-                            <div class="card-header" data-background-color="blue">
-                                <div class="nav-tabs-navigation">
-                                    <div class="nav-tabs-wrapper">
-                                        <span class="nav-tabs-title">Diagnósticos: </span>
-                                        <ul class="nav nav-tabs" data-tabs="tabs">
-                                            <li class="active">
-                                                <a data-toggle="tab" ng-click="toggleDxView(false)">
-                                                    <i class="material-icons">favorite_border</i>
-                                                    Mis favoritos
-                                                <div class="ripple-container"></div></a>
-                                            </li>
-                                            <li >
-                                                <a data-toggle="tab" ng-click="toggleDxView(true)">
-                                                    <i class="material-icons">list</i>
-                                                    Todos
-                                                <div class="ripple-container"></div></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" placeholder="Buscar Diagnóstico..." ng-model="filtroDiagnosticos">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <!-- Muestro primero los que el usuario ha elegido-->
-                        <div ng-repeat="(key,diagnostico) in diagnosticosElegidos | filter:filtroDiagnosticos | limitTo: 10">
-                            <div class="alert alert-info">
-                                <div class="container-fluid">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection('diagnostico',diagnostico, key)">
-                                        <span aria-hidden="true"><i class="material-icons">clear</i></span>
-                                    </button>
-                                    {{diagnostico.nombreLargo}}
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Muestro luego el resto de la lista-->
-                        <div class="card">
-                            <div class="card-content table-responsive" ng-show="DxViewAll">
-                                <table class="table col-xs-12">
-                                    <tbody>
-                                        <tr ng-repeat="(key,diagnosticoRec) in diagnosticosRecientes | filter:filtroDiagnosticos | limitTo: 50" ng-hide="seleccionDiag.indexOf(diagnosticoRec.id) > -1" ng-click="toggleSelection('diagnostico',diagnosticoRec, key)">
-                                            <td>
-                                                <div class="col-xs-5 col-sm-10">{{diagnosticoRec.nombreLargo}}</div>
-                                                <!-- <div class="col-xs-2">
-                                                    <i class="material-icons">favorite_border</i>
-                                                </div> -->
-                                            </td>
-                                        </tr>
-                                        <tr ng-repeat="(key,diagnostico) in diagnosticos | filter:filtroDiagnosticos | limitTo: 50" ng-hide="seleccionDiag.indexOf(diagnostico.id) > -1" ng-click="toggleSelection('diagnostico',diagnostico, key)">
-                                            <td>{{diagnostico.nombreLargo}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="card-content table-responsive" ng-show="!DxViewAll">
-                                <table class="table">
-                                    <tbody>
-                                        <tr ng-repeat="(key,diagnosticoFav) in favDx | filter:filtroDiagnosticos" ng-hide="seleccionDiag.indexOf(diagnosticoFav.id) > -1" ng-click="toggleSelection('diagnostico',diagnosticoFav, key)">
-                                            <td>
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection('diagnostico',diagnostico, key)">
-                                                    <span aria-hidden="true"><i class="material-icons">clear</i></span>
-                                                </button>
-                                                {{diagnosticoFav.nombreLargo}}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="form-control-hover card-footer2">
+                            <select class="form-control dropdown-toggle" id="" required ng-model="entrada.lugar">
+                                <option ng-repeat="lugar in lugares" ng-value="{{lugar.id}}">{{lugar.nombreLargo}}</option>
+                            </select>
                         </div>
                     </div>
                 </div>
-                <!-- Next Button -->
-                <div class="pull-right">
-                    <a ng-click="changeToStep(3)" class="btn btn-primary">siguiente paso</a>
-                </div>
-
-
-            </div> <!-- /container-fluid -->
-        </div>  <!-- /content --> 
-
-
-        <!-- PASO 3 -->
-
-        <div class="content" ng-show="selectedStep[2]">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card card-nav-tabs"> 
-                            <div class="card-header" data-background-color="blue">
-                                <div class="nav-tabs-navigation">
-                                    <div class="nav-tabs-wrapper">
-                                        <span class="nav-tabs-title">Cirugías: </span>
-                                        <ul class="nav nav-tabs" data-tabs="tabs">
-                                            <li class="active">
-                                                <a data-toggle="tab" ng-click="toggleQxView(false)">
-                                                    <i class="material-icons">favorite_border</i>
-                                                    Mis favoritas
-                                                <div class="ripple-container"></div></a>
-                                            </li>
-                                            <li >
-                                                <a data-toggle="tab" ng-click="toggleQxView(true)">
-                                                    <i class="material-icons">list</i>
-                                                    Todas
-                                                <div class="ripple-container"></div></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" placeholder="Buscar Cirugía(s)..." ng-model="filtroCirugias">
-                            </div><!-- /input-group -->
+                <div class="col-sm-3">
+                    <div class="card card-stats">
+                        <div class="card-header2 card-header-inline" data-background-color="red">
+                            <i class="material-icons">swap_horiz</i><p>Rotación:</p>
+                        </div>
+                    
+                        <div class="form-control-hover card-footer2">
+                            <select class="form-control dropdown-toggle" id="" required ng-model="entrada.rotacion">
+                                <option ng-repeat="rotacion in rotaciones" ng-value="{{rotacion.id}}">{{rotacion.nombreLargo}}</option>
+                            </select>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- Muestro primero los que el usuario ha elegido-->
-                        <div ng-repeat="(key,cirugia) in cirugiasElegidas | filter:filtroCirugias | limitTo: 10">
-                            <div class="alert alert-info" ng-click="openModal(cirugia)">
-                                <div class="container-fluid">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection('cirugia',cirugia, key)">
-                                        <span aria-hidden="true"><i class="material-icons">clear</i></span>
-                                    </button>
-                                    {{cirugia.nombreLargo}}
-                                </div>
-                            </div>
+                <div class="col-sm-3">
+                    <div class="card card-stats">
+                        <div class="card-header2 card-header-inline" data-background-color="orange">
+                            <i class="material-icons">perm_identity</i><p>Profesor:</p>
                         </div>
-                        <div class="card">
-                            
-                            <!-- Muestro luego el resto de la lista-->
-                            <div class="card-content table-responsive" ng-show="QxViewAll">
-                                <table class="table">
-                                    <tbody>
-                                        <tr ng-repeat="(key,cirugiaRec) in cirugiasRecientes | filter:filtroCirugias | limitTo: 50" ng-hide="seleccionCiru.indexOf(cirugiaRec.id) > -1" ng-click="toggleSelection('cirugia',cirugiaRec, key)">
-                                            <td>{{cirugiaRec.nombreLargo}}</td>
-                                        </tr>
-                                        <tr ng-repeat="(key,cirugia) in cirugias | filter:filtroCirugias | limitTo: 50" ng-hide="seleccionCiru.indexOf(cirugia.id) > -1" ng-click="toggleSelection('cirugia',cirugia, key)">
-                                            <td>{{cirugia.nombreLargo}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="card-content table-responsive" ng-show="!QxViewAll">
-                                <table class="table">
-                                    <tbody>
-                                        <tr ng-repeat="(key,cirugiaFav) in favQx | filter:filtroCirugias" ng-hide="seleccionCiru.indexOf(cirugiaFav.id) > -1" ng-click="toggleSelection('cirugia',cirugiaFav, key)">
-                                            <td>{{cirugiaFav.nombreLargo}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>    
-                </div>
-        
-                <!-- Next Button -->
-                <div class="pull-right">
-                    <a ng-click="changeToStep(4)" class="btn btn-primary">siguiente paso</a>
-                </div>
-            </div> <!-- /container-fluid -->
-        </div>  <!-- /content --> 
-
-        <!-- PASO 4 -->
-        
-        <div class="content" ng-show="selectedStep[3]">
-            <div class="container-fluid">
-
-            <!-- Datos Pacientes Check Table -->
-            <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="card card-nav-tabs">
-                            <div class="card-header" data-background-color="purple">
-                                <div class="nav-tabs-navigation">
-                                    <div class="nav-tabs-wrapper">
-                                        <span class="nav-tabs-title">Datos:</span>
-                                        <ul class="nav nav-tabs" data-tabs="tabs">
-                                            <li class="active">
-                                                <a ng-click="changeTab('opcionales')" role="tab" data-toggle="tab">
-                                                    <i class="material-icons">info_outline</i>Opcionales
-                                                    <div class="ripple-container"></div>
-                                                </a>
-                                            </li>
-                                            <li class="">
-                                                <a ng-click="changeTab('complicaciones')" role="tab" data-toggle="tab">
-                                                    <i class="material-icons">warning</i>Complicaciones
-                                                    <div class="ripple-container"></div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <div class="tab-content"> 
-                                    <div class="tab-pane " id="opcionales" role="tabpanel" ng-class="tabShow[0]">
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionCervicotomia">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Realicé la Cervicotomía</td>
-                                                         <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreCervicotomia">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Cerré la Cervicotomía</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionToracotomia">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Realicé la Toracotomía</td>
-                                                         <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreToracotomia">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Cerré la Toracotomía</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionLaparotomia">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Realicé la Laparotomía</td>
-                                                         <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreLaparotomia">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Cerré la Laparotomía</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.anastomosisVisceral">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Realicé Anastomosis Visceral</td>
-                                                         <td>
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.anastomosisVascular">
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Realicé Anastomosis Vascular</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="tab-pane" id="complicaciones" role="tabpanel" ng-class="tabShow[1]">
-                                        <!-- Muestro primero los que el usuario ha elegido-->
-                                        <div ng-repeat="(key,complicacion) in complicacionesElegidas">
-                                            <div class="alert alert-warning">
-                                                <div class="container-fluid">
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection('complicacion',complicacion, key)">
-                                                        <span aria-hidden="true"><i class="material-icons">clear</i></span>
-                                                    </button>
-                                                    {{complicacion.nombreLargo}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <table class="table">
-                                            <tbody>
-                                                <tr ng-repeat="(key,complicacion) in complicaciones" ng-click="toggleSelection('complicacion',complicacion, key)">
-                                                    <td>
-                                                        {{complicacion.nombreLargo}}
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                    
+                        <div class="form-control-hover card-footer2">
+                            <select class="form-control dropdown-toggle" id="" required ng-model="entrada.profesor">
+                                <option ng-repeat="profesor in profesores | orderBy:'-nombreLargo':true" id="prof{{profesor.id}}" ng-value="{{profesor.id}}">{{profesor.nombreLargo}}</option>
+                            </select>
                         </div>
                     </div>
-
-                <!-- Datos Pacientes -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card"> 
-                            <div class="card-header2 card-header-inline" data-background-color="green">
-                                <p><i class="material-icons">note</i>Observaciones</p>
-                            </div>
+                </div>
+            </div> -->
+            <!-- <div class="row">
+                <div class="col-sm-3">
+                    <div class="card card-stats">
+                        <div class="card-header2 card-header-inline" data-background-color="green">
+                            <i class="material-icons">date_range</i><p>Fecha:</p>
+                        </div>
+                    
+                        <div class="form-control-hover card-footer2">
                             <div class="form-group card-footer2">
-                                <textarea class="form-control" rows="5" placeholder="Escribe tus observaciones..." ng-model="entrada.opcionales.observaciones"></textarea>
+                                <input type="date" class="form-control" ng-model="entrada.fecha"/>
                             </div> 
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card card-even"> 
-                            <div class="card-header2 card-header-inline" data-background-color="green">
-                                <p>Mi desempeño en esta cirugía fue:</p>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card card-stats">
+                        <div class="card-header2 card-header-inline" data-background-color="orange">
+                            <i class="material-icons">timeline</i><p>Año de residencia:</p>
+                        </div>
+                        <div class="form-control-hover card-footer2">
+                            <select class="form-control dropdown-toggle" required ng-model="entrada.anores">
+                                <option id="anores1" ng-value=1>1</option>
+                                <option id="anores2" ng-value=2>2</option>
+                                <option id="anores3" ng-value=3>3</option>
+                                <option id="anores4" ng-value=4>4</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+                
+        </div>     
+        
+    </div>
+    
+    <!--PASO 2-->
+
+    <div class="content" ng-show="selectedStep[1]"> 
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-nav-tabs"> 
+                        <div class="card-header" data-background-color="blue">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Diagnósticos: </span>
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="active">
+                                            <a data-toggle="tab" ng-click="toggleDxView(false)">
+                                                <i class="material-icons">favorite_border</i>
+                                                Mis favoritos
+                                            <div class="ripple-container"></div></a>
+                                        </li>
+                                        <li >
+                                            <a data-toggle="tab" ng-click="toggleDxView(true)">
+                                                <i class="material-icons">list</i>
+                                                Todos
+                                            <div class="ripple-container"></div></a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('feeling',1)">
-                                <label class="custom-control custom-radio myLabel" >                
-                                    <input id="radio7" name="radio" type="radio" class="custom-control-input">
-                                    <figure class="figure mx-auto align-middle">
-                                        <img src="./assets/icons/muyfeliz.svg" class="rounded mx-auto" alt="feliz">
-                                    </figure>                                        
-                                </label>          
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" placeholder="Buscar Diagnóstico..." ng-model="filtroDiagnosticos">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <!-- Muestro primero los que el usuario ha elegido-->
+                    <div ng-repeat="(key,diagnostico) in diagnosticosElegidos | filter:filtroDiagnosticos | limitTo: 10">
+                        <div class="alert alert-info">
+                            <div class="container-fluid">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection('diagnostico',diagnostico, key)">
+                                    <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                                </button>
+                                {{diagnostico.nombreLargo}}
                             </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('feeling',3)">
-                                <label class="custom-control custom-radio myLabel">                
-                                    <input id="radio8" name="radio" type="radio" class="custom-control-input">
-                                    <figure class="mx-auto">
-                                        <img src="./assets/icons/neutral.svg" class="rounded mx-auto" alt="neutral">
-                                    </figure>                                        
-                                </label>
+                        </div>
+                    </div>
+                    <!-- Muestro luego el resto de la lista-->
+                    <div class="card">
+                        <div class="card-content table-responsive" ng-show="DxViewAll">
+                            <table class="table col-xs-12">
+                                <tbody>
+                                    <tr ng-repeat="(key,diagnosticoRec) in diagnosticosRecientes | filter:filtroDiagnosticos | limitTo: 50" ng-hide="seleccionDiag.indexOf(diagnosticoRec.id) > -1" ng-click="toggleSelection('diagnostico',diagnosticoRec, key)">
+                                        <td>
+                                            <div class="col-xs-5 col-sm-10">{{diagnosticoRec.nombreLargo}}</div>
+                                            <!-- <div class="col-xs-2">
+                                                <i class="material-icons">favorite_border</i>
+                                            </div> -->
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="(key,diagnostico) in diagnosticos | filter:filtroDiagnosticos | limitTo: 50" ng-hide="seleccionDiag.indexOf(diagnostico.id) > -1" ng-click="toggleSelection('diagnostico',diagnostico, key)">
+                                        <td>{{diagnostico.nombreLargo}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-content table-responsive" ng-show="!DxViewAll">
+                            <table class="table">
+                                <tbody>
+                                    <tr ng-repeat="(key,diagnosticoFav) in favDx | filter:filtroDiagnosticos" ng-hide="seleccionDiag.indexOf(diagnosticoFav.id) > -1" ng-click="toggleSelection('diagnostico',diagnosticoFav, key)">
+                                        <td>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection('diagnostico',diagnostico, key)">
+                                                <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                                            </button>
+                                            {{diagnosticoFav.nombreLargo}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Next Button -->
+            <div class="pull-right">
+                <a ng-click="changeToStep(3)" class="btn btn-primary">siguiente paso</a>
+            </div>
+
+
+        </div> <!-- /container-fluid -->
+    </div>  <!-- /content --> 
+
+
+    <!-- PASO 3 -->
+
+    <div class="content" ng-show="selectedStep[2]">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-nav-tabs"> 
+                        <div class="card-header" data-background-color="blue">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Cirugías: </span>
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="active">
+                                            <a data-toggle="tab" ng-click="toggleQxView(false)">
+                                                <i class="material-icons">favorite_border</i>
+                                                Mis favoritas
+                                            <div class="ripple-container"></div></a>
+                                        </li>
+                                        <li >
+                                            <a data-toggle="tab" ng-click="toggleQxView(true)">
+                                                <i class="material-icons">list</i>
+                                                Todas
+                                            <div class="ripple-container"></div></a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="card-content col-xs-4" ng-click="setConditional('feeling',5)">
-                                <label class="custom-control custom-radio myLabel">                
-                                    <input id="radio9" name="radio" type="radio" class="custom-control-input">
-                                    <figure class="figure mx-auto">
-                                        <img src="./assets/icons/muytriste.svg" class="rounded mx-auto" alt="triste">
-                                    </figure>
-                                </label>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" placeholder="Buscar Cirugía(s)..." ng-model="filtroCirugias">
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Muestro primero los que el usuario ha elegido-->
+                    <div ng-repeat="(key,cirugia) in cirugiasElegidas | filter:filtroCirugias | limitTo: 10">
+                        <div class="alert alert-info" ng-click="openModal(cirugia)">
+                            <div class="container-fluid">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection('cirugia',cirugia, key)">
+                                    <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                                </button>
+                                {{cirugia.nombreLargo}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        
+                        <!-- Muestro luego el resto de la lista-->
+                        <div class="card-content table-responsive" ng-show="QxViewAll">
+                            <table class="table">
+                                <tbody>
+                                    <tr ng-repeat="(key,cirugiaRec) in cirugiasRecientes | filter:filtroCirugias | limitTo: 50" ng-hide="seleccionCiru.indexOf(cirugiaRec.id) > -1" ng-click="toggleSelection('cirugia',cirugiaRec, key)">
+                                        <td>{{cirugiaRec.nombreLargo}}</td>
+                                    </tr>
+                                    <tr ng-repeat="(key,cirugia) in cirugias | filter:filtroCirugias | limitTo: 50" ng-hide="seleccionCiru.indexOf(cirugia.id) > -1" ng-click="toggleSelection('cirugia',cirugia, key)">
+                                        <td>{{cirugia.nombreLargo}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-content table-responsive" ng-show="!QxViewAll">
+                            <table class="table">
+                                <tbody>
+                                    <tr ng-repeat="(key,cirugiaFav) in favQx | filter:filtroCirugias" ng-hide="seleccionCiru.indexOf(cirugiaFav.id) > -1" ng-click="toggleSelection('cirugia',cirugiaFav, key)">
+                                        <td>{{cirugiaFav.nombreLargo}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+    
+            <!-- Next Button -->
+            <div class="pull-right">
+                <a ng-click="changeToStep(4)" class="btn btn-primary">siguiente paso</a>
+            </div>
+        </div> <!-- /container-fluid -->
+    </div>  <!-- /content --> 
+
+    <!-- PASO 4 -->
+    
+    <div class="content" ng-show="selectedStep[3]">
+        <div class="container-fluid">
+
+        <!-- Datos Pacientes Check Table -->
+        <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card card-nav-tabs">
+                        <div class="card-header" data-background-color="purple">
+                            <div class="nav-tabs-navigation">
+                                <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Datos:</span>
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                        <li class="active">
+                                            <a ng-click="changeTab('opcionales')" role="tab" data-toggle="tab">
+                                                <i class="material-icons">info_outline</i>Opcionales
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a ng-click="changeTab('complicaciones')" role="tab" data-toggle="tab">
+                                                <i class="material-icons">warning</i>Complicaciones
+                                                <div class="ripple-container"></div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="tab-content"> 
+                                <div class="tab-pane " id="opcionales" role="tabpanel" ng-class="tabShow[0]">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionCervicotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé la Cervicotomía</td>
+                                                     <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreCervicotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Cerré la Cervicotomía</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionToracotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé la Toracotomía</td>
+                                                     <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreToracotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Cerré la Toracotomía</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.incisionLaparotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé la Laparotomía</td>
+                                                     <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.cierreLaparotomia">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Cerré la Laparotomía</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.anastomosisVisceral">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé Anastomosis Visceral</td>
+                                                     <td>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes" ng-model="entrada.opcionales.anastomosisVascular">
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td>Realicé Anastomosis Vascular</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane" id="complicaciones" role="tabpanel" ng-class="tabShow[1]">
+                                    <!-- Muestro primero los que el usuario ha elegido-->
+                                    <div ng-repeat="(key,complicacion) in complicacionesElegidas">
+                                        <div class="alert alert-warning">
+                                            <div class="container-fluid">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="toggleSelection('complicacion',complicacion, key)">
+                                                    <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                                                </button>
+                                                {{complicacion.nombreLargo}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table">
+                                        <tbody>
+                                            <tr ng-repeat="(key,complicacion) in complicaciones" ng-click="toggleSelection('complicacion',complicacion, key)">
+                                                <td>
+                                                    {{complicacion.nombreLargo}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Next Button -->
-                <div class="">
-                    <button type="submit" class="btn btn-info pull-right" ng-click="preview();"><i class="material-icons">save</i>
-                    </button>
+
+            <!-- Datos Pacientes -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card"> 
+                        <div class="card-header2 card-header-inline" data-background-color="green">
+                            <p><i class="material-icons">note</i>Observaciones</p>
+                        </div>
+                        <div class="form-group card-footer2">
+                            <textarea class="form-control" rows="5" placeholder="Escribe tus observaciones..." ng-model="entrada.opcionales.observaciones"></textarea>
+                        </div> 
+                    </div>
                 </div>
-            </div> <!-- /container-fluid -->
-        </div>  <!-- /content --> 
-    </div>
+                <div class="col-md-6">
+                    <div class="card card-even"> 
+                        <div class="card-header2 card-header-inline" data-background-color="green">
+                            <p>Mi desempeño en esta cirugía fue:</p>
+                        </div>
+                        <div class="card-content col-xs-4" ng-click="setConditional('feeling',1)">
+                            <label class="custom-control custom-radio myLabel" >                
+                                <input id="radio7" name="radio" type="radio" class="custom-control-input">
+                                <figure class="figure mx-auto align-middle">
+                                    <img src="./assets/icons/muyfeliz.svg" class="rounded mx-auto" alt="feliz">
+                                </figure>                                        
+                            </label>          
+                        </div>
+                        <div class="card-content col-xs-4" ng-click="setConditional('feeling',3)">
+                            <label class="custom-control custom-radio myLabel">                
+                                <input id="radio8" name="radio" type="radio" class="custom-control-input">
+                                <figure class="mx-auto">
+                                    <img src="./assets/icons/neutral.svg" class="rounded mx-auto" alt="neutral">
+                                </figure>                                        
+                            </label>
+                        </div>
+                        <div class="card-content col-xs-4" ng-click="setConditional('feeling',5)">
+                            <label class="custom-control custom-radio myLabel">                
+                                <input id="radio9" name="radio" type="radio" class="custom-control-input">
+                                <figure class="figure mx-auto">
+                                    <img src="./assets/icons/muytriste.svg" class="rounded mx-auto" alt="triste">
+                                </figure>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Next Button -->
+            <div class="">
+                <button type="submit" class="btn btn-info pull-right" ng-click="preview();"><i class="material-icons">save</i>
+                </button>
+            </div>
+        </div> <!-- /container-fluid -->
+    </div>  <!-- /content --> 
 </div>
 <div class="modal fade" id="modalMininv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
